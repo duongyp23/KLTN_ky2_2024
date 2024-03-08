@@ -1,0 +1,33 @@
+.tool-label {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+}
+.select-view {
+    margin-left:10px;
+    align-items: center; 
+    width: 80px;
+    display: flex; 
+    flex-direction: row;
+}
+.selection-view {
+    position: absolute;
+    top: 38px;
+    right: 0px;
+    z-index: 1;
+    background-color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .16);
+    border-radius: 4px;
+}
+.selection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px;
+    column-gap: 10px;
+    height: 25px;
+}
+.selection:hover {
+    background-color: rgba(26, 164, 200, .2);
+}

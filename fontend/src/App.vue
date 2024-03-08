@@ -1,26 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <MsMenu></MsMenu>
+    <div class="view">
+      <MsHeader></MsHeader>
+      <div class="center-view">
+        <router-view />
+      </div>
+    </div>
+    <MsToastMessage></MsToastMessage>
+    <MsPopup></MsPopup>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MsHeader from "./components/layout/MsHeader.vue";
+import MsMenu from "./components/layout/MsMenu.vue";
+import MsToastMessage from "./components/base/MsToastMessage.vue";
+import MsPopup from "@/components/base/MsPopup.vue"
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MsHeader,
+    MsMenu,
+    MsToastMessage,
+    MsPopup
+},
+  methods(){
+   
+  },
+  created() {
+    
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import url(./css/layout/page.css);
 </style>

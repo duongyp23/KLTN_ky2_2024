@@ -1,0 +1,90 @@
+input {
+    font-size: 14px;
+}
+.input {
+    background-color: #ffffff;
+    border-radius: 2.5px;
+    border: 1px solid #afafaf;
+    width: 179px;
+    height: 35px;
+    padding-left: 40px;
+    align-items: center;
+}
+.input-tool {
+    position: relative;
+    display:flex;
+    flex-direction:row;
+ 
+    /* padding-left: 10px; */
+    padding-top: 9px;
+    padding-bottom: 9px; 
+    background-color: #ffffff;
+    border-radius: 2.5px;
+    border: 1px solid #afafaf;
+    width: 179px;
+    overflow: hidden;
+    align-items: center ;
+}
+.input-tool:hover {
+    border: 1px solid rgba(26, 164, 200);
+}
+.input-tool:focus {
+    border: 1px solid rgba(26, 164, 200);
+}
+.input-icon {
+    position:absolute;
+    margin-left: 8px;
+    height: 24px;
+    width: 24px;
+    outline: none;
+    background: url(../../assets/icon/qlts-icon.png) no-repeat -243px -23px;
+    border: none;
+    border-style: none;
+    margin: auto;
+}
+.input::placeholder {
+    font-size: 13px;
+    font-style: italic;
+}
+.input-year {
+    position: relative;
+
+    text-align:left;
+    margin-left: 13px;
+    width: 56px;
+    background-color: transparent;
+    border: none;
+}
+input.input-year::-webkit-inner-spin-button {
+    opacity: 1;
+}
+
+input.input-year:focus {
+    outline: none;
+}
+input.input-number::-webkit-inner-spin-button,
+input.input-number::-webkit-outer-spin-button {
+    opacity: 0;
+    
+}
+input.input-number2::-webkit-inner-spin-button,
+input.input-number2::-webkit-outer-spin-button {
+    opacity: 1;
+    padding-right: 14px;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    cursor: pointer;
+}
+
+input[type="date"] {
+    font-family: "Roboto", sans-serif;
+}
+.input-btn-updown {
+    display:flex;
+    flex-direction:column;
+    justify-content: space-between;
+    row-gap: 3px;
+    position: absolute; 
+    right: 12px;
+}

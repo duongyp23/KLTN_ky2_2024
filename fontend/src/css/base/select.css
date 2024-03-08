@@ -1,0 +1,67 @@
+.select-menu {
+    background-color: transparent;
+    text-align: left;
+    color:#fff;
+    width: 100%;
+    border: none;
+}
+.select-year-header {
+    position: relative;
+    height: 30px;
+    align-items: center;
+    display: flex ;
+    margin-left: 19px;
+    background-color: rgba(26, 164, 200, .2);
+    border-radius: 3px;
+    width: 112px;
+    overflow: hidden;
+}
+.select-number-footer {
+    align-items: center;
+    position: absolute;
+    left: 150px;
+    bottom: 7px;
+}
+.select-number:hover {
+    border: 1px solid rgba(26, 164, 200);
+}
+.select-number:focus {
+    border: 1px solid rgba(26, 164, 200);
+    outline: none;
+}
+.select-number {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 2.625px;
+    border: 1px solid #afafaf;
+    width: 45px;
+    text-align: left;
+    height: 23px;
+    padding-left: 14px;
+    font-size: 11px;
+}
+.option-box {
+    position:absolute;
+    left: 1px;
+    bottom: 25px;
+    z-index: 1; 
+    height: 60px;
+    background-color: #fff;
+    display: block;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .16);
+    border-radius: 3.5px;
+    padding:3px
+}
+.option-item{
+    height: 20px;
+    padding-left: 11px;
+    width: 42px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    border-radius:3px ;
+}
+.option-item:hover {
+    background-color: rgba(26, 164, 200, .2);
+}

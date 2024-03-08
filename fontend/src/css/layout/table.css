@@ -1,0 +1,214 @@
+.table {
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .16);
+    width: 100%;
+    
+    
+    border: 1px solid #cdd3d6;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 3.5px;
+    
+    /* display: table; */
+    /* border-collapse:collapse; */
+    border-spacing: 0;
+    display: table;
+    outline: none;
+}
+th {
+    font-size: 13px;
+    font-weight: 700;
+    color: #001031;
+    white-space: nowrap;
+    overflow: hidden;
+
+}
+tr {
+    min-height: 42px;
+    display: table;
+    width: 100%;
+    border-bottom: 1px solid #cdd3d6;
+    align-items: center;
+}
+tbody tr:hover {
+    background-color: rgba(26, 164, 200, .2);
+}
+tr td {
+    font-size: 13px;
+    max-width: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+tbody tr td:hover{
+    white-space:unset;
+}
+
+thead {
+    position: sticky;
+    top: 0px;
+    width: 100% ;
+    background-color: #f5f5f5;
+    
+}
+
+thead tr {
+    width: calc(100% - 3px);
+}
+
+tfoot {
+    border-top: 1px solid #cdd3d6;
+    position: sticky;
+    bottom: 0px;
+}
+tfoot tr {
+    border-bottom: none;
+}
+tbody {
+    position: relative;
+    overflow: auto;
+    display:block;
+    height: 100%;
+}
+/*Tùy chỉnh kích thước từng col*/
+.col-check {
+    width:3%;
+    text-align: center;
+}
+.col-stt {
+    width: 3%;
+    text-align: center;
+}
+.col-code {
+    width: 7%;
+    text-align: left;
+    padding-right: 5px;
+}
+.col-name {
+    width: 12%;
+    text-align: left;
+    padding-right: 5px;
+}
+.col-type {
+    width: 12%;
+    text-align: left;
+    padding-right: 5px;
+}
+.col-department {
+    width: 12%;
+    text-align: left;
+    padding-right: 5px;
+}
+.col-info {
+    width: 9%;
+    text-align: left;
+    padding-left: 5px;
+}
+.col-num {
+    width: 7%;
+    text-align: right;
+    padding-right: 5px;
+}
+.col-value {
+    width: 9%;
+    text-align: right;
+    padding-right: 5px;
+}
+.col-fix {
+    width: 8%;
+    text-align: center;
+    
+}
+.col-date {
+    width: 9%;
+    text-align: center;
+}
+.col-description {
+    text-align: left;
+    width: auto;
+    padding-left: 5px;
+}
+td.col-fix {
+    align-items: center;
+    
+}
+tr:hover td.col-fix{
+    visibility: visible;
+}
+
+/* Tạo scroll */
+tbody::-webkit-scrollbar-track
+{
+    
+	background-color: #F5F5F5;
+}
+
+tbody::-webkit-scrollbar
+{
+	width: 3px;
+	background-color: #F5F5F5;
+}
+tbody::-webkit-scrollbar-thumb
+{
+	background-color: #cdd3d6;
+}
+.selectRow {
+    /* background-color: rgba(26, 164, 200, .2); */
+    background-color: rgb(199, 224, 245);
+}
+.focus-row {
+    background-color: rgba(26, 164, 200, .2);
+}
+.selectRow .focus-row {
+    background-color: rgba(26, 164, 200, .2);
+}
+tr.selectRow td.col-check .icon {
+    background-position: -157px -377px;
+	width: 14px;
+	height: 14px;
+}
+
+.icon.selectAllRow {
+    background-position: -157px -377px;
+}
+.col-check:hover .icon {
+    box-shadow: 0 0px 6px rgba(26, 164, 200);
+}
+th:hover .tooltip{
+    display: block;
+}
+.tooltip {
+    
+    top: -20px;
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    padding: 3px;
+    z-index: 1;
+}
+.loader {
+    position: absolute;
+    left: calc(50% - 60px);
+    top: calc(50% - 60px);
+    border: 16px solid #f3f3f3;
+    border-radius: 50% ;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+  
+/* Safari */
+@-webkit-keyframes spin {
+0% { -webkit-transform: rotate(0deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}

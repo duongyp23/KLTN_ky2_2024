@@ -1,0 +1,157 @@
+@import url(icon.css);
+button {
+    white-space: nowrap;
+    cursor: pointer;
+}
+.btn-header {
+    height: 24px;
+    width: 24px;
+    
+}
+.btn-header:hover {
+    background-color: rgb(187, 187, 187, 0.2);
+}
+.btn-table {
+    
+    background-color: transparent;
+    border: none;
+    
+}
+.btn-small {
+    height: 20px;
+    width: 20px;
+    border: none;
+    text-align: center;
+    align-items: center;
+    padding: 0;
+    margin: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 11px;
+}
+.btn-small.selectedPage {
+    background-color: #f5f5f5;
+}
+.btn-mini {
+    height: 5px;
+    width: 7px;
+    border: none;
+}
+.btn-tool {
+    background-color: #ffffff;
+    border-radius: 3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .16);
+    min-width: 36px;
+    height: 36px;
+    /* overflow: hidden; */
+    align-items: center;
+    /* padding: 12px; */
+    border: hidden;
+    
+}
+.btn-add {
+    background-color: #1aa4c8;
+    color: #fff;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 11px;
+    padding-bottom: 10px;
+}
+.btn-menu {
+    opacity: .5;
+    border-radius: 6px;
+    width: calc(100% - 22px);
+    height: 40px;
+    margin-left: 11px;
+    margin-right: 11px;
+    background-color: transparent;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: none;
+}
+.btn-menu-name {
+    color: #fff;
+    width: calc(100% - 44px);
+    overflow: hidden;
+    text-align: left;
+    font-family: "Roboto",sans-serif;
+    font-size: 14px;
+}
+.btn-menu:active {
+    background-color:  #1aa4c8;
+}
+.btn-menu:hover {
+    background-color:  #1aa4c8;
+    opacity: 1;
+}
+.btn-menu:active {
+    opacity: 1;
+}
+.selected {
+    background-color:  #1aa4c8;
+    opacity: 1;
+}
+.selected .btn-icon .icon {
+    background-position-y:  -197px;
+}
+.btn-menu-selection {
+    position: relative;
+    opacity: .5;
+    border: none;
+    width: calc(100% - 22px);
+    height: 40px;
+    padding-left: 46px;
+    margin-left: 11px;
+    margin-right: 11px;
+    text-align: left;
+    color: #fff;
+    border-radius: 0;
+    background-color: rgba(187, 187, 187, 0.435);
+}
+
+.btn-menu-selection:hover {
+    opacity: 1;
+    background-color: #48586c;
+    border-radius: 4px;
+}
+
+.btn-menu-selection .icon {
+    display: none;
+}
+
+.btn-menu-selection:hover .icon {
+    display: block;
+}
+
+.btn-menu-selection.selected {
+    opacity: 1;
+    background-color: #48586c;
+    border-radius: 4px;
+}
+
+.btn-icon {
+    background-color: transparent;
+    border: none;
+    height: 24px;
+    width: 24px;
+    align-items: center;
+    padding: 0;
+}
+.btn-icon:hover {
+    background-color: rgb(187, 187, 187, 0.2);
+}
+.btn-icon-table {
+    background-color: transparent;
+    border: none;
+    height: 24px;
+    width: 24px;
+    align-items: center;
+    padding: 0;
+    border-radius: 50%;
+}
+.btn-icon-table:hover {
+    background-color: #fff;
+}
