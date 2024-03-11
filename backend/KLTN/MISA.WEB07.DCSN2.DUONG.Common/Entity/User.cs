@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.WEB07.HCSN2.DUONG.Common.Entity
+namespace KLTN.Common.Entity
 {
     public class User
     {

@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity;
-using MISA.WEB07.HCSN2.DUONG.DL;
+using KLTN.Common.Entity;
+using KLTN.DataLayer;
 
-namespace MISA.WEB07.HCSN2.DUONG.BL
+namespace KLTN.BussinesLayer
 {
 
     public class UserBL : BaseBL<User>, IUserBL

@@ -1,8 +1,8 @@
 ﻿using Dapper;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity.DTO;
-using MISA.WEB07.HCSN2.DUONG.DL;
-using MISA.WEB07.HCSN2.DUONG.DL.PropertyDL;
+using KLTN.Common.Entity;
+using KLTN.Common.Entity.DTO;
+using KLTN.DataLayer;
+using KLTN.DataLayer.PropertyDL;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
@@ -12,13 +12,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace MISA.WEB07.HCSN2.DUONG.DL
+namespace KLTN.DataLayer
 {
     public class VoucherDL : BaseDL<Voucher>, IVoucherDL
     {
         #region ConnectString
         // đường dẫn kết nối với DB
-        private const string CONNECTION_STRING = "Server=localhost;Port=3307;Database=misa.web07.hcsn2.duong;Uid=root;Pwd=yp2382001;";
+        private const string CONNECTION_STRING = "Server=localhost;Port=3307;Database=KLTN;Uid=root;Pwd=yp2382001;";
         #endregion
         #region method
         /// <summary>
@@ -68,7 +68,7 @@ namespace MISA.WEB07.HCSN2.DUONG.DL
             var multipleResults = mySqlConnection.QueryMultiple(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
 
             var vouchers = multipleResults.Read<Voucher>().ToList();
-            var totalCount = multipleResults.Read<long>().Single();
+            var totalCount = multipleResults.Read<int>().Single();
             return new PagingData<Voucher>()
             {
                 Data = vouchers,

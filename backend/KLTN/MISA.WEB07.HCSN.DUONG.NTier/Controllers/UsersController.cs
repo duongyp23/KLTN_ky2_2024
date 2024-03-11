@@ -1,14 +1,14 @@
-﻿using System;
+﻿using KLTN.BussinesLayer;
+using KLTN.Common.Entity;
+using KLTN.Common.Entity.DTO;
+using KLTN.Common.Enums;
+using KLTN.NTier.Base;
 using Microsoft.AspNetCore.Mvc;
-using MISA.WEB07.HCSN2.DUONG.BL;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity;
-using MISA.WEB07.HCSN2.DUONG.Common.Enums;
-using MISA.WEB07.HCSN2.DUONG.NTier.Base;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace MISA.WEB07.HCSN.DUONG.NTier
 {
-   
+
     public class UsersController : BasesController<User>
     {
         #region Field
@@ -27,19 +27,6 @@ namespace MISA.WEB07.HCSN.DUONG.NTier
         #endregion
 
         #region Method
-
-        /// <summary>
-        /// API Lấy tất cả bản ghi
-        /// </summary>
-        /// <returns>Tất cả bản ghi</returns>
-
-        [HttpGet("all-users")]
-        public override IActionResult GetAllRecords()
-        {
-            
-                return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Exception);
-            
-        }
 
         /// <summary>
         /// Đăng nhập tài khoản
@@ -62,6 +49,7 @@ namespace MISA.WEB07.HCSN.DUONG.NTier
                 return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
             }
         }
+
         #endregion
     }
 }

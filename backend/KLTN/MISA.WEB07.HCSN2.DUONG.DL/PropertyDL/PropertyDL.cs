@@ -2,18 +2,18 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Dapper;
-using MISA.WEB07.HCSN2.DUONG.Common.Command;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity.DTO;
+using KLTN.Common.Command;
+using KLTN.Common.Entity;
+using KLTN.Common.Entity.DTO;
 using MySqlConnector;
 
-namespace MISA.WEB07.HCSN2.DUONG.DL.PropertyDL
+namespace KLTN.DataLayer.PropertyDL
 {
     public class PropertyDL : BaseDL<Property>, IPropertyDL
     {
         #region ConnectString
         // đường dẫn kết nối với DB
-        private const string CONNECTION_STRING = "Server=localhost;Port=3307;Database=misa.web07.hcsn2.duong;Uid=root;Pwd=yp2382001;";
+        private const string CONNECTION_STRING = "Server=localhost;Port=3307;Database=KLTN;Uid=root;Pwd=yp2382001;";
         #endregion
         #region method
         /// <summary>
@@ -92,86 +92,7 @@ namespace MISA.WEB07.HCSN2.DUONG.DL.PropertyDL
 
             return property;
         }
-        /// <summary>
-        /// lấy danh sách Tài sản và tổng số bản ghi
-        /// </summary>
-        /// <param name="keyword"></param>
-        /// <param name="departmentID"></param>
-        /// <param name="propertyTypeID"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="pageNumber"></param>
-        /// <returns>danh sách tài sản và tổng số bản ghi</returns>
-        /// NTD 22/8/2022
-        public PagingData<Property> GetPaging(
-            String? keyword,
-             Guid? departmentID,
-             Guid? propertyTypeID,
-             int pageSize,
-             int pageNumber
-             )
-        {
-            // Kết nối DB
-
-            var mySqlConnection = new MySqlConnection(CONNECTION_STRING);
-
-            // Tên Stored procedure cần chạy
-            string storedProcedureName = "Proc_property_GetPaging";
-
-            // Thêm tham số đầu vào cho stored procedure
-            var parameters = new DynamicParameters();
-            parameters.Add("v_Offset", (pageNumber - 1) * pageSize);
-            parameters.Add("v_Limit", pageSize);
-            parameters.Add("v_Sort", "ModifiedDate DESC");
-
-            var orConditions = new List<string>();
-            var andConditions = new List<string>();
-            string whereClause = "";
-
-            if (keyword != null)
-            {
-                orConditions.Add($"PropertyName LIKE '%{keyword}%'");
-                orConditions.Add($"PropertyCode LIKE '%{keyword}%'");
-            }
-
-            if (orConditions.Count > 0)
-            {
-                whereClause = $"({string.Join(" OR ", orConditions)})";
-            }
-
-            if (propertyTypeID != null)
-            {
-                andConditions.Add($" PropertyTypeID LIKE '{propertyTypeID}' ");
-            }
-            if (departmentID != null)
-            {
-                andConditions.Add($" DepartmentID LIKE '{departmentID}' ");
-            }
-
-            if (andConditions.Count > 0)
-            {
-                if (keyword != null)
-                {
-                    whereClause += $" AND {string.Join(" AND ", andConditions)}";
-                }
-                else
-                {
-                    whereClause += $"{string.Join(" AND ", andConditions)}";
-                }
-            }
-            
-            parameters.Add("v_Where", whereClause);
-
-            // Chạy store procedure
-            var multipleResults = mySqlConnection.QueryMultiple(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
-
-            var properties = multipleResults.Read<Property>().ToList();
-            var totalCount = multipleResults.Read<long>().Single();
-            return new PagingData<Property>()
-            {
-                Data = properties,
-                TotalCount = totalCount
-            };
-        }
+       
         /// <summary>
         /// thêm mới 1 tài sản
         /// </summary>
@@ -477,7 +398,7 @@ namespace MISA.WEB07.HCSN2.DUONG.DL.PropertyDL
             var multipleResults = mySqlConnection.QueryMultiple(storedProcedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
 
             var properties = multipleResults.Read<Property>().ToList();
-            var totalCount = multipleResults.Read<long>().Single();
+            var totalCount = multipleResults.Read<int>().Single();
             return new PagingData<Property>()
             {
                 Data = properties,

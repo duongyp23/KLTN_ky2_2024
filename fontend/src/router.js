@@ -1,10 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MsTable from '@/components/layout/view/ListProperty/MsTable.vue';
-import MsLogin from '@/components/layout/view/Login/MsLogin.vue';
-import MsTableVoucher from "@/components/layout/view/ListVoucher/MsTableVoucher.vue"
-import MsFormVoucher from '@/components/layout/view/ListVoucher/MsFormVoucher.vue'
-import MsFormFix from '@/components/layout/view/ListVoucher/MsFormFix.vue'
-import MsFormSelect from '@/components/layout/view/ListVoucher/MsFormSelect.vue'
+import ProductList from '@/components/layout/view/ListProduct/MsTable.vue';
+import CategoryList from '@/components/layout/view/ListCategory/CategoryTable.vue';
+import Login from '@/components/layout/view/Login/MsLogin.vue';
 
 const routes = [
     {
@@ -12,39 +9,18 @@ const routes = [
         component: Error
     },
     {
-        path: '/taisan',
-        component: MsTable
+        path: '/dictionary/product',
+        component: ProductList
     },
-   {
-        path:'/login',
-        component: MsLogin
-   },
     {
-        path: '/taisan/ghitang',
-        component: MsTableVoucher,
-        children: [
-            {
-                path:'form/:id',
-                component: MsFormVoucher,
-                children: [
-                    {
-                        path: 'fixBudget',
-                        component:MsFormFix
-                    },
-                    {
-                        path: 'selectProperty',
-                        component: MsFormSelect
-                    }
-                ]
-            },
-            {
-                path:'newForm',
-                component: MsFormVoucher,
-            }
-        ]
-
+        path: '/dictionary/label',
+        component: CategoryList
+    },
+    {
+        path: '/login',
+        component: Login
     }
-    
+
 ]
 
 

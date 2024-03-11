@@ -48,5 +48,5 @@ export default ({
 </script>
 <style>
 @import url(@/css/base/input.css);
-@import url(@/css/layout/form.css);
+@import url(@/css/layout/form.scss);
 </style>

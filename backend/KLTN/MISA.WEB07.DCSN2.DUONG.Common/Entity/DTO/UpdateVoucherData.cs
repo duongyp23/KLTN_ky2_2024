@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.WEB07.HCSN2.DUONG.Common.Entity.DTO
+namespace KLTN.Common.Entity.DTO
 {
     public class UpdateVoucherInfo
     {

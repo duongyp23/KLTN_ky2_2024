@@ -260,6 +260,6 @@ export default {
 }
 </script>
 <style>
-@import url(../../css/layout/form.css);
+@import url(../../css/layout/form.scss);
 @import url(../../css/base/combobox.css);
 </style>

@@ -203,13 +203,10 @@ export const apiGetVoucherByID = (id) => {
     return request().get(`Vouchers/${id}`)
 }
 /**
- * api thêm mới tài sản
- * NTD 2/10/2022
- * @param {*} property 
- * @returns 
+ * api thêm mới nhãn dán
  */
-export const apiAddNewProperty = (property) => {
-    return request().post(`Properties`, property)
+export const apiAddNewCategory = (category) => {
+    return request().post(`Categorys`, category)
 }
 /**
  * Api sửa tài sản

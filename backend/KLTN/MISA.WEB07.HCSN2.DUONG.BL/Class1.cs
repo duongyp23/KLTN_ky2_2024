@@ -1,4 +1,4 @@
-﻿namespace MISA.WEB07.HCSN2.DUONG.BL
+﻿namespace KLTN.BussinesLayer
 {
     public class Class1
     {

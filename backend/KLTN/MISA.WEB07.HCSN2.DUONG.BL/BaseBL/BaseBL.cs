@@ -1,12 +1,7 @@
-﻿using MISA.WEB07.HCSN2.DUONG.DL;
-using MISA.WEB07.HCSN2.DUONG.DL.PropertyDL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KLTN.Common.Entity.DTO;
+using KLTN.DataLayer;
 
-namespace MISA.WEB07.HCSN2.DUONG.BL
+namespace KLTN.BussinesLayer
 {
     public class BaseBL<T> : IBaseBL<T>
     {
@@ -38,7 +33,17 @@ namespace MISA.WEB07.HCSN2.DUONG.BL
         public virtual IEnumerable<dynamic> GetAllRecords()
         {
             return _baseDL.GetAllRecords();
-        } 
+        }
+
+        async Task<Guid> IBaseBL<T>.Insert(T entity)
+        {
+            return await _baseDL.Insert(entity);
+        }
+
+        async Task<PagingData<T>> IBaseBL<T>.GetPaging(List<Filter>? filter, int pageSize, int pageNumber)
+        {
+            return await _baseDL.GetPaging(filter, pageSize, pageNumber);
+        }
 
         #endregion
     }

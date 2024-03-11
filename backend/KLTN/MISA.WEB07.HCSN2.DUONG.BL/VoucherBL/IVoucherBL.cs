@@ -1,13 +1,13 @@
-﻿using MISA.WEB07.HCSN2.DUONG.Common.Entity;
-using MISA.WEB07.HCSN2.DUONG.BL;
+﻿using KLTN.Common.Entity;
+using KLTN.BussinesLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity.DTO;
+using KLTN.Common.Entity.DTO;
 
-namespace MISA.WEB07.HCSN2.DUONG.BL
+namespace KLTN.BussinesLayer
 {
     public interface IVoucherBL : IBaseBL<Voucher>
     {

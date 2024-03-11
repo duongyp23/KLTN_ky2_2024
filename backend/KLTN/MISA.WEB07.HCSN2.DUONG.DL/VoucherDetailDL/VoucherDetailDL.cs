@@ -1,6 +1,6 @@
 ﻿using Dapper;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity;
-using MISA.WEB07.HCSN2.DUONG.DL;
+using KLTN.Common.Entity;
+using KLTN.DataLayer;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
@@ -8,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.WEB07.HCSN2.DUONG.DL
+namespace KLTN.DataLayer
 {
     public class VoucherDetailDL : BaseDL<VoucherDetail>, IVoucherDetailDL
     {
         #region ConnectString
         // đường dẫn kết nối với DB
-        private const string CONNECTION_STRING = "Server=localhost;Port=3307;Database=misa.web07.hcsn2.duong;Uid=root;Pwd=yp2382001;";
+        private const string CONNECTION_STRING = "Server=localhost;Port=3307;Database=KLTN;Uid=root;Pwd=yp2382001;";
 
         #endregion
         #region method

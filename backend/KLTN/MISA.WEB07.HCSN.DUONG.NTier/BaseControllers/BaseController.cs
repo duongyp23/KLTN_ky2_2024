@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using KLTN.BussinesLayer;
+using KLTN.Common.Entity.DTO;
+using KLTN.Common.Entity;
+using KLTN.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
-using MISA.WEB07.HCSN2.DUONG.BL;
-using MISA.WEB07.HCSN2.DUONG.Common.Enums;
+using Swashbuckle.AspNetCore.Annotations;
 
-namespace MISA.WEB07.HCSN2.DUONG.NTier.Base
+namespace KLTN.NTier.Base
 {
     [Route("api/v1/[controller]")]
     [ApiController]
@@ -30,7 +32,7 @@ namespace MISA.WEB07.HCSN2.DUONG.NTier.Base
         /// API Lấy tất cả bản ghi
         /// </summary>
         /// <returns>Tất cả bản ghi</returns>
-   
+
         [HttpGet]
         public virtual IActionResult GetAllRecords()
         {
@@ -44,6 +46,54 @@ namespace MISA.WEB07.HCSN2.DUONG.NTier.Base
                 return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Exception);
             }
         }
+
+        /// <summary>
+        /// lấy danh sách Tài sản và tổng số bản ghi
+        /// </summary>
+
+        [HttpPost("Paging")]
+        public virtual async Task<IActionResult> GetPagingAsync(
+            [FromBody] List<Filter>? filter, int pageSize = 10,int pageNumber = 1
+            )
+        {
+            try
+            {
+
+                var multipleResults = await _baseBL.GetPaging(filter, pageSize, pageNumber);
+
+                if (multipleResults != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, multipleResults);
+                }
+
+                return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Validate);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Exception);
+            }
+        }
+
+        [HttpPost("Add")]
+
+        public virtual async Task<IActionResult> Insert([FromBody]T entity)
+        {
+            try
+            {
+                Guid id = await _baseBL.Insert(entity);
+                if(id != Guid.Empty)
+                {
+                    return StatusCode(StatusCodes.Status200OK, id);
+                }
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Exception);
+            }
+        }
+
 
         #endregion
     }

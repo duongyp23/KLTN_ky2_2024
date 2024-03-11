@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KLTN.Common.Entity.DTO;
 
-namespace MISA.WEB07.HCSN2.DUONG.BL
+namespace KLTN.BussinesLayer
 {
     public interface IBaseBL<T>
     {
@@ -14,5 +10,7 @@ namespace MISA.WEB07.HCSN2.DUONG.BL
         /// </summary>
         /// <returns>tất cả bản ghi của 1 bảng</returns>
         public IEnumerable<dynamic> GetAllRecords();
+        Task<PagingData<T>> GetPaging(List<Filter>? filter, int pageSize, int pageNumber);
+        Task<Guid> Insert(T entity);
     }
 }

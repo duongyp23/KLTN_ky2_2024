@@ -1,11 +1,10 @@
 ﻿using System.Text;
+using KLTN.BussinesLayer;
+using KLTN.BussinesLayer.PropertyBL;
+using KLTN.DataLayer;
+using KLTN.DataLayer.PropertyDL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using MISA.WEB07.HCSN2.DUONG.BL;
-using MISA.WEB07.HCSN2.DUONG.BL.PropertyBL;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity;
-using MISA.WEB07.HCSN2.DUONG.DL;
-using MISA.WEB07.HCSN2.DUONG.DL.PropertyDL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,17 +13,13 @@ builder.Services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));
 builder.Services.AddScoped(typeof(IBaseBL<>), typeof(BaseBL<>));
 builder.Services.AddScoped<IPropertyBL, PropertyBL>();
 builder.Services.AddScoped<IPropertyDL, PropertyDL>();
-builder.Services.AddScoped<IDepartmentDL, DepartmentDL>();
-builder.Services.AddScoped<IDepartmentBL, DepartmentBL>();
 
-builder.Services.AddScoped<IPropertyTypeDL, PropertyTypeDL>();
-builder.Services.AddScoped<IPropertyTypeBL, PropertyTypeBL>();
 
 builder.Services.AddScoped<IUserDL, UserDL>();
 builder.Services.AddScoped<IUserBL, UserBL>();
 
-builder.Services.AddScoped<IBudgetDL, BudgetDL>();
-builder.Services.AddScoped<IBudgetBL, BudgetBL>();
+builder.Services.AddScoped<ICategoryDL, CategoryDL>();
+builder.Services.AddScoped<ICategoryBL, CategoryBL>();
 
 
 builder.Services.AddScoped<IVoucherDL, VoucherDL>();

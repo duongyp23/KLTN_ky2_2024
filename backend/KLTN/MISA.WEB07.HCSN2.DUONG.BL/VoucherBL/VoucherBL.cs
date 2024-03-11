@@ -1,23 +1,17 @@
-﻿using MISA.WEB07.HCSN2.DUONG.Common.Entity;
-using MISA.WEB07.HCSN2.DUONG.DL;
-using MISA.WEB07.HCSN2.DUONG.BL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity.DTO;
-using MISA.WEB07.HCSN2.DUONG.BL.PropertyBL;
-using MISA.WEB07.HCSN2.DUONG.Common.Enums;
-using MISA.WEB07.HCSN2.DUONG.DL.PropertyDL;
+﻿using KLTN.BussinesLayer.PropertyBL;
+using KLTN.Common.Entity;
+using KLTN.Common.Entity.DTO;
+using KLTN.Common.Enums;
+using KLTN.DataLayer;
+using KLTN.DataLayer.PropertyDL;
 
-namespace MISA.WEB07.HCSN2.DUONG.BL
+namespace KLTN.BussinesLayer
 {
     public class VoucherBL : BaseBL<Voucher>, IVoucherBL
     {
         #region Field
 
-        private DL.IVoucherDL _voucherDL;
+        private IVoucherDL _voucherDL;
         private IPropertyDL _propertyDL;
         private IVoucherDetailDL _voucherDetailDL;
         private IPropertyBL _propertyBL;
@@ -26,7 +20,7 @@ namespace MISA.WEB07.HCSN2.DUONG.BL
 
         #region Constructor
 
-        public VoucherBL(DL.IVoucherDL voucherDL, IPropertyBL propertyBL, IVoucherDetailBL voucherDetailBL,IPropertyDL propertyDL,IVoucherDetailDL voucherDetailDL) : base(voucherDL)
+        public VoucherBL(IVoucherDL voucherDL, IPropertyBL propertyBL, IVoucherDetailBL voucherDetailBL,IPropertyDL propertyDL,IVoucherDetailDL voucherDetailDL) : base(voucherDL)
         {
             _voucherDL = voucherDL;
             _propertyBL = propertyBL;

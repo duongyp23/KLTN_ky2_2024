@@ -1,8 +1,8 @@
-﻿using MISA.WEB07.HCSN2.DUONG.Common;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity.DTO;
-using MISA.WEB07.HCSN2.DUONG.Common.Enums;
-using MISA.WEB07.HCSN2.DUONG.DL.PropertyDL;
+﻿using KLTN.Common;
+using KLTN.Common.Entity;
+using KLTN.Common.Entity.DTO;
+using KLTN.Common.Enums;
+using KLTN.DataLayer.PropertyDL;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.WEB07.HCSN2.DUONG.BL.PropertyBL
+namespace KLTN.BussinesLayer.PropertyBL
 {
 
     public class PropertyBL : BaseBL<Property>, IPropertyBL
@@ -125,20 +125,6 @@ namespace MISA.WEB07.HCSN2.DUONG.BL.PropertyBL
         public string GetNewPropertyCode()   
         {
             return _propertyDL.GetNewPropertyCode();
-        }
-        /// <summary>
-        /// Lấy danh sách tài sản
-        /// </summary>
-        /// <param name="keyword"></param>
-        /// <param name="departmentID"></param>
-        /// <param name="propertyTypeID"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="pageNumber"></param>
-        /// <returns></returns>
-        public PagingData<Property> GetPaging(string? keyword, Guid? departmentID, Guid? propertyTypeID, int pageSize, int pageNumber)
-        {
-           
-             return _propertyDL.GetPaging(keyword, departmentID, propertyTypeID, pageSize, pageNumber);
         }
         /// <summary>
         /// Lấy tài sản theo id

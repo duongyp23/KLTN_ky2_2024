@@ -1,7 +1,7 @@
-﻿using MISA.WEB07.HCSN2.DUONG.Common.Entity;
-using MISA.WEB07.HCSN2.DUONG.Common.Entity.DTO;
+﻿using KLTN.Common.Entity;
+using KLTN.Common.Entity.DTO;
 
-namespace MISA.WEB07.HCSN2.DUONG.BL.PropertyBL
+namespace KLTN.BussinesLayer.PropertyBL
 {
     public interface IPropertyBL : IBaseBL<Property>
     {
@@ -50,24 +50,6 @@ namespace MISA.WEB07.HCSN2.DUONG.BL.PropertyBL
         /// NTD 22/8/2022
         public Object GetPropertyByID(Guid propertyID);
 
-        /// <summary>
-        /// lấy danh sách Tài sản và tổng số bản ghi
-        /// </summary>
-        /// <param name="keyword">điều kiện lọc</param>
-        /// <param name="departmentID">Id Phòng ban</param>
-        /// <param name="propertyTypeID">Id loại tài sản</param>
-        /// <param name="pageSize">số item trong 1 trang</param>
-        /// <param name="pageNumber">số trang muốn lấy </param>
-        /// <returns>danh sách tài sản và tổng số bản ghi</returns>
-        /// NTD 22/8/2022
-        public PagingData<Property> GetPaging(
-             String? keyword,
-             Guid? departmentID,
-             Guid? propertyTypeID,
-             int pageSize,
-             int pageNumber
-             
-            );
 
         /// <summary>
         /// lấy danh sách tài sản chưa active

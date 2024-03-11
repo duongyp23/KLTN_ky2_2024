@@ -1,4 +1,4 @@
-﻿namespace MISA.WEB07.HCSN2.DUONG.DL
+﻿namespace KLTN.DataLayer
 {
     public class Class1
     {
