@@ -85,9 +85,8 @@ export default {
 };
 </script>
 <style>
-@import url(@/css/layout/page.css);
-@import url(@/css/base/button.css);
+@import url(@/css/layout/page.scss);
+@import url(@/css/base/button.scss);
 @import url(@/css/base/combobox.css);
-@import url(@/css/base/icon.css);
 @import url(@/css/base/input.css);
 </style>

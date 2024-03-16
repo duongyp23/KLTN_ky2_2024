@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KLTN.Common.Entity
 {
+    [Table("user")]
     public class User
     {
-        /// <summary>
-        /// Tên tài khoản
-        /// </summary>
-        [Required]
-        public string Account { get; set; }
-        /// <summary>
-        /// Mật khẩu
-        /// </summary>
-        [Required]
-        public string Password { get; set; }
+        [Key]
+        public Guid? user_id { get; set; } //'id của người dùng',
+        public string user_name { get; set; } //'Tên khách hàng',
+        public string? avatar_url { get; set; } //'Ảnh đại diện của khách hàng',
+        public string? user_address { get; set; } // 'Địa chỉ của khách hàng',
+        public string phone_number { get; set; } // 'số điện thoại của khách hàng',
+        public string password { get; set; }//'Mật khẩu mã hóa',
+        public DateTime? birthday { get; set; }// 'ngày tháng năm sinh',
+        public string? bank_account_number { get; set; }//'Số tài khoản',
+        public string? bank_name { get; set; }// 'Tên ngân hàng',
+        public string? bank_code { get; set; } //'Mã viết tắt của ngân hàng',
+        public int? is_manager { get; set; }//'là quản lý hay không phục vụ phân quyền',
     }
 }

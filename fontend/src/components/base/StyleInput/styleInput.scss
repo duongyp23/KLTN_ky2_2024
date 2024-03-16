@@ -1,0 +1,40 @@
+.style-input{
+    display: flex;
+    flex-direction: column;
+    .input-label {
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 8px;
+    }
+    .row-input{
+        margin-top: 4px;
+        height: 44px;
+        border: 1px solid #dadce0;
+        outline: none;
+        border-radius: 4px;
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        background-color: rgb(200, 200, 200);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        :focus {
+            border: 1px solid #39c0ed;
+        }
+        .input-box {
+            margin-left: 8px;
+            height: 100%;
+            border: none;
+            background-color: transparent;
+        }
+        .icon-input{
+            margin-left: 8px;
+            width: 24px;
+            height: 24px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    }
+}

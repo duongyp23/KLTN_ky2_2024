@@ -36,7 +36,7 @@ namespace KLTN.BussinesLayer
             return _baseDL.GetAllRecords();
         }
 
-        async Task<Guid> IBaseBL<T>.Insert(T entity)
+        public virtual async Task<Guid> Insert(T entity)
         {
             return await _baseDL.Insert(entity);
         }
@@ -46,12 +46,12 @@ namespace KLTN.BussinesLayer
             return await _baseDL.GetPaging(filter, pageSize, pageNumber);
         }
 
-        async Task<bool> IBaseBL<T>.Update(T entity)
+        public virtual async Task<bool> Update(T entity)
         {
             return await _baseDL.Update(entity);
         }
 
-        async Task<bool> IBaseBL<T>.Delete(Guid id)
+        public virtual async Task<bool> Delete(Guid id)
         {
             return await _baseDL.Delete(id);
         }

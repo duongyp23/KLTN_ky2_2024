@@ -1,48 +1,49 @@
-.login {
-    position: fixed;
-    background-image: url(../../assets/background.png);
-    background-size: cover;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    z-index: 2;
-}
+
 .login-form {
-    margin: auto;
-    
-    width: 770px;
+    margin:auto;
+    margin-top: 10vh;
+    width: 500px;
     height: 560px;
     background-color: #fff;
     opacity: 1;
-    display: flex;
     border-radius: 8px;
-    flex-direction: row;
+    align-items: center;
 }
 .login-form-left {
-    background-image: url(../../assets/Login-left-img.png);
-    background-size: cover;
     height: 100%;
     width: 50%;
-    
+    text-align: center;
+    display:flex;
+    font-weight: 700;
+    font-size: 40px;
 }
 .login-form-right {
     height: 100%;
-    width: 50%;
+    width: 0%;
 }
 .login-list-input {
     margin: 40px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    .form-title {
+        font-size: 40px;
+        align-items: center;
+        text-align: center;
+    }
+    .login-title {
+        font-size: 15px;
+        text-align: left;
+        font-family: 'Roboto', sans-serif;
+        margin-bottom: 3px;
+        margin-top: 10px;
+    }
+    .register{
+        display: flex;
+        justify-content: center;
+        margin-top: 8px;
+    }
 }
 .login-logo {
-    background-image: url(../../assets/Login-logo.png);  
-    background-repeat: no-repeat; 
-    background-position: center;
-    background-size: contain;
     width: 100px;
     background-position-y: 0;
     height: 60px;
@@ -59,7 +60,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 0 20px;
-    margin-top: 16px;
 }
 .login-input:focus {
     border: 1px solid #39c0ed;
@@ -69,12 +69,7 @@
     font-size: 14px;
     font-style: normal;
 }
-.login-title {
-    font-size: 15px;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    margin-bottom: 10px;
-}
+
 .login-button {
     margin-top: 20px;
     width: 100%;
@@ -83,7 +78,7 @@
     font-size: 16px !important;
     outline: none;
     border: none;
-    background-color: #1a73e8;
+    background-color: rgb(100, 100, 100);
     color: #fff;
     cursor: pointer;
 }

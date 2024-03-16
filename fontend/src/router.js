@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ProductList from '@/components/layout/view/ListProduct/MsTable.vue';
 import CategoryList from '@/components/layout/view/ListCategory/CategoryTable.vue';
-import Login from '@/components/layout/view/Login/MsLogin.vue';
+import HomePage from '@/components/layout/view/HomePage/HomePage.vue';
+import LoginForm from '@/components/layout/view/Login/LoginForm.vue';
+import RegisterForm from '@/components/layout/view/Login/RegisterForm.vue';
 
 const routes = [
     {
@@ -18,7 +20,15 @@ const routes = [
     },
     {
         path: '/login',
-        component: Login
+        component: LoginForm
+    },
+    {
+        path: '/register',
+        component: RegisterForm
+    },
+    {
+        path: '/homepage',
+        component: HomePage
     }
 
 ]

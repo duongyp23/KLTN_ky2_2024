@@ -1,39 +1,31 @@
 <template>
-    <MsMenu></MsMenu>
-    <div class="view">
-      <MsHeader></MsHeader>
-      <div class="center-view">
-        <router-view />
-      </div>
+  <div class="view">
+    <PageHeader></PageHeader>
+    <div class="center-view">
+      <router-view />
     </div>
-    <MsToastMessage></MsToastMessage>
-    <MsPopup></MsPopup>
+  </div>
+  <MsToastMessage></MsToastMessage>
+  <MsPopup></MsPopup>
 </template>
 
 <script>
-import MsHeader from "./components/layout/MsHeader.vue";
-import MsMenu from "./components/layout/MsMenu.vue";
+import PageHeader from "./components/layout/PageHeader.vue";
 import MsToastMessage from "./components/base/MsToastMessage.vue";
-import MsPopup from "@/components/base/MsPopup.vue"
-
+import MsPopup from "@/components/base/MsPopup.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    MsHeader,
-    MsMenu,
+    PageHeader,
     MsToastMessage,
-    MsPopup
-},
-  methods(){
-   
+    MsPopup,
   },
-  created() {
-    
-  }
-}
+  methods() {},
+  created() {},
+};
 </script>
 
 <style>
-@import url(./css/layout/page.css);
+@import url(./css/layout/page.scss);
 </style>

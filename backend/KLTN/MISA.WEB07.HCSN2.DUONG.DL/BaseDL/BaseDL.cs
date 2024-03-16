@@ -92,17 +92,28 @@ namespace KLTN.DataLayer
                 {
                     property.SetValue(entity, id);
                 }
-                listCol.AppendFormat($", {property.Name}");
-                listValue.AppendFormat($", @{property.Name}");
-                param.Add($"@{property.Name}", property.GetValue(entity));
+                if (property.GetValue(entity) != null)
+                {
+                    listCol.AppendFormat($", {property.Name}");
+                    listValue.AppendFormat($", @{property.Name}");
+                    param.Add($"@{property.Name}", property.GetValue(entity));
+                }
             }
             listCol.Remove(0, 1);
             listValue.Remove(0, 1);
             sb.AppendFormat($"INSERT INTO {tableName} ({listCol}) VALUE ({listValue});");
-            var mySqlConnection = new MySqlConnection(CONNECTION_STRING);
+            try
+            {
+                var mySqlConnection = new MySqlConnection(CONNECTION_STRING);
 
-            await mySqlConnection.ExecuteAsync(sb.ToString(), param);
-            mySqlConnection.Close();
+                await mySqlConnection.ExecuteAsync(sb.ToString(), param);
+                mySqlConnection.Close();
+            }
+            catch
+            {
+                id = Guid.Empty;
+            }
+            
             return id;
         }
 

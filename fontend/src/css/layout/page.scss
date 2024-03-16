@@ -22,28 +22,39 @@
 
 .view {
     height: 100vh;
-    background-color: #f4f7ff;
-}
-.menu +.view {
     width: 100vw;
+    display: flex;
+    flex-direction: column;
 }
 .menu.open-menu {
     width: 207px;
     /* align-items: left; */
 
 }
-.menu.open-menu + .view {
-    width: 100vw;
-}
 .header {
     position: relative;
-    height: 44px ;
+    height: 60px ;
     background-color: #fff;
     align-items: center;
     display: flex;
     justify-content: space-between;
     padding-left: 20px;
     padding-right: 20px;
+    border-bottom: 5px rgb(200, 200, 200) solid;
+    .tab-list{
+        display: flex;
+        flex-direction: row;
+        column-gap: 20px;
+    }
+    .left-header{
+        width: 200px;
+        font-weight: 700;
+    }
+    .right-header{
+        width: 200px;
+        display: flex;
+        justify-content: center;
+    }
 }
 .tool {
     position: relative;
@@ -55,7 +66,5 @@
 .center-view {
     height: calc(100vh - 68px);
     padding: 12px 20px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 12px;
+    overflow: auto;
 }

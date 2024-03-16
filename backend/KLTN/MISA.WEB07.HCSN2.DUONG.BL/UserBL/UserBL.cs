@@ -11,6 +11,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using KLTN.Common.Entity;
 using KLTN.DataLayer;
+using KLTN.Common.Entity.DTO;
+using System.Security.Cryptography;
+using System.Web.Helpers;
 
 namespace KLTN.BussinesLayer
 {
@@ -40,12 +43,12 @@ namespace KLTN.BussinesLayer
         /// <param name="user"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public string Authenticate(User user)
+        public string Authenticate(LoginForm user)
         {
             if (user.Account == "admin" && user.Password == "12345678" )
             {
                 // authentication successful so generate jwt token
-                var token = generateJwtToken(user);
+                var token = generateJwtToken(user.Account);
 
                 return token;
             } 
@@ -60,13 +63,13 @@ namespace KLTN.BussinesLayer
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        private string generateJwtToken(User user)
+        private string generateJwtToken(string Account)
         {
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                new Claim("Account", user.Account.ToString()),
+                new Claim("Account", Account.ToString()),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
@@ -80,6 +83,20 @@ namespace KLTN.BussinesLayer
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public async Task<object> Register(User user)
+        {
+            user.password = Crypto.HashPassword(user.password);
+            Guid id = await _userDL.Insert(user); 
+            if(id != Guid.Empty)
+            {
+                return new {
+                    token = generateJwtToken(user.phone_number)
+                };
+            }
+            return null;
+        }
+
         #endregion
     }
 }

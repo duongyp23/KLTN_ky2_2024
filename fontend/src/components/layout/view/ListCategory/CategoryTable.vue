@@ -489,7 +489,7 @@ export default {
 };
 </script>
 <style>
-@import url(@/css/layout/page.css);
+@import url(@/css/layout/page.scss);
 @import url(@/css/layout/table.css);
-@import url(@/css/base/button.css);
+@import url(@/css/base/button.scss);
 </style>./CategoryTool.vue

@@ -4,7 +4,7 @@ namespace KLTN.BussinesLayer
 {
     public interface IBaseBL<T>
     {
-        Task<bool> Delete(Guid id);
+         Task<bool> Delete(Guid id);
 
         /// <summary>
         /// lấy tất cả bản ghi
@@ -12,8 +12,8 @@ namespace KLTN.BussinesLayer
         /// </summary>
         /// <returns>tất cả bản ghi của 1 bảng</returns>
         public IEnumerable<dynamic> GetAllRecords();
-        Task<PagingData<T>> GetPaging(List<Filter>? filter, int pageSize, int pageNumber);
-        Task<Guid> Insert(T entity);
-        Task<bool> Update(T entity);
+         Task<PagingData<T>> GetPaging(List<Filter>? filter, int pageSize, int pageNumber);
+         Task<Guid> Insert(T entity);
+         Task<bool> Update(T entity);
     }
 }
