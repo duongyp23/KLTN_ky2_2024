@@ -94,6 +94,36 @@ namespace KLTN.NTier.Base
             }
         }
 
+        [HttpPost("Update")]
+
+        public virtual async Task<IActionResult> Update([FromBody] T entity)
+        {
+            try
+            {
+                bool result = await _baseBL.Update(entity);
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Exception);
+            }
+        }
+
+
+        [HttpDelete("Delete/{id}")]
+
+        public virtual async Task<IActionResult> Delete(Guid id)
+        {
+            try
+            {
+                bool result = await _baseBL.Delete(id);
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Exception);
+            }
+        }
 
         #endregion
     }

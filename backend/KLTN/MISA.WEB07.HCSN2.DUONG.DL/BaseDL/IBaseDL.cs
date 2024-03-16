@@ -4,6 +4,8 @@ namespace KLTN.DataLayer
 {
     public interface IBaseDL<T>
     {
+        Task<bool> Delete(Guid id);
+
         /// <summary>
         /// lấy tất cả bản ghi
         /// </summary>
@@ -18,5 +20,6 @@ namespace KLTN.DataLayer
         /// <returns></returns>
         Task<PagingData<T>> GetPaging(List<Filter>? filter, int pageSize, int pageNumber);
         Task<Guid> Insert(T entity);
+        Task<bool> Update(T entity);
     }
 }

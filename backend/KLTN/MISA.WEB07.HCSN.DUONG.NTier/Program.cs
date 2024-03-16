@@ -1,8 +1,6 @@
 ﻿using System.Text;
 using KLTN.BussinesLayer;
-using KLTN.BussinesLayer.PropertyBL;
 using KLTN.DataLayer;
-using KLTN.DataLayer.PropertyDL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,8 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));
 builder.Services.AddScoped(typeof(IBaseBL<>), typeof(BaseBL<>));
-builder.Services.AddScoped<IPropertyBL, PropertyBL>();
-builder.Services.AddScoped<IPropertyDL, PropertyDL>();
 
 
 builder.Services.AddScoped<IUserDL, UserDL>();
@@ -22,11 +18,6 @@ builder.Services.AddScoped<ICategoryDL, CategoryDL>();
 builder.Services.AddScoped<ICategoryBL, CategoryBL>();
 
 
-builder.Services.AddScoped<IVoucherDL, VoucherDL>();
-builder.Services.AddScoped<IVoucherBL, VoucherBL>();
-
-builder.Services.AddScoped<IVoucherDetailDL, VoucherDetailDL>();
-builder.Services.AddScoped<IVoucherDetailBL, VoucherDetailBL>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

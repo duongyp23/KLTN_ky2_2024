@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static Dapper.SqlMapper;
 
 namespace KLTN.DataLayer
 {
@@ -18,7 +19,9 @@ namespace KLTN.DataLayer
         #region Field
         
         //kết nối db
-        private const string CONNECTION_STRING = "Server=localhost;Port=3307;Database=rental_store;Uid=root;Pwd=yp2382001;"; 
+        private const string CONNECTION_STRING = "Server=localhost;Port=3307;Database=rental_store;Uid=root;Pwd=yp2382001;";
+
+        
 
 
         #endregion
@@ -101,6 +104,56 @@ namespace KLTN.DataLayer
             await mySqlConnection.ExecuteAsync(sb.ToString(), param);
             mySqlConnection.Close();
             return id;
+        }
+
+        public virtual async Task<bool> Update(T entity)
+        {
+            string tableName = typeof(T).GetCustomAttribute<TableAttribute>().Name;
+
+            var sb = new StringBuilder();
+            var listUpdate = new StringBuilder();
+            var where = new StringBuilder();
+            foreach (var property in typeof(T).GetProperties())
+            {
+                if (property.GetCustomAttribute<KeyAttribute>() != null)
+                {
+                    where.AppendFormat($" {property.Name} = @{property.Name} ");
+                } else
+                {
+                    listUpdate.AppendFormat($" {property.Name} = @{property.Name} ,");
+                }
+            }
+            listUpdate.Remove(listUpdate.Length -1, 1);
+            sb.AppendFormat($"UPDATE {tableName} SET {listUpdate} WHERE {where};");
+            var mySqlConnection = new MySqlConnection(CONNECTION_STRING);
+
+            var result = await mySqlConnection.ExecuteAsync(sb.ToString(), entity);
+            mySqlConnection.Close();
+            return result == 1 ? true: false;
+        }
+
+        public virtual async Task<bool> Delete(Guid id)
+        {
+            string tableName = typeof(T).GetCustomAttribute<TableAttribute>().Name;
+
+            var sb = new StringBuilder();
+            var where = new StringBuilder();
+            var param = new DynamicParameters();
+            foreach (var property in typeof(T).GetProperties())
+            {
+                if (property.GetCustomAttribute<KeyAttribute>() != null)
+                {
+                    where.AppendFormat($" {property.Name} = @{property.Name} ");
+                    param.Add($"@{property.Name}", id);
+                    break;
+                }
+            }
+            sb.AppendFormat($"DELETE FROM {tableName} WHERE {where};");
+            var mySqlConnection = new MySqlConnection(CONNECTION_STRING);
+
+            var result = await mySqlConnection.ExecuteAsync(sb.ToString(), param);
+            mySqlConnection.Close();
+            return result == 1 ? true : false;
         }
     }
 }

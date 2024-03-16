@@ -1,5 +1,6 @@
 ﻿using KLTN.Common.Entity.DTO;
 using KLTN.DataLayer;
+using static Dapper.SqlMapper;
 
 namespace KLTN.BussinesLayer
 {
@@ -43,6 +44,16 @@ namespace KLTN.BussinesLayer
         async Task<PagingData<T>> IBaseBL<T>.GetPaging(List<Filter>? filter, int pageSize, int pageNumber)
         {
             return await _baseDL.GetPaging(filter, pageSize, pageNumber);
+        }
+
+        async Task<bool> IBaseBL<T>.Update(T entity)
+        {
+            return await _baseDL.Update(entity);
+        }
+
+        async Task<bool> IBaseBL<T>.Delete(Guid id)
+        {
+            return await _baseDL.Delete(id);
         }
 
         #endregion
