@@ -21,5 +21,6 @@ namespace KLTN.DataLayer
         Task<PagingData<T>> GetPaging(List<Filter>? filter, int pageSize, int pageNumber);
         Task<Guid> Insert(T entity);
         Task<bool> Update(T entity);
+        Task<List<T>> GetDataByField(List<Filter>? filter);
     }
 }

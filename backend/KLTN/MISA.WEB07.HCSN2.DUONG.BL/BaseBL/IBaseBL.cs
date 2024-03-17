@@ -11,7 +11,7 @@ namespace KLTN.BussinesLayer
         /// Author: TTDUC 24/08/2022
         /// </summary>
         /// <returns>tất cả bản ghi của 1 bảng</returns>
-        public IEnumerable<dynamic> GetAllRecords();
+        Task<List<T>> GetAllRecords(List<Filter>? filters);
          Task<PagingData<T>> GetPaging(List<Filter>? filter, int pageSize, int pageNumber);
          Task<Guid> Insert(T entity);
          Task<bool> Update(T entity);

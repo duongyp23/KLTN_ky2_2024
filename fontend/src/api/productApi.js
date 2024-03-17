@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 const request = () => {
     return axios.create(
         {
-            baseURL: 'http://localhost:60708/api/v1/Categorys',
+            baseURL: 'http://localhost:60708/api/v1/Products',
             timeout: 5000,
             headers: {
                 Authorization: "Bearer " + Cookies.get('token')
@@ -16,18 +16,18 @@ const request = () => {
     )
 }
 
-export const apiGetPagingCategory = (filter, pageSize, pageNumber) => {
+export const apiGetPagingProduct = (filter, pageSize, pageNumber) => {
     return request().post('Paging?pageSize=' + pageSize + '&pageNumber=' + pageNumber, filter)
 }
 
-export const apiInsertCategory = (category) => {
-    return request().post('Add', category)
+export const apiInsertProduct = (product) => {
+    return request().post('Add',  product )
 }
 
-export const apiUpdateCategory = (category) => {
-    return request().post('Update', category)
+export const apiUpdateProduct = (product) => {
+    return request().post('Update', product)
 }
 
-export const apiGetAllCategory = (filter) => {
+export const apiGetAllProduct = (filter) => {
     return request().post('GetAll', filter);
 } 

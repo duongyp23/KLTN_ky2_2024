@@ -166,5 +166,31 @@ namespace KLTN.DataLayer
             mySqlConnection.Close();
             return result == 1 ? true : false;
         }
+
+        public async Task<List<T>> GetDataByField(List<Filter>? filters)
+        {
+            string tableName = typeof(T).GetCustomAttribute<TableAttribute>().Name;
+
+            string whereClause = "";
+            if (filters != null && filters.Count > 0)
+            {
+                whereClause += "WHERE ";
+                for (int i = 0; i < filters.Count; i++)
+                {
+                    Filter filter = filters[i];
+                    if (i > 0)
+                    {
+                        whereClause += " AND ";
+                    }
+                    whereClause += $"{filter.columnName} {filter.operatorValue} '{filter.filterValue}' ";
+                }
+            }
+            String getPagingData = $"SELECT * FROM {tableName} {whereClause};";
+            var mySqlConnection = new MySqlConnection(CONNECTION_STRING);
+
+            List<T> datas = (List<T>)await mySqlConnection.QueryAsync<T>(getPagingData);
+            mySqlConnection.Close();
+            return datas;
+        }
     }
 }

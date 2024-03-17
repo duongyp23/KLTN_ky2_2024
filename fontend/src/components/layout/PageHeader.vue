@@ -4,10 +4,7 @@
     <div class="tab-list">
       <ButtonMenu :label="'Trang chủ'" :routerPath="'/homepage'"></ButtonMenu>
 
-      <ButtonMenu
-        :label="'Danh mục sản phẩm'"
-        :routerPath="'/dictionary'"
-      ></ButtonMenu>
+      <ButtonMenu :label="'Danh mục'" :routerPath="'/dictionary'"></ButtonMenu>
 
       <ButtonMenu
         :label="'Tra cứu sản phẩm'"

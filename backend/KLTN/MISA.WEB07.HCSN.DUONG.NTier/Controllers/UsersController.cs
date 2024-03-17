@@ -33,15 +33,15 @@ namespace MISA.WEB07.HCSN.DUONG.NTier
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("Login")]
         [SwaggerResponse(StatusCodes.Status200OK)]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public IActionResult Authenticate([FromBody] LoginForm user)
+        public async Task<IActionResult> Authenticate([FromBody] LoginForm user)
         {
             try
             {
-                var token = _userBL.Authenticate(user);
+                var token = await _userBL.Authenticate(user);
                 return StatusCode(StatusCodes.Status200OK, token);
             }
             catch (Exception ex)

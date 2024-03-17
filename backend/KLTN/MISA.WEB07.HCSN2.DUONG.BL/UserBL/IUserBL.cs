@@ -10,7 +10,7 @@ namespace KLTN.BussinesLayer
 {
     public interface IUserBL : IBaseBL<User>
     {
-        public string Authenticate(LoginForm user);
+        Task<object> Authenticate(LoginForm user);
         Task<object> Register(User user);
     }
 }

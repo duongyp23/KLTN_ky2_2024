@@ -1,0 +1,10 @@
+.dictionary-page {
+    display: flex;
+    flex-direction: column;
+    .dictionary-menu {
+        margin-bottom: 8px;
+        display: flex;
+        flex-direction: row;
+        column-gap: 20px;
+    }
+}

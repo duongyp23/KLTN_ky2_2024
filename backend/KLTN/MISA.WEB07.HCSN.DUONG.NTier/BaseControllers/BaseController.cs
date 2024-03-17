@@ -33,12 +33,13 @@ namespace KLTN.NTier.Base
         /// </summary>
         /// <returns>Tất cả bản ghi</returns>
 
-        [HttpGet]
-        public virtual IActionResult GetAllRecords()
+        [HttpPost("GetAll")]
+        public virtual async Task<IActionResult> GetAllRecords([FromBody] List<Filter>? filters)
         {
             try
             {
-                return StatusCode(StatusCodes.Status200OK, _baseBL.GetAllRecords());
+                List<T> result = await _baseBL.GetAllRecords(filters);
+                return StatusCode(StatusCodes.Status200OK,result);
             }
             catch (Exception ex)
             {

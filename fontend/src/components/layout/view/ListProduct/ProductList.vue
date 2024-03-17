@@ -1,28 +1,10 @@
 <template>
   <div class="category-table">
-    <CategoryTool></CategoryTool>
-    <div
-      class="group-category-type"
-      v-for="item in CategoryType"
-      :key="item.id"
-    >
-      <div class="type-name">{{ item.name }}</div>
-      <div class="list-category">
-        <div v-for="category in datalist" :key="category.category_id">
-          <button
-            v-if="category.type == item.id"
-            class="category"
-            @click="openFormEdit(category)"
-          >
-            {{ category.category_code }}
-          </button>
-        </div>
-      </div>
-    </div>
+    <ProductTool></ProductTool>
   </div>
 </template>
 <script>
-import CategoryTool from "./CategoryTool.vue";
+import ProductTool from "./ProductTool.vue";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import Resource from "@/resource/MsResource";
 import { apiGetAllCategory } from "@/api/categoryApi";
@@ -36,7 +18,7 @@ export default {
       CategoryType,
     };
   },
-  components: { CategoryTool },
+  components: { ProductTool },
   methods: {
     /**
      * Lấy dữ liệu từ backend
@@ -107,5 +89,5 @@ export default {
 };
 </script>
 <style>
-@import url(./categoryTable.scss);
+@import url(./productList.scss);
 </style>

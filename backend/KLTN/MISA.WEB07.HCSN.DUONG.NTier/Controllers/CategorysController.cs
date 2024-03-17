@@ -27,25 +27,6 @@ namespace KLTN.NTier.Controllers
 
         #region Method
 
-        /// <summary>
-        /// API Lấy tất cả bản ghi
-        /// </summary>
-        /// <returns>Tất cả bản ghi</returns>
-
-        [HttpGet]
-        public override IActionResult GetAllRecords()
-        {
-            try
-            {
-                return StatusCode(StatusCodes.Status200OK, _categoryBL.GetAllRecords());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Exception);
-            }
-        }
-
         #endregion
     }
 }

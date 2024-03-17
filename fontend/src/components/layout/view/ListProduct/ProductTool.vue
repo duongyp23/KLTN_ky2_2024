@@ -3,35 +3,35 @@
     <div style="display: flex; height: 100%; position: relative">
       <StyleInput
         :rightIcon="'search'"
-        :placeholder="'Tìm kiếm nhãn dán'"
+        :placeholder="'Tìm kiếm sản phẩm'"
         v-model:value="searchText"
       ></StyleInput>
     </div>
     <div style="display: flex">
       <button class="btn-tool btn-add" @click="openForm">
-        + Thêm nhãn dán
+        + Thêm sản phẩm
       </button>
     </div>
-    <CategoryForm></CategoryForm>
+    <ProductForm></ProductForm>
   </div>
 </template>
 <script>
 import StyleInput from "@/components/base/StyleInput/StyleInput.vue";
-import CategoryForm from "./CategoryForm.vue";
+import ProductForm from "./ProductForm.vue";
 export default {
   data() {
     return {
       searchText: null,
     };
   },
-  components: { CategoryForm, StyleInput },
+  components: { ProductForm, StyleInput },
   methods: {
     /**
      * Mở form thêm tài sản
      * NTD 10/8/2022
      */
     openForm() {
-      this.emitter.emit("addNewCategory");
+      this.emitter.emit("addNewProduct");
     },
   },
   mounted() {},

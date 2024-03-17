@@ -17,7 +17,8 @@ builder.Services.AddScoped<IUserBL, UserBL>();
 builder.Services.AddScoped<ICategoryDL, CategoryDL>();
 builder.Services.AddScoped<ICategoryBL, CategoryBL>();
 
-
+builder.Services.AddScoped<IProductDL, ProductDL>();
+builder.Services.AddScoped<IProductBL, ProductBL>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

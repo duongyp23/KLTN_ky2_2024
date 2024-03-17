@@ -31,9 +31,9 @@ namespace KLTN.BussinesLayer
         /// lấy tất cả bản ghi
         /// </summary>
         /// <returns>tất cả bản ghi của 1 bảng</returns>
-        public virtual IEnumerable<dynamic> GetAllRecords()
+        public async virtual Task<List<T>> GetAllRecords(List<Filter>? filters)
         {
-            return _baseDL.GetAllRecords();
+            return await _baseDL.GetDataByField(filters);
         }
 
         public virtual async Task<Guid> Insert(T entity)
