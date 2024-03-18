@@ -2,9 +2,10 @@
 
 namespace KLTN.Common.Entity.DTO
 {
-    public class ProductData:Product
+    public class ProductData
     {
-        public List<IFormFile>? Images { get; set; }
+        public Product product { get; set; }
+        public List<Category>? selectCategory { get; set; }
 
     }
 }

@@ -27,11 +27,11 @@ namespace KLTN.NTier.Controllers
         #region Method
         [HttpPost("AddProduct")]
 
-        public async Task<IActionResult> Insert([FromForm] ProductData data)
+        public async Task<IActionResult> Insert([FromBody] ProductData data)
         {
             try
             {
-                Guid id = await _productBL.Insert(data);
+                Guid id = await _productBL.Insert(data.product);
                 if (id != Guid.Empty)
                 {
                     return StatusCode(StatusCodes.Status200OK, id);

@@ -20,7 +20,7 @@
         &:hover {
             border: 1px solid rgba(26, 164, 200);
         }
-        &:focus {
+        &:focus-within {
             border: 1px solid rgba(26, 164, 200);
         }
         .input-box {
@@ -28,6 +28,7 @@
             height: 100%;
             border: none;
             background-color: transparent;
+            font-family: "Roboto",sans-serif;
         }
         .icon-input{
             margin-left: 8px;

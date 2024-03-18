@@ -7,8 +7,17 @@
         :class="'icon-input'"
         :style="'background-image : url(' + Images[rightIcon] + ')'"
       ></div>
+
       <input
-        :type="type"
+        v-if="type == 'text'"
+        type="text"
+        class="input-box"
+        :value="value"
+        :placeholder="[placeholder ? placeholder : label ? label : '']"
+        @input="$emit('update:value', $event.target.value)"
+      />
+      <textarea
+        v-if="type == 'textarea'"
         class="input-box"
         :value="value"
         :placeholder="[placeholder ? placeholder : label ? label : '']"

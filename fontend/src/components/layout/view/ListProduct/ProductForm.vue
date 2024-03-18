@@ -13,36 +13,80 @@
         </button>
       </div>
       <div class="form-center">
-        <div class="row-flex">
-          <StyleInput
-            :label="'Mã sản phẩm'"
-            v-model:value="product.product_code"
-          ></StyleInput>
+        <div class="img-upload">
+          <div
+            class="big-img"
+            :style="
+              product.product_image_url
+                ? 'background-image: url(' + product.product_image_url + ')'
+                : 'border : 2px solid #afafaf'
+            "
+          >
+            <button
+              v-if="product.product_image_url"
+              class="btn-delete"
+              :style="'background-image: url(' + Images.del + ')'"
+              @click="deleteImage(product.product_image_url)"
+            ></button>
+          </div>
+          <div class="list-small-img">
+            <button
+              class="small-img"
+              @click="openUploadWidget()"
+              :style="'background-image: url(' + Images.addP + ')'"
+            ></button>
+            <div
+              class="small-img"
+              v-for="(item, index) in list_img_url"
+              :key="index"
+              :style="'background-image: url(' + item + ')'"
+              @click="product.product_image_url = item"
+            ></div>
+          </div>
+        </div>
 
-          <StyleInput
-            :label="'Tên sản phẩm'"
-            v-model:value="product.product_name"
-          ></StyleInput>
-        </div>
-        <div class="row-flex">
-          <InputNumber
-            :label="'Giá sản phẩm'"
-            v-model:numberValue="product.product_price"
-          ></InputNumber>
-          <InputNumber
-            v-model:numberValue="product.rental_price"
-            :label="'Giá thuê sản phẩm'"
-          ></InputNumber>
-        </div>
-        <div class="row-flex">
+        <div class="information">
+          <div class="row-flex">
+            <StyleInput
+              :label="'Mã sản phẩm'"
+              v-model:value="product.product_code"
+            ></StyleInput>
+
+            <StyleInput
+              :label="'Tên sản phẩm'"
+              v-model:value="product.product_name"
+            ></StyleInput>
+          </div>
+          <div class="row-flex">
+            <InputNumber
+              :label="'Giá sản phẩm'"
+              v-model:numberValue="product.product_price"
+            ></InputNumber>
+            <InputNumber
+              v-model:numberValue="product.rental_price"
+              :label="'Giá thuê sản phẩm'"
+            ></InputNumber>
+          </div>
           <StyleInput
             class="description"
-            :label="'Diễn giải'"
+            :label="'Mô tả sản phẩm'"
             v-model:value="product.description"
+            type="textarea"
           ></StyleInput>
-        </div>
-        <div class="row-flex">
-          <button class="upload-file" @click="openUploadWidget()"></button>
+          <div class="list-category">
+            <div
+              v-for="item in categoryData"
+              :key="item.category_id"
+              :class="
+                selectCategory.find((x) => x.category_id == item.category_id)
+                  ? 'category-select'
+                  : 'category-not-select'
+              "
+              @click="changeCategory(item)"
+            >
+              {{ item.category_code }}
+            </div>
+          </div>
         </div>
       </div>
       <div class="form-footer">
@@ -67,6 +111,8 @@ import Resource from "@/resource/MsResource";
 import StyleInput from "@/components/base/StyleInput/StyleInput.vue";
 import InputNumber from "@/components/base/StyleInput/InputNumber.vue";
 import { apiInsertProduct } from "@/api/productApi";
+import Images from "@/assets/icon/images";
+import { apiGetAllCategory } from "@/api/categoryApi";
 
 /**
  * Khởi tạo 1 Item với giá trị ban đầu là null
@@ -79,9 +125,33 @@ export default {
       isOpen: false, // hiển thị
       label: "", // tiêu đề
       product: {},
+      list_img_url: [],
+      Images,
+      categoryData: [],
+      selectCategory: [],
     };
   },
   methods: {
+    changeCategory(category) {
+      var index = this.selectCategory.indexOf(category);
+      if (index > -1) {
+        this.selectCategory.splice(index, 1);
+      } else {
+        this.selectCategory.push(category);
+      }
+    },
+    deleteImage(img_url) {
+      var index = this.list_img_url.indexOf(img_url);
+      if (index > -1) {
+        this.list_img_url.splice(index, 1);
+      }
+
+      if (this.list_img_url.length > 0) {
+        this.product.product_image_url = this.list_img_url[0];
+      } else {
+        this.product.product_image_url = null;
+      }
+    },
     openUploadWidget() {
       const myWidget = window.cloudinary.createUploadWidget(
         {
@@ -91,7 +161,10 @@ export default {
         (error, result) => {
           if (!error && result && result.event === "success") {
             console.log("Done! Here is the image info: ", result.info);
-            this.product.product_image_url = result.info.url;
+            this.list_img_url.push(result.info.url);
+            if (!this.product.product_image_url) {
+              this.product.product_image_url = this.list_img_url[0];
+            }
           }
         }
       );
@@ -125,6 +198,7 @@ export default {
      * NYD 5/9/2022
      */
     async addNewProduct() {
+      this.product.product_list_img_url = this.list_img_url.join(";");
       await apiInsertProduct(this.product)
         .then(() => {
           this.emitter.emit(
@@ -146,6 +220,17 @@ export default {
      * NTD 5/9/2022
      */
     async updateCategory() {},
+    /**
+     * Lấy dữ liệu nhãn dán
+     */
+    async getCategoryData() {
+      this.categoryData = [];
+      await apiGetAllCategory([])
+        .then((response) => {
+          this.categoryData = response.data;
+        })
+        .catch(() => {});
+    },
   },
   components: { StyleInput, InputNumber },
   mounted() {
@@ -178,6 +263,9 @@ export default {
     });
   },
   watch: {},
+  created() {
+    this.getCategoryData();
+  },
 };
 </script>
 
