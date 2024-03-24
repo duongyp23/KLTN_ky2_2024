@@ -1,26 +1,17 @@
 <template>
   <div class="dictionary-page">
-    <div class="dictionary-menu">
-      <ButtonMenu
-        :label="'Sản phẩm'"
-        :routerPath="'/dictionary/product'"
-      ></ButtonMenu>
-
-      <ButtonMenu
-        :label="'Nhãn dán'"
-        :routerPath="'/dictionary/category'"
-      ></ButtonMenu>
-    </div>
-    <router-view />
+    <CategoryTable class="left-page"></CategoryTable>
+    <ProductList class="right-page"></ProductList>
   </div>
 </template>
 <script>
-import ButtonMenu from "@/components/base/ButtonMenu.vue";
+import ProductList from "../ListProduct/ProductList.vue";
+import CategoryTable from "../ListCategory/CategoryTable.vue";
 export default {
   data() {
     return {};
   },
-  components: { ButtonMenu },
+  components: { ProductList, CategoryTable },
 };
 </script>
 <style>

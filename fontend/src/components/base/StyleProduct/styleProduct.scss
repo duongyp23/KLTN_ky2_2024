@@ -1,1 +1,30 @@
-.style-product{}
+.style-product{
+    display: flex;
+    flex-direction: column;
+    column-gap: 10px;
+    width: 200px;
+    padding: 6px;
+    .product-img {
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        height: 200px;
+    }
+    .product-info {
+        .product-name {
+            font-size: 18px;
+        }
+        .product-price{
+            display: flex;
+            flex-direction: row;
+            .title {
+                width: 100px;
+            }
+        }
+    }
+    &:hover {
+        border: 3px solid hsl(0, 0%, 69%);
+    border-radius: 6px;
+    padding: 3px;
+    }
+}

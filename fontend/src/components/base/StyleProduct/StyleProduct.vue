@@ -2,14 +2,23 @@
   <div class="style-product">
     <div
       class="product-img"
-      :style="'background-image : url(' + product.image_url + ')'"
+      :style="'background-image : url(' + product.product_image_url + ')'"
     ></div>
-    <div class="product-info">
-      <div class="product-name">{{ pro }}</div>
+    <div class="product-info col-flex">
+      <div class="product-name">{{ product.product_name }}</div>
+      <div class="product-price">
+        <div class="title">GIÁ BÁN</div>
+        <div class="amount">{{ replaceNumber(product.product_price) }} đ</div>
+      </div>
+      <div class="product-price">
+        <div class="title">GIÁ THUÊ</div>
+        <div class="amount">{{ replaceNumber(product.rental_price) }} đ</div>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import { replaceNumber } from "@/method/methodFormat";
 export default {
   data() {
     return {};
@@ -18,7 +27,9 @@ export default {
     product: Object,
   },
   computed: {},
-  methods: {},
+  methods: {
+    replaceNumber,
+  },
   watch: {},
   mounted() {},
   created() {},

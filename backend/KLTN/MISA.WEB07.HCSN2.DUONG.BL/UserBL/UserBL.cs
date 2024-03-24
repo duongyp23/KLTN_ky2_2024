@@ -63,7 +63,8 @@ namespace KLTN.BussinesLayer
                     {
                         token = generateJwtToken(users[0]),
                         role = users[0].is_manager,
-                        user_name = users[0].user_name
+                        user_name = users[0].user_name,
+                        user_id = users[0].user_id
                     };
                 } else
                 {
@@ -111,7 +112,8 @@ namespace KLTN.BussinesLayer
                 return new {
                     token = generateJwtToken(user),
                     role = 0,
-                    user_name = user.user_name
+                    user_name = user.user_name,
+                    user_id = id
                 };
             }
             return null;

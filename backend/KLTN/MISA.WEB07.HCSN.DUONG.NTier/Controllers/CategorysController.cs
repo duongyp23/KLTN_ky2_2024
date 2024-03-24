@@ -26,7 +26,25 @@ namespace KLTN.NTier.Controllers
         #endregion
 
         #region Method
+        /// <summary>
+        /// API Lấy tất cả bản ghi
+        /// </summary>
+        /// <returns>Tất cả bản ghi</returns>
 
+        [HttpGet("GetCategoryOfProduct")]
+        public virtual async Task<IActionResult> GetCategoryOfProduct(Guid productId)
+        {
+            try
+            {
+                List<Category> result = await _categoryBL.GetCategoryOfProduct(productId);
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Exception);
+            }
+        }
         #endregion
     }
 }

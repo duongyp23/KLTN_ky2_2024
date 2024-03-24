@@ -1,42 +1,46 @@
 <template>
-  <div class="category-table">
+  <div class="product-list">
     <ProductTool></ProductTool>
+    <div class="list-item">
+      <StyleProduct
+        v-for="item in datalist"
+        :key="item.product_id"
+        :product="item"
+        @click="viewProduct(item)"
+      ></StyleProduct>
+    </div>
+    <div class="paging"></div>
+    <ProductView></ProductView>
   </div>
 </template>
 <script>
 import ProductTool from "./ProductTool.vue";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import Resource from "@/resource/MsResource";
-import { apiGetAllCategory } from "@/api/categoryApi";
-import CategoryType from "@/resource/CategoryType";
+import { apiGetPagingProduct } from "@/api/productApi";
+import StyleProduct from "@/components/base/StyleProduct/StyleProduct.vue";
+import ProductView from "./ProductView.vue";
 
 export default {
+  setup() {},
   data() {
     return {
       keyword: null, // từ cần lọc
       datalist: [], // danh sách tài sản
-      CategoryType,
+      pagaSize: 20,
+      pageNumber: 1,
+      isShowListCategory: true,
     };
   },
-  components: { ProductTool },
+  components: { ProductTool, StyleProduct, ProductView },
   methods: {
     /**
      * Lấy dữ liệu từ backend
      */
     async getNewData() {
-      this.isLoader = true;
-      this.datalist = [];
-      let filter = [];
-      if (this.keyword != null) {
-        filter.push({
-          columnName: "category_code",
-          filterValue: this.keyword,
-          operatorValue: "=",
-        });
-      }
-      await apiGetAllCategory(filter)
+      await apiGetPagingProduct([], this.pagaSize, this.pageNumber)
         .then((response) => {
-          this.datalist = response.data;
+          this.datalist = response.data.data;
         })
         .catch(() => {
           this.emitter.emit(
@@ -45,8 +49,12 @@ export default {
           );
         });
     },
-    openFormEdit(category) {
-      this.emitter.emit("updateCategory", category);
+    viewProduct(product) {
+      if (this.$cookies.get("role") == 1) {
+        this.emitter.emit("updateProduct", product);
+      } else {
+        this.emitter.emit("viewProduct", product);
+      }
     },
   },
 

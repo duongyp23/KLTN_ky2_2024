@@ -31,12 +31,42 @@ namespace KLTN.NTier.Controllers
         {
             try
             {
-                Guid id = await _productBL.Insert(data.product);
+                Guid id = await _productBL.InsertProduct(data);
                 if (id != Guid.Empty)
                 {
                     return StatusCode(StatusCodes.Status200OK, id);
                 }
                 return StatusCode(StatusCodes.Status400BadRequest);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Exception);
+            }
+        }
+
+        [HttpPost("UpdateProduct")]
+
+        public async Task<IActionResult> Update([FromBody] ProductData data)
+        {
+            try
+            {
+                bool result = await _productBL.UpdateProduct(data);
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Exception);
+            }
+        }
+
+        [HttpPost("AddProductToCart")]
+
+        public async Task<IActionResult> AddProductToCart(Guid productId, Guid userId)
+        {
+            try
+            {
+                bool result = await _productBL.AddProductToCart(productId, userId);
+                return StatusCode(StatusCodes.Status200OK, result);
             }
             catch (Exception)
             {

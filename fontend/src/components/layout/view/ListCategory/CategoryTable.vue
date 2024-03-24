@@ -1,6 +1,10 @@
 <template>
   <div class="category-table">
-    <CategoryTool></CategoryTool>
+    <div style="display: flex" v-if="isManager">
+      <button class="btn-tool btn-add" @click="openForm">
+        + Thêm nhãn dán
+      </button>
+    </div>
     <div
       class="group-category-type"
       v-for="item in CategoryType"
@@ -11,22 +15,33 @@
         <div v-for="category in datalist" :key="category.category_id">
           <button
             v-if="category.type == item.id"
-            class="category"
-            @click="openFormEdit(category)"
+            :class="
+              selectCategory.find((x) => x.category_id == category.category_id)
+                ? 'category category-select'
+                : 'category category-not-select'
+            "
+            @click="changeCategory(category)"
+            @dblclick="openFormEdit(category)"
           >
             {{ category.category_code }}
           </button>
         </div>
       </div>
+
+      <hr />
     </div>
+    <div class="search">
+      <button class="btn-tool btn-search" @click="openForm">Tìm kiếm</button>
+    </div>
+    <CategoryForm></CategoryForm>
   </div>
 </template>
 <script>
-import CategoryTool from "./CategoryTool.vue";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import Resource from "@/resource/MsResource";
 import { apiGetAllCategory } from "@/api/categoryApi";
 import CategoryType from "@/resource/CategoryType";
+import CategoryForm from "./CategoryForm.vue";
 
 export default {
   data() {
@@ -34,10 +49,20 @@ export default {
       keyword: null, // từ cần lọc
       datalist: [], // danh sách tài sản
       CategoryType,
+      isManager: this.$cookies.get("role") == 1 ? true : false,
+      selectCategory: [],
     };
   },
-  components: { CategoryTool },
+  components: { CategoryForm },
   methods: {
+    changeCategory(category) {
+      var index = this.selectCategory.indexOf(category);
+      if (index > -1) {
+        this.selectCategory.splice(index, 1);
+      } else {
+        this.selectCategory.push(category);
+      }
+    },
     /**
      * Lấy dữ liệu từ backend
      */
@@ -64,7 +89,9 @@ export default {
         });
     },
     openFormEdit(category) {
-      this.emitter.emit("updateCategory", category);
+      if (this.isManager) {
+        this.emitter.emit("updateCategory", category);
+      }
     },
   },
 

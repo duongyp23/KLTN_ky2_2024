@@ -56,6 +56,11 @@ namespace KLTN.BussinesLayer
             return await _baseDL.Delete(id);
         }
 
+        public virtual async Task<T> GetDataById(Guid id)
+        {
+            return await _baseDL.GetDataById(id);
+        }
+
         #endregion
     }
 }

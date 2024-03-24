@@ -110,9 +110,9 @@
 import Resource from "@/resource/MsResource";
 import StyleInput from "@/components/base/StyleInput/StyleInput.vue";
 import InputNumber from "@/components/base/StyleInput/InputNumber.vue";
-import { apiInsertProduct } from "@/api/productApi";
+import { apiInsertProduct, apiUpdateProduct } from "@/api/productApi";
 import Images from "@/assets/icon/images";
-import { apiGetAllCategory } from "@/api/categoryApi";
+import { apiGetAllCategory, apiGetCategoryOfProduct } from "@/api/categoryApi";
 
 /**
  * Khởi tạo 1 Item với giá trị ban đầu là null
@@ -133,7 +133,9 @@ export default {
   },
   methods: {
     changeCategory(category) {
-      var index = this.selectCategory.indexOf(category);
+      var index = this.selectCategory.findIndex(
+        (item) => item.category_id == category.category_id
+      );
       if (index > -1) {
         this.selectCategory.splice(index, 1);
       } else {
@@ -189,7 +191,7 @@ export default {
       if (this.formStatus == 1) {
         this.addNewProduct();
       } else if (this.formStatus == 2) {
-        this.updateCategory();
+        this.updateProduct();
       }
     },
 
@@ -199,7 +201,7 @@ export default {
      */
     async addNewProduct() {
       this.product.product_list_img_url = this.list_img_url.join(";");
-      await apiInsertProduct(this.product)
+      await apiInsertProduct(this.product, this.selectCategory)
         .then(() => {
           this.emitter.emit(
             "openToastMessage",
@@ -219,7 +221,20 @@ export default {
      * gọi API Sửa tài sản
      * NTD 5/9/2022
      */
-    async updateCategory() {},
+    async updateProduct() {
+      this.product.product_list_img_url = this.list_img_url.join(";");
+      await apiUpdateProduct(this.product, this.selectCategory)
+        .then(() => {
+          this.emitter.emit("loadDataCategory");
+          this.isOpen = false;
+        })
+        .catch(() => {
+          this.emitter.emit(
+            "openToastMessageError",
+            Resource.ErrorMessage.ErrorMessageAdd
+          );
+        });
+    },
     /**
      * Lấy dữ liệu nhãn dán
      */
@@ -228,6 +243,13 @@ export default {
       await apiGetAllCategory([])
         .then((response) => {
           this.categoryData = response.data;
+        })
+        .catch(() => {});
+    },
+    async getDataCategoryOfProduct() {
+      await apiGetCategoryOfProduct(this.product.product_id)
+        .then((response) => {
+          this.selectCategory = response.data;
         })
         .catch(() => {});
     },
@@ -240,25 +262,19 @@ export default {
      */
     this.emitter.on("addNewProduct", async () => {
       this.formStatus = 1;
+      this.product = {};
       this.setLabel("Thêm sản phẩm");
       this.isOpen = true;
-    });
-    /**
-     * Đóng form sau khi xác nhận
-     * NTD 8/8/2022
-     */
-    this.emitter.on("closeFormFinish", () => {
-      this.isOpen = false;
-      this.emitter.emit("focusTable");
     });
     /**
      * Mở form sửa tài sản từ Row trong table
      * NTD 8/8/2022
      */
-    this.emitter.on("updateCategory", async (product) => {
+    this.emitter.on("updateProduct", async (product) => {
       this.product = Object.assign({}, product);
       this.formStatus = 2;
       this.setLabel("Sửa nhãn dán");
+      await this.getDataCategoryOfProduct();
       this.isOpen = true;
     });
   },

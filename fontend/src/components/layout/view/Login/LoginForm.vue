@@ -27,11 +27,11 @@
 </template>
 <script>
 import { apiLogin } from "@/api/userApi";
-import Cookies from "js-cookie";
 import ButtonMenu from "@/components/base/ButtonMenu.vue";
 import StyleInput from "@/components/base/StyleInput/StyleInput.vue";
 
 export default {
+  setup() {},
   data() {
     return {
       typePassword: "password",
@@ -45,15 +45,35 @@ export default {
      * Xử lý sự kiện khi nhấn đăng nhập
      */
     async login() {
+      this.$cookies.remove("token");
       await apiLogin(this.user)
         .then(async (response) => {
-          Cookies.set("token", response.data.token, { expires: 1 / 24 });
-          Cookies.set("userName", response.data.user_name, { expires: 1 / 24 });
-          Cookies.set("role", response.data.role, { expires: 1 / 24 });
+          if (response.data) {
+            this.$cookies.set("token", response.data.token, {
+              expires: 1 / 24,
+            });
+            this.$cookies.set("userName", response.data.user_name, {
+              expires: 1 / 24,
+            });
+            this.$cookies.set("userId", response.data.user_id, {
+              expires: 1 / 24,
+            });
+            this.$cookies.set("role", response.data.role, { expires: 1 / 24 });
+          } else {
+            this.emitter.emit(
+              "openPopupNotice",
+              "Thông tin đăng nhập không chính xác vui lòng nhập lại"
+            );
+          }
         })
-        .catch(() => {});
+        .catch(() => {
+          this.emitter.emit(
+            "openPopupNotice",
+            "Thông tin đăng nhập không chính xác vui lòng nhập lại"
+          );
+        });
 
-      if (Cookies.get("token") != null) {
+      if (this.$cookies.get("token")) {
         this.$router.replace(this.$router.path);
         this.$router.push("/homepage");
       }

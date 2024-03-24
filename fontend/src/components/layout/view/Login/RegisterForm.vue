@@ -29,7 +29,6 @@
   </div>
 </template>
 <script>
-import Cookies from "js-cookie";
 import StyleInput from "@/components/base/StyleInput/StyleInput.vue";
 import { apiRegister } from "@/api/userApi";
 export default {
@@ -48,13 +47,18 @@ export default {
     async register() {
       await apiRegister(this.user)
         .then(async (response) => {
-          Cookies.set("token", response.data.token, { expires: 1 / 24 });
-          Cookies.set("userName", response.data.user_name, { expires: 1 / 24 });
-          Cookies.set("role", response.data.role, { expires: 1 / 24 });
+          this.$cookies.set("token", response.data.token, { expires: 1 / 24 });
+          this.$cookies.set("userName", response.data.user_name, {
+            expires: 1 / 24,
+          });
+          this.$cookies.set("userId", response.data.user_id, {
+            expires: 1 / 24,
+          });
+          this.$cookies.set("role", response.data.role, { expires: 1 / 24 });
         })
         .catch(() => {});
 
-      if (Cookies.get("token") != null) {
+      if (this.$cookies.get("token") != null) {
         this.$router.replace(this.$router.path);
         this.$router.push("/homepage");
       }

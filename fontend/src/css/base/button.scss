@@ -127,3 +127,14 @@ button {
 .btn-icon-table:hover {
     background-color: #fff;
 }
+
+.btn-img {
+    background-color: transparent;
+    border: none;
+    background-repeat: no-repeat;
+    background-size:contain;
+    &.icon24 {
+        height: 24px;
+        width: 24px;
+    }
+}

@@ -5,20 +5,22 @@
       <ButtonMenu :label="'Trang chủ'" :routerPath="'/homepage'"></ButtonMenu>
 
       <ButtonMenu :label="'Danh mục'" :routerPath="'/dictionary'"></ButtonMenu>
-
-      <ButtonMenu
-        :label="'Tra cứu sản phẩm'"
-        :routerPath="'/search'"
-      ></ButtonMenu>
-
-      <ButtonMenu :label="'Báo cáo'" :routerPath="'/report'"></ButtonMenu>
     </div>
 
     <div class="right-header">
       <button
-        class="btn-header icon icon-avartar"
+        class="btn-img icon24"
+        :style="'background-image : url(' + Images.user + ')'"
         style="margin-left: 20px; position: relative"
         title="Tài khoản"
+        @click="openUserInfo()"
+      ></button>
+      <button
+        class="btn-img icon24"
+        :style="'background-image : url(' + Images.shoppingCart + ')'"
+        style="margin-left: 20px; position: relative"
+        title="Tài khoản"
+        @click="openUserInfo()"
       ></button>
     </div>
   </div>
@@ -26,16 +28,28 @@
 <script>
 import Cookies from "js-cookie";
 import ButtonMenu from "../base/ButtonMenu.vue";
+import Images from "@/assets/icon/images";
 export default {
   data() {
     return {
       userName: Cookies.get("userName"),
       isOpen: false,
       count: 2022, // mặc định năm
+      Images,
     };
   },
   components: { ButtonMenu },
-  methods: {},
+  methods: {
+    openUserInfo() {
+      if (this.$cookies.get("token")) {
+        this.$router.replace(this.$router.path);
+        this.$router.push("/userinfo");
+      } else {
+        this.$router.replace(this.$router.path);
+        this.$router.push("/login");
+      }
+    },
+  },
   watch: {
     /**
      * Kiểm tra sự thay đổi router và check cookies

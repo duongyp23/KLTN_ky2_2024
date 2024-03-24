@@ -22,5 +22,6 @@ namespace KLTN.DataLayer
         Task<Guid> Insert(T entity);
         Task<bool> Update(T entity);
         Task<List<T>> GetDataByField(List<Filter>? filter);
+        Task<T> GetDataById(Guid id);
     }
 }

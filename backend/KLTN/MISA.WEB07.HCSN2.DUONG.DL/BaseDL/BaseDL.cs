@@ -19,7 +19,7 @@ namespace KLTN.DataLayer
         #region Field
         
         //kết nối db
-        private const string CONNECTION_STRING = "Server=localhost;Port=3307;Database=rental_store;Uid=root;Pwd=yp2382001;";
+        public const string CONNECTION_STRING = "Server=localhost;Port=3307;Database=rental_store;Uid=root;Pwd=yp2382001;";
 
         
 
@@ -191,6 +191,30 @@ namespace KLTN.DataLayer
             List<T> datas = (List<T>)await mySqlConnection.QueryAsync<T>(getPagingData);
             mySqlConnection.Close();
             return datas;
+        }
+
+        public virtual async Task<T> GetDataById(Guid id)
+        {
+            string tableName = typeof(T).GetCustomAttribute<TableAttribute>().Name;
+
+            var sb = new StringBuilder();
+            var where = new StringBuilder();
+            var param = new DynamicParameters();
+            foreach (var property in typeof(T).GetProperties())
+            {
+                if (property.GetCustomAttribute<KeyAttribute>() != null)
+                {
+                    where.AppendFormat($" {property.Name} = @{property.Name} ");
+                    param.Add($"@{property.Name}", id);
+                    break;
+                }
+            }
+            sb.AppendFormat($"SELECT * FROM {tableName} WHERE {where};");
+            var mySqlConnection = new MySqlConnection(CONNECTION_STRING);
+
+            List<T> result = (List<T>)await mySqlConnection.QueryAsync<T>(sb.ToString(), param);
+            mySqlConnection.Close();
+            return result[0] ;
         }
     }
 }

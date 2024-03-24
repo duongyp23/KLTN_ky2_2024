@@ -12,7 +12,8 @@ namespace KLTN.BussinesLayer
         /// </summary>
         /// <returns>tất cả bản ghi của 1 bảng</returns>
         Task<List<T>> GetAllRecords(List<Filter>? filters);
-         Task<PagingData<T>> GetPaging(List<Filter>? filter, int pageSize, int pageNumber);
+        Task<T> GetDataById(Guid id);
+        Task<PagingData<T>> GetPaging(List<Filter>? filter, int pageSize, int pageNumber);
          Task<Guid> Insert(T entity);
          Task<bool> Update(T entity);
     }

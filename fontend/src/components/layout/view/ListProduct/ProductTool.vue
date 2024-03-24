@@ -7,7 +7,7 @@
         v-model:value="searchText"
       ></StyleInput>
     </div>
-    <div style="display: flex">
+    <div style="display: flex" v-if="isManager">
       <button class="btn-tool btn-add" @click="openForm">
         + Thêm sản phẩm
       </button>
@@ -22,6 +22,7 @@ export default {
   data() {
     return {
       searchText: null,
+      isManager: this.$cookies.get("role") == 1 ? true : false,
     };
   },
   components: { ProductForm, StyleInput },

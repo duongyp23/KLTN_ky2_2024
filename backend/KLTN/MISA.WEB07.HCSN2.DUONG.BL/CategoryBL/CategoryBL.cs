@@ -18,6 +18,11 @@ namespace KLTN.BussinesLayer
             _categoryDL = categoryDL;
         }
 
+        public async Task<List<Category>> GetCategoryOfProduct(Guid productId)
+        {
+            return await _categoryDL.GetCategoryOfProduct(productId);
+        }
+
         #endregion
     }
 }

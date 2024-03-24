@@ -1,10 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import ProductList from '@/components/layout/view/ListProduct/ProductList.vue';
-import CategoryList from '@/components/layout/view/ListCategory/CategoryTable.vue';
 import HomePage from '@/components/layout/view/HomePage/HomePage.vue';
 import LoginForm from '@/components/layout/view/Login/LoginForm.vue';
 import RegisterForm from '@/components/layout/view/Login/RegisterForm.vue';
 import DictionaryPage from './components/layout/view/Dictionary/DictionaryPage.vue';
+import UserInfomation from './components/layout/view/Login/UserInfomation.vue';
 
 const routes = [
     {
@@ -14,16 +13,6 @@ const routes = [
     {
         path: '/dictionary',
         component: DictionaryPage,
-        children: [
-            {
-                path: '/dictionary/product',
-                component: ProductList
-            },
-            {
-                path: '/dictionary/category',
-                component: CategoryList
-            }
-        ]
     },
     {
         path: '/login',
@@ -32,6 +21,10 @@ const routes = [
     {
         path: '/register',
         component: RegisterForm
+    },
+    {
+        path: '/userinfo',
+        component: UserInfomation
     },
     {
         path: '/homepage',

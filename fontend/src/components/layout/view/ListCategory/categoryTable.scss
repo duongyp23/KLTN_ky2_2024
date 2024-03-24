@@ -3,23 +3,39 @@
         margin-top: 8px;
         .type-name {
             font-weight: 700;
-            font-size: 24px;
+            font-size: 18px;
         }
         .list-category{
             margin-top: 4px;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            column-gap: 8px;
+            column-gap: 3px;
             .category{
                 background: transparent;
                 border: 1px solid #afafaf;
                 height: 30px;
                 border-radius: 6px;
                 &:hover {
-                    border: 1px solid rgba(26, 164, 200);
+                    border: 3px solid rgba(26, 164, 200);
+                }
+                &.category-select {
+                    border: 3px solid rgba(26, 164, 200);
+                }
+                &.category-not-select{
+                    border: 3px solid #afafaf;
                 }
             }
+        }
+    }
+    .search {
+        margin-top: 16px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        .btn-search {
+            width: 60%;
+            border: 1px solid #afafaf;
         }
     }
 }

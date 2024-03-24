@@ -1,25 +1,11 @@
-.category-table {
-    .group-category-type {
-        margin-top: 8px;
-        .type-name {
-            font-weight: 700;
-            font-size: 24px;
-        }
-        .list-category{
-            margin-top: 4px;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            column-gap: 8px;
-            .category{
-                background: transparent;
-                border: 1px solid #afafaf;
-                height: 30px;
-                border-radius: 6px;
-                &:hover {
-                    border: 1px solid rgba(26, 164, 200);
-                }
-            }
-        }
+.product-list {
+    display: flex;
+    flex-direction: column;
+    column-gap: 8px;
+    .list-item {
+        display: flex;
+        flex-direction: row;
+        column-gap: 15px;
+        flex-wrap: wrap;
     }
 }

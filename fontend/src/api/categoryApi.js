@@ -31,3 +31,7 @@ export const apiUpdateCategory = (category) => {
 export const apiGetAllCategory = (filter) => {
     return request().post('GetAll', filter);
 } 
+
+export const apiGetCategoryOfProduct = (productId) => {
+    return request().get('GetCategoryOfProduct?productId=' + productId);
+}

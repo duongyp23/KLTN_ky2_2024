@@ -42,7 +42,7 @@ export default {
       decimalPlaces: "2",
       minimumValue: "0",
       allowDecimalPadding: false,
-      maximumValue: "999999999999999999.99",
+      maximumValue: "9999999999.99",
     });
     this.setValue();
   },

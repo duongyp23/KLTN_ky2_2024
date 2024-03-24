@@ -20,6 +20,12 @@ builder.Services.AddScoped<ICategoryBL, CategoryBL>();
 builder.Services.AddScoped<IProductDL, ProductDL>();
 builder.Services.AddScoped<IProductBL, ProductBL>();
 
+builder.Services.AddScoped<IProductCategoryDL, ProductCategoryDL>();
+
+builder.Services.AddScoped<IOrderDL, OrderDL>();
+
+builder.Services.AddScoped<IOrderDetailDL, OrderDetailDL>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

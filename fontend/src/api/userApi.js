@@ -20,6 +20,14 @@ export const apiLogin = (user) => {
     return request().post('Login', user)
 }
 
+export const apiUpdateUserInfo = (user) => {
+    return request().post('Update', user)
+}
+
 export const apiRegister = (user) => {
     return request().post('Register', user)
+}
+
+export const apiGetInfoUser = (user_id) => {
+    return request().get(user_id);
 }

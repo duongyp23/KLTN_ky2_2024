@@ -126,6 +126,21 @@ namespace KLTN.NTier.Base
             }
         }
 
+        [HttpGet("{id}")]
+
+        public virtual async Task<IActionResult> GetDataById(Guid id)
+        {
+            try
+            {
+                T record = await _baseBL.GetDataById(id);
+                return StatusCode(StatusCodes.Status200OK, record);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Exception);
+            }
+        }
+
         #endregion
     }
 }

@@ -81,7 +81,6 @@
                     }
                 }
                 .list-category {
-                    height: 225px;
                     margin-top: 8px;
                     display: flex;
                     flex-direction: row;
@@ -112,6 +111,25 @@
                         border-radius: 6px;
                         padding: 4px 4px;
                         border: 3px solid #afafaf;
+                    }
+                }
+                .row-info {
+                    display: flex;
+                    flex-direction: row;
+                    .title {
+                        width: 150px;
+                    }
+                }
+                .action {
+                    margin-top: 8px;
+                    display: flex;
+                    justify-content: center;
+                    .btn-add-cart {
+                        height: 30px;
+                        background-color: rgba(26, 164, 200);
+                        color: #fff;
+                        border: none;
+                        border-radius: 6px;
                     }
                 }
             }
