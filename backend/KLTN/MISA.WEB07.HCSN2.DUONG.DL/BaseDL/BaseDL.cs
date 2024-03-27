@@ -172,6 +172,7 @@ namespace KLTN.DataLayer
             string tableName = typeof(T).GetCustomAttribute<TableAttribute>().Name;
 
             string whereClause = "";
+            var param = new DynamicParameters();
             if (filters != null && filters.Count > 0)
             {
                 whereClause += "WHERE ";
@@ -182,13 +183,14 @@ namespace KLTN.DataLayer
                     {
                         whereClause += " AND ";
                     }
-                    whereClause += $"{filter.columnName} {filter.operatorValue} '{filter.filterValue}' ";
+                    whereClause += $"{filter.columnName} {filter.operatorValue} @{filter.columnName} ";
+                    param.Add($"@{filter.columnName}", filter.filterValue);
                 }
             }
             String getPagingData = $"SELECT * FROM {tableName} {whereClause};";
             var mySqlConnection = new MySqlConnection(CONNECTION_STRING);
 
-            List<T> datas = (List<T>)await mySqlConnection.QueryAsync<T>(getPagingData);
+            List<T> datas = (List<T>)await mySqlConnection.QueryAsync<T>(getPagingData, param);
             mySqlConnection.Close();
             return datas;
         }

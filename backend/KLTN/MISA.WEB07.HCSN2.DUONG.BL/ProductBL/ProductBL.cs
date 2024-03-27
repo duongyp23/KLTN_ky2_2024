@@ -12,17 +12,19 @@ namespace KLTN.BussinesLayer
         private IProductCategoryDL _productCategoryDL;
         private IOrderDL _orderDL;
         private IOrderDetailDL _orderDetailDL;
+        private IUserDL _userDL;
 
         #endregion
 
         #region Constructor
 
-        public ProductBL(IProductDL productDL, IProductCategoryDL productCategoryDL, IOrderDL orderDL, IOrderDetailDL orderDetailDL) : base(productDL)
+        public ProductBL(IProductDL productDL, IProductCategoryDL productCategoryDL, IOrderDL orderDL, IOrderDetailDL orderDetailDL, IUserDL userDL) : base(productDL)
         {
             _productDL = productDL;
             _productCategoryDL = productCategoryDL;
             _orderDL = orderDL;
             _orderDetailDL = orderDetailDL;
+            _userDL = userDL;
         }
 
         public async Task<bool> AddProductToCart(Guid productId, Guid userId)
@@ -30,27 +32,32 @@ namespace KLTN.BussinesLayer
             Product product = await _productDL.GetDataById(productId);
             if (product != null)
             {
-                Guid idWaitOrderId = await _orderDL.GetWaitOrder(userId);
-                if (idWaitOrderId != Guid.Empty)
+                Order waitOrder = await _orderDL.GetWaitOrder(userId);
+                if (waitOrder != null)
                 {
                     OrderDetail orderDetail = new OrderDetail()
                     {
-                        order_id = idWaitOrderId,
+                        order_id = waitOrder.order_id,
                         product_id = productId,
                         product_code = product.product_code,
                         product_name = product.product_name,
                         product_deposit = product.product_price,
                         product_payment = product.rental_price,
-                        product_return = product.product_price - product.rental_price
+                        product_return = product.product_price - product.rental_price,
+                        product_image_url = product.product_image_url
                     };
                     await _orderDetailDL.Insert(orderDetail);
                 }
                 else
                 {
+                    User user = await _userDL.GetDataById(userId);
                     Order order = new Order()
                     {
                         user_id = userId,
+                        phone_number = user.phone_number,
+                        address = user.user_address,
                         status = 1,
+                        payment_type = 0,
                     };
                     Guid orderId = await _orderDL.Insert(order);
                     OrderDetail orderDetail = new OrderDetail()
@@ -61,7 +68,8 @@ namespace KLTN.BussinesLayer
                         product_name = product.product_name,
                         product_deposit = product.product_price,
                         product_payment = product.rental_price,
-                        product_return = product.product_price - product.rental_price
+                        product_return = product.product_price - product.rental_price,
+                        product_image_url = product.product_image_url
                     };
                     await _orderDetailDL.Insert(orderDetail);
                 }

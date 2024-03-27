@@ -69,6 +69,20 @@ namespace MISA.WEB07.HCSN.DUONG.NTier
             }
         }
 
+        [HttpGet("GetWaitOrder")]
+        public async Task<IActionResult> GetWaitOrder(Guid userId)
+        {
+            try
+            {
+                Guid orderId = await _userBL.GetWaitOrder(userId);
+                return StatusCode(StatusCodes.Status200OK, orderId);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+        }
+
         #endregion
     }
 }

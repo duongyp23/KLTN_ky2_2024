@@ -4,6 +4,7 @@ import LoginForm from '@/components/layout/view/Login/LoginForm.vue';
 import RegisterForm from '@/components/layout/view/Login/RegisterForm.vue';
 import DictionaryPage from './components/layout/view/Dictionary/DictionaryPage.vue';
 import UserInfomation from './components/layout/view/Login/UserInfomation.vue';
+import OrderDetail from './components/layout/view/Order/OrderDetail.vue';
 
 const routes = [
     {
@@ -29,6 +30,10 @@ const routes = [
     {
         path: '/homepage',
         component: HomePage
+    },
+    {
+        path: '/order/:id',
+        component: OrderDetail
     }
 
 ]

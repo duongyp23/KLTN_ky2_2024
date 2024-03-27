@@ -8,13 +8,14 @@ namespace KLTN.Common.Entity
     {
         [Key]
         public Guid? order_detail_id { get; set; } //'id chi tiết của order',
-  public Guid? order_id { get; set; } //'id của đơn hàng',
+        public Guid? order_id { get; set; } //'id của đơn hàng',
         public Guid? product_id { get; set; } // 'id của sản phẩm',
         public string? product_code { get; set; } // 'mã sản phẩm',
         public string? product_name { get; set; } // 'tên sản phẩm',
         public decimal? product_deposit { get; set; } // 'số tiền cọc của sản phẩm',
         public decimal? product_payment { get; set; } // 'số tiền thuê của sản phẩm',
         public decimal? product_return { get; set; } // 'Số tiền trả lại của sản phẩm = số tiền cọc - sổ tiền thuê',
-        public string? description { get; set; } // 'Ghi chú của sản phẩm',
+        public int? order_type { get; set; } // mua hay thuê sản phẩm
+        public string product_image_url { get; set; }
     }
 }

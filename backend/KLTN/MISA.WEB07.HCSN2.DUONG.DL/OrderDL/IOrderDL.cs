@@ -4,6 +4,6 @@ namespace KLTN.DataLayer
 {
     public interface IOrderDL : IBaseDL<Order>
     {
-        Task<Guid> GetWaitOrder(Guid userId);
+        Task<Order> GetWaitOrder(Guid userId);
     }
 }

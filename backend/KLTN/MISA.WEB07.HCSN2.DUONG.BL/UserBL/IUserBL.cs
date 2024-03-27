@@ -11,6 +11,7 @@ namespace KLTN.BussinesLayer
     public interface IUserBL : IBaseBL<User>
     {
         Task<object> Authenticate(LoginForm user);
+        Task<Guid> GetWaitOrder(Guid userId);
         Task<object> Register(User user);
     }
 }

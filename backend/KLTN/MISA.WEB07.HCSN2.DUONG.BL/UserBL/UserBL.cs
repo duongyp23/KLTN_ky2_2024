@@ -23,6 +23,8 @@ namespace KLTN.BussinesLayer
         #region Field
 
         private IUserDL _userDL;
+        private IOrderDL _orderDL;
+        private IOrderDetailDL _orderDetailDL;
         public IConfiguration _configuration;
 
 
@@ -31,9 +33,11 @@ namespace KLTN.BussinesLayer
 
         #region Constructor
 
-        public UserBL(IUserDL userDL, IConfiguration configuration) : base(userDL)
+        public UserBL(IUserDL userDL, IConfiguration configuration, IOrderDL orderDL, IOrderDetailDL orderDetailDL) : base(userDL)
         {
             _userDL = userDL;
+            _orderDL = orderDL;
+            _orderDetailDL = orderDetailDL;
             _configuration = configuration;
         }
         /// <summary>
@@ -117,6 +121,18 @@ namespace KLTN.BussinesLayer
                 };
             }
             return null;
+        }
+
+        public async Task<Guid> GetWaitOrder(Guid userId)
+        {
+            Order order = await _orderDL.GetWaitOrder(userId);
+            if(order != null)
+            {
+                return (Guid)order.order_id;
+            } else
+            {
+                throw new Exception("Không tồn tại đơn hàng chờ");
+            }
         }
 
         #endregion

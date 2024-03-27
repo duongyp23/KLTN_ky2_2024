@@ -7,12 +7,6 @@
         v-model:value="searchText"
       ></StyleInput>
     </div>
-    <div style="display: flex">
-      <button class="btn-tool btn-add" @click="openForm">
-        + Thêm nhãn dán
-      </button>
-    </div>
-    <CategoryForm></CategoryForm>
   </div>
 </template>
 <script>

@@ -18,6 +18,9 @@ namespace KLTN.Common.Entity
         public int? status { get; set; }  // 'Trạng thái của đơn hàng',
         public Guid user_id { get; set; }  // 'id của khách hàng',
         public string? user_name { get; set; }  // 'tên khách hàng',
+        public string? phone_number { get; set; }
+        public string? address { get; set; }
         public string? description { get; set; }  // 'ghi chú của đơn hàng',
+        public int? payment_type { get; set; }
     }
 }

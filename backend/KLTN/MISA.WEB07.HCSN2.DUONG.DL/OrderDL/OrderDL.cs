@@ -10,7 +10,7 @@ namespace KLTN.DataLayer
 {
     public class OrderDL : BaseDL<Order>, IOrderDL
     {
-        public async Task<Guid> GetWaitOrder(Guid userId)
+        public async Task<Order> GetWaitOrder(Guid userId)
         {
 
             var sb = new StringBuilder();
@@ -23,9 +23,9 @@ namespace KLTN.DataLayer
             mySqlConnection.Close();
             if(result != null && result.Count > 0)
             {
-                return (Guid)result[0].order_id;
+                return result[0];
             }
-            return Guid.Empty;
+            return null;
         }
     }
 }

@@ -20,21 +20,18 @@
         :style="'background-image : url(' + Images.shoppingCart + ')'"
         style="margin-left: 20px; position: relative"
         title="Tài khoản"
-        @click="openUserInfo()"
+        @click="openOrderDetail()"
       ></button>
     </div>
   </div>
 </template>
 <script>
-import Cookies from "js-cookie";
 import ButtonMenu from "../base/ButtonMenu.vue";
 import Images from "@/assets/icon/images";
+import { apiGetWaitOrder } from "@/api/userApi";
 export default {
   data() {
     return {
-      userName: Cookies.get("userName"),
-      isOpen: false,
-      count: 2022, // mặc định năm
       Images,
     };
   },
@@ -49,6 +46,23 @@ export default {
         this.$router.push("/login");
       }
     },
+    async openOrderDetail() {
+      if (this.$cookies.get("token")) {
+        await apiGetWaitOrder(this.$cookies.get("userId"))
+          .then((response) => {
+            this.$router.replace(this.$router.path);
+            this.$router.push(`/order/${response.data}`, {
+              params: { id: response.data },
+            });
+          })
+          .catch((ex) => {
+            this.emitter.emit("openToastMessageError", ex.response.data);
+          });
+      } else {
+        this.$router.replace(this.$router.path);
+        this.$router.push("/login");
+      }
+    },
   },
   watch: {
     /**
@@ -57,7 +71,7 @@ export default {
      */
     async $route() {
       if (this.$route.path == "/") {
-        this.$router.push("dictionary");
+        this.$router.push("homepage");
       }
     },
   },

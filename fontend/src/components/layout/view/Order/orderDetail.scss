@@ -1,3 +1,55 @@
 .order-detail {
-    
+  display: flex;
+  column-gap: 20px;
+  .detail-list{ 
+    width: calc(50% - 10px);
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    .item {
+      display: flex;
+      flex-direction: row;
+      column-gap: 8px;
+      align-items: center;
+      .small-img{
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        height: 80px;
+        width: 80px;
+      }
+      .product-name {
+        width: 60%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+      }
+      .remove {
+        height: 30px;
+        width: 80px;
+      }
+    }
+  }
+  .total-order {
+    width: calc(50% - 10px);
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    .amount-row{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .user-name{
+      width: 50%;
+    }
+    .phone {
+      width: 50%;
+    }
+    .description {
+      .row-input{
+        height: 100px;
+      }
+    }
+  }
 }

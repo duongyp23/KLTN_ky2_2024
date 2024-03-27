@@ -31,3 +31,7 @@ export const apiRegister = (user) => {
 export const apiGetInfoUser = (user_id) => {
     return request().get(user_id);
 }
+
+export const apiGetWaitOrder = (userId) => {
+    return request().get('GetWaitOrder?userId=' + userId);
+}
