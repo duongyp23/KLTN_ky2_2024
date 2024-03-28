@@ -21,3 +21,6 @@ export const apiDeleteOrderDetail = (detailId) => {
     return request().delete('Delete/' + detailId);
 }
 
+export const apiUpdateOrderDetail = (orderDetail) => {
+    return request().post('Update', orderDetail);
+}

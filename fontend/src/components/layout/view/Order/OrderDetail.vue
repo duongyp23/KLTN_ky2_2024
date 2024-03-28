@@ -18,6 +18,14 @@
         </div>
         <div class="deposit-price">{{ item.product_deposit }}</div>
         <div class="payment-price">{{ item.product_payment }}</div>
+        <div class="order-type">
+          <input type="radio" v-model="item.order_type" :value="0" />
+          Thuê
+        </div>
+        <div class="order-type">
+          <input type="radio" v-model="item.order_type" :value="1" />
+          Mua
+        </div>
         <button
           class="btn-img remove"
           @click="remove(item)"
@@ -38,6 +46,7 @@
         <div>Số tiền hoàn lại</div>
         <div>{{ replaceNumber(order.total_order_return) }}</div>
       </div>
+
       <style-input
         :label="'Họ tên người nhận'"
         class="user-name"
@@ -67,9 +76,7 @@
         <input type="radio" v-model="order.payment_type" value="1" />
         Thanh toán trước
       </div>
-      <button v-if="order.status == 1" @click="saveOrder">
-        Xác nhận đơn hàng
-      </button>
+      <button @click="saveOrder">Xác nhận đơn hàng</button>
     </div>
   </div>
 </template>
@@ -79,6 +86,7 @@ import Images from "@/assets/icon/images";
 import { apiDeleteOrderDetail } from "@/api/orderDetailApi";
 import { replaceNumber } from "@/method/methodFormat";
 import { apiUpdateOrder, apiGetOrder } from "@/api/orderApi";
+import { apiUpdateOrderDetail } from "@/api/orderDetailApi";
 export default {
   setup() {},
   data() {
@@ -95,7 +103,9 @@ export default {
   components: { StyleInput },
   methods: {
     async saveOrder() {
+      this.saveOrderDetail();
       this.order.status = 2;
+      this.order.order_date = new Date();
       await apiUpdateOrder(this.order).then(() => {
         this.emitter.emit(
           "openToastMessage",
@@ -103,6 +113,11 @@ export default {
         );
         this.$router.replace(this.$router.path);
         this.$router.push("/homepage");
+      });
+    },
+    saveOrderDetail() {
+      this.orderDetails.forEach(async (item) => {
+        await apiUpdateOrderDetail(item);
       });
     },
     async remove(item) {

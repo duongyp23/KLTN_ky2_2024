@@ -57,6 +57,12 @@ namespace KLTN.BussinesLayer
                         columnName = "user_id",
                         filterValue = id,
                         operatorValue = "="
+                    },
+                    new Filter()
+                    {
+                        columnName = nameof(Order.status),
+                        filterValue =  1,
+                        operatorValue = "<>"
                     }
                 };
             List<Order> result = await _orderDL.GetDataByField(filters);

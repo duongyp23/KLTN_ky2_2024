@@ -5,6 +5,11 @@
       <ButtonMenu :label="'Trang chủ'" :routerPath="'/homepage'"></ButtonMenu>
 
       <ButtonMenu :label="'Danh mục'" :routerPath="'/dictionary'"></ButtonMenu>
+      <ButtonMenu
+        v-if="isManager"
+        :label="'Đơn hàng'"
+        :routerPath="'/orderlist'"
+      ></ButtonMenu>
     </div>
 
     <div class="right-header">
@@ -32,6 +37,7 @@ import { apiGetWaitOrder } from "@/api/userApi";
 export default {
   data() {
     return {
+      isManager: this.$cookies.get("role") == 1 ? true : false,
       Images,
     };
   },

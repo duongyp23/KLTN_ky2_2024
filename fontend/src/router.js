@@ -5,6 +5,7 @@ import RegisterForm from '@/components/layout/view/Login/RegisterForm.vue';
 import DictionaryPage from './components/layout/view/Dictionary/DictionaryPage.vue';
 import UserInfomation from './components/layout/view/Login/UserInfomation.vue';
 import OrderDetail from './components/layout/view/Order/OrderDetail.vue';
+import OrderList from './components/layout/view/OrderList/OrderList.vue';
 
 const routes = [
     {
@@ -34,6 +35,10 @@ const routes = [
     {
         path: '/order/:id',
         component: OrderDetail
+    },
+    {
+        path: '/orderlist',
+        component: OrderList
     }
 
 ]

@@ -16,6 +16,6 @@ namespace KLTN.Common.Entity
         public decimal? product_payment { get; set; } // 'số tiền thuê của sản phẩm',
         public decimal? product_return { get; set; } // 'Số tiền trả lại của sản phẩm = số tiền cọc - sổ tiền thuê',
         public int? order_type { get; set; } // mua hay thuê sản phẩm
-        public string product_image_url { get; set; }
+        public string? product_image_url { get; set; }
     }
 }

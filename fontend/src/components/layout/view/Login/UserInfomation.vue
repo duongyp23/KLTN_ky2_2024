@@ -19,15 +19,26 @@
         <button class="btn-logout" @click="logout">Đăng xuất</button>
       </div>
     </div>
-    <div class="login-list-input">
+    <div class="list-order">
       <label class="form-title">Danh sách đơn hàng</label>
+      <div class="order-item">
+        <div>Ngày đặt hàng</div>
+        <div>Ngày bắt đầu thuê</div>
+        <div>Ngày kết thúc thuê</div>
+        <div>Tổng tiền thanh toán</div>
+        <div>Trạng thái đơn hàng</div>
+      </div>
       <div
         class="order-item"
         v-for="item in listOrder"
         :key="item.order_id"
-        @click="viewOrder(item.order_id)"
+        @dblclick="viewOrder(item.order_id)"
       >
-        <div>{{ item.total_order_deposit }}</div>
+        <div>{{ datetimeToDate(item.order_date) }}</div>
+        <div>{{ datetimeToDate(item.from_date) }}</div>
+        <div>{{ datetimeToDate(item.to_date) }}</div>
+        <div>{{ replaceNumber(item.total_order_deposit) }}</div>
+        <div>{{ item.status }}</div>
       </div>
     </div>
   </div>
@@ -36,6 +47,7 @@
 import StyleInput from "@/components/base/StyleInput/StyleInput.vue";
 import { apiUpdateUserInfo, apiGetInfoUser } from "@/api/userApi";
 import { apiGetOrderOfUser } from "@/api/orderApi";
+import { replaceNumber, datetimeToDate } from "@/method/methodFormat";
 export default {
   data() {
     return {
@@ -47,6 +59,8 @@ export default {
   },
   components: { StyleInput },
   methods: {
+    replaceNumber,
+    datetimeToDate,
     async UpdateUserInfo() {
       await apiUpdateUserInfo(this.user)
         .then(async () => {})

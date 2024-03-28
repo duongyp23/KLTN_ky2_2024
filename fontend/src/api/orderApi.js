@@ -28,3 +28,7 @@ export const apiGetOrder = (orderId) => {
 export const apiGetOrderOfUser = (userId) => {
     return request().get('GetOrderOfUser/'+userId)
 }
+
+export const apiGetAllOrder = () => {
+    return request().get('GetAll');
+}

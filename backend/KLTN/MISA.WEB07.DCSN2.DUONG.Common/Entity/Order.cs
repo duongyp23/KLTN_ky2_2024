@@ -9,9 +9,8 @@ namespace KLTN.Common.Entity
         [Key]
         public Guid? order_id { get; set; }
         public DateTime? order_date { get; set; }  //  'Ngày đơn hàng được tạo',
-        public DateTime? shipped_date { get; set; }  // 'Ngày đơn hàng được vận chuyển',
-        public DateTime? received_date { get; set; }  // 'Ngày khách hàng nhận được đơn hàng',
-        public DateTime? return_date { get; set; }  // 'ngày đơn hàng được trả về',
+        public DateTime? from_date { get; set; }  
+        public DateTime? to_date { get; set; }  
         public decimal? total_order_deposit { get; set; }  // 'Tổng tiền cọc của đơn hàng',
         public decimal? total_order_payment { get; set; }  // 'tổng số tiền thanh toán của đơn hàng',
         public decimal? total_order_return { get; set; }  // 'tổng số tiền được trả lại = tổng số tiền cọc - tổng số tiền được thanh toán',
