@@ -7,10 +7,13 @@ const CategoryType = [
         name: 'Màu sắc'
     }, {
         id: '3',
-        name: 'Vị trí'
+        name: 'Sự kiện'
     }, {
         id: '4',
         name: 'Loại sản phẩm'
+    }, {
+        id: '5',
+        name: 'Thương hiệu'
     }
 ];
 export default CategoryType;

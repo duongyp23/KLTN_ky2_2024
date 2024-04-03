@@ -10,19 +10,14 @@ namespace KLTN.Common.Entity
         /// ID nhãn dán
         /// </summary>
         [Key]
-        public Guid category_id { get; set; }
+        public Guid? category_id { get; set; }
 
         /// <summary>
         /// Mã nhãn dán
         /// </summary>
-        public string category_code { get; set; }
-
-        /// <summary>
-        /// Tên nhãn dán
-        /// </summary>
-        public string category_name { get; set; }
-        public string description { get; set; }
-        public string type_name { get; set; }
-        public int type { get; set; }
+        public string? category_code { get; set; }
+        public string? description { get; set; }
+        public string? type_name { get; set; }
+        public int?   type { get; set; }
     }
 }

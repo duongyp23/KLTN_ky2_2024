@@ -6,7 +6,7 @@
 
       <ButtonMenu :label="'Danh mục'" :routerPath="'/dictionary'"></ButtonMenu>
       <ButtonMenu
-        v-if="isManager"
+        v-show="isManager"
         :label="'Đơn hàng'"
         :routerPath="'/orderlist'"
       ></ButtonMenu>
@@ -21,6 +21,7 @@
         @click="openUserInfo()"
       ></button>
       <button
+        v-show="!isManager"
         class="btn-img icon24"
         :style="'background-image : url(' + Images.shoppingCart + ')'"
         style="margin-left: 20px; position: relative"
@@ -48,6 +49,9 @@ export default {
         this.$router.replace(this.$router.path);
         this.$router.push("/userinfo");
       } else {
+        this.$cookies.remove("token");
+        this.$cookies.remove("role");
+        this.emitter.emit("reloadRole");
         this.$router.replace(this.$router.path);
         this.$router.push("/login");
       }
@@ -80,6 +84,11 @@ export default {
         this.$router.push("homepage");
       }
     },
+  },
+  mounted() {
+    this.emitter.on("reloadRole", () => {
+      this.isManager = this.$cookies.get("role") == 1 ? true : false;
+    });
   },
 };
 </script>

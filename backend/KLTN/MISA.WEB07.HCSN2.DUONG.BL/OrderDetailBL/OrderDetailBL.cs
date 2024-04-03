@@ -8,17 +8,22 @@ namespace KLTN.BussinesLayer
         #region Field
 
         private IOrderDetailDL _orderDetailDL;
+        private IProductDL _productDL;
 
         #endregion
 
         #region Constructor
 
-        public OrderDetailBL(IOrderDetailDL orderDetailDL) : base(orderDetailDL)
+        public OrderDetailBL(IOrderDetailDL orderDetailDL, IProductDL productDL) : base(orderDetailDL)
         {
             _orderDetailDL = orderDetailDL;
+            _productDL = productDL;
         }
 
 
+        #endregion
+
+        #region Method
         #endregion
     }
 }

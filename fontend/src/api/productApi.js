@@ -34,3 +34,7 @@ export const apiGetAllProduct = (filter) => {
 export const apiAddProductToCart = (productId, userId) => {
     return request().post('AddProductToCart?productId=' + productId + '&userId=' + userId);
 }
+
+export const apiDeleteProduct = (id) => {
+    return request().delete('Delete/' + id);
+}

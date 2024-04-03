@@ -7,6 +7,7 @@
         class="input-box input-number"
         ref="inputNumber"
         @input="inputValue()"
+        :disabled="disabled"
       />
     </div>
   </div>
@@ -23,6 +24,7 @@ export default {
   props: {
     label: String,
     numberValue: { default: 0, type: Number },
+    disabled: { type: Boolean, default: false },
   },
   methods: {
     inputValue() {

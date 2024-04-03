@@ -80,37 +80,33 @@
                         }
                     }
                 }
-                .list-category {
+                .group-category-type {
                     margin-top: 8px;
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    column-gap: 8px;
-                    row-gap: 8px;
-                    overflow: auto;
-                    &::-webkit-scrollbar-track
-                    {
-                        background-color: #F5F5F5;
+                    .type-name {
+                        font-weight: 700;
+                        font-size: 18px;
                     }
-                    &::-webkit-scrollbar {
-                        width: 10px;
-                        background-color: #F5F5F5;
-                    }
-                    &::-webkit-scrollbar-thumb
-                    {
-                        background-color: #cdd3d6;
-                    }
-                    .category-select {
-                        height: 16px;
-                        border: 3px solid rgba(26, 164, 200);
-                        border-radius: 6px;
-                        padding: 4px 4px;
-                    }
-                    .category-not-select{
-                        height: 16px;
-                        border-radius: 6px;
-                        padding: 4px 4px;
-                        border: 3px solid #afafaf;
+                    .list-category{
+                        margin-top: 4px;
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        column-gap: 3px;
+                        .category{
+                            background: transparent;
+                            border: 1px solid #afafaf;
+                            height: 30px;
+                            border-radius: 6px;
+                            &:hover {
+                                border: 3px solid rgba(26, 164, 200);
+                            }
+                            &.category-select {
+                                border: 3px solid rgba(26, 164, 200);
+                            }
+                            &.category-not-select{
+                                border: 3px solid #afafaf;
+                            }
+                        }
                     }
                 }
                 .row-info {

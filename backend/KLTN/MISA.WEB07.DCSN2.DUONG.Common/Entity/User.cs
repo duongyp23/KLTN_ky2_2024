@@ -9,7 +9,7 @@ namespace KLTN.Common.Entity
         [Key]
         public Guid? user_id { get; set; } //'id của người dùng',
         public string user_name { get; set; } //'Tên khách hàng',
-        public string? avatar_url { get; set; } //'Ảnh đại diện của khách hàng',
+        
         public string? user_address { get; set; } // 'Địa chỉ của khách hàng',
         public string phone_number { get; set; } // 'số điện thoại của khách hàng',
         public string password { get; set; }//'Mật khẩu mã hóa',
@@ -17,6 +17,7 @@ namespace KLTN.Common.Entity
         public string? bank_account_number { get; set; }//'Số tài khoản',
         public string? bank_name { get; set; }// 'Tên ngân hàng',
         public string? bank_code { get; set; } //'Mã viết tắt của ngân hàng',
+        public string? qr_code_url{ get; set; } //'Ảnh đại diện của khách hàng',
         public int? is_manager { get; set; }//'là quản lý hay không phục vụ phân quyền',
     }
 }

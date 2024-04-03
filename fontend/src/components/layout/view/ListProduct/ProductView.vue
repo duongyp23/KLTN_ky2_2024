@@ -12,7 +12,7 @@
           <div class="btn-close">X</div>
         </button>
       </div>
-      <div class="form-center">
+      <div class="form-center mb-1">
         <div class="img-upload">
           <div
             class="big-img"
@@ -40,26 +40,22 @@
           </div>
           <div class="row-info">
             <div class="title">Giá thuê</div>
-            <div class="">{{ product.rental_price }}</div>
+            <div class="">{{ replaceNumber(product.rental_price) }}</div>
           </div>
           <div class="row-info">
-            <div class="title">Giá sản phẩm</div>
-            <div class="">{{ product.product_price }}</div>
+            <div class="title">Giá bán sản phẩm</div>
+            <div class="">{{ replaceNumber(product.sell_price) }}</div>
           </div>
           <div>Mô tả sản phẩm:</div>
           <div>{{ product.description }}</div>
-          <div class="list-category">
-            <div
-              v-for="item in categoryData"
+          <div class="row-flex wrap">
+            <label
+              class="tag"
+              v-for="item in selectCategory"
               :key="item.category_id"
-              :class="
-                selectCategory.find((x) => x.category_id == item.category_id)
-                  ? 'category-select'
-                  : 'category-not-select'
-              "
             >
-              {{ item.category_code }}
-            </div>
+              #{{ item.category_code }}
+            </label>
           </div>
           <div class="action">
             <button class="btn-add-cart" @click="addToCart">
@@ -73,8 +69,9 @@
 </template>
 <script>
 import Images from "@/assets/icon/images";
-import { apiGetAllCategory, apiGetCategoryOfProduct } from "@/api/categoryApi";
+import { apiGetCategoryOfProduct } from "@/api/categoryApi";
 import { apiAddProductToCart } from "@/api/productApi";
+import { replaceNumber } from "@/method/methodFormat";
 
 /**
  * Khởi tạo 1 Item với giá trị ban đầu là null
@@ -89,11 +86,11 @@ export default {
       product: {},
       list_img_url: [],
       Images,
-      categoryData: [],
       selectCategory: [],
     };
   },
   methods: {
+    replaceNumber,
     async addToCart() {
       if (this.$cookies.get("token")) {
         await apiAddProductToCart(
@@ -111,23 +108,14 @@ export default {
       } else {
         this.emitter.emit(
           "openToastMessageError",
-          "Thêm sản phẩm vào giỏ hàng không thành công"
+          "Vui lòng đăng nhậ để thực hiện chức năng"
         );
+        this.$router.replace(this.$router.path);
+        this.$router.push("/login");
       }
     },
     closeForm() {
       this.isOpen = false;
-    },
-    /**
-     * Lấy dữ liệu nhãn dán
-     */
-    async getCategoryData() {
-      this.categoryData = [];
-      await apiGetAllCategory([])
-        .then((response) => {
-          this.categoryData = response.data;
-        })
-        .catch(() => {});
     },
     async getDataCategoryOfProduct() {
       await apiGetCategoryOfProduct(this.product.product_id)
@@ -151,9 +139,7 @@ export default {
     });
   },
   watch: {},
-  created() {
-    this.getCategoryData();
-  },
+  created() {},
 };
 </script>
 

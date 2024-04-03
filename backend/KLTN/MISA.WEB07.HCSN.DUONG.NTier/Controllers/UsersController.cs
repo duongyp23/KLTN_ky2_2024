@@ -83,6 +83,20 @@ namespace MISA.WEB07.HCSN.DUONG.NTier
             }
         }
 
+        [HttpGet("GetBankAccountAdmin")]
+        public async Task<IActionResult> GetBankAccountAdmin()
+        {
+            try
+            {
+                User user = await _userBL.GetBankAccountAdmin();
+                return StatusCode(StatusCodes.Status200OK, user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+            }
+        }
+
         #endregion
     }
 }

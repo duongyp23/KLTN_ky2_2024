@@ -60,7 +60,7 @@ namespace KLTN.DataLayer
                     {
                         whereClause += " AND ";
                     }
-                    whereClause += $"{filter.columnName} {filter.operatorValue} {filter.operatorValue} ";
+                    whereClause += $"{filter.columnName} {filter.operatorValue} {filter.filterValue} ";
                 }
             }
             String getPagingData = $"SELECT * FROM {tableName} {whereClause} LIMIT  {(pageNumber-1)*pageSize}, {pageSize};";
@@ -129,7 +129,7 @@ namespace KLTN.DataLayer
                 if (property.GetCustomAttribute<KeyAttribute>() != null)
                 {
                     where.AppendFormat($" {property.Name} = @{property.Name} ");
-                } else
+                } else if (property.GetValue(entity) != null)
                 {
                     listUpdate.AppendFormat($" {property.Name} = @{property.Name} ,");
                 }

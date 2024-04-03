@@ -9,13 +9,15 @@ namespace KLTN.Common.Entity
     {
         [Key]
         public Guid? product_id { get; set; }
-        public string product_name { get; set; }
-        public string product_code { get; set; }
-        public string product_image_url { get; set; }
-        public decimal product_price { get; set; }
-        public decimal rental_price { get; set; }
+        public string? product_name { get; set; }
+        public string? product_code { get; set; }
+        public string? product_image_url { get; set; }
+        public decimal? product_price { get; set; }
+        public decimal? rental_price { get; set; }
+        public decimal? sell_price { get; set; }
         public int? status { get; set; }
-        public string description { get; set; }
-        public string product_list_img_url { get; set; } 
+        public string? status_name { get; set; }
+        public string? description { get; set; }
+        public string? product_list_img_url { get; set; } 
     }
 }

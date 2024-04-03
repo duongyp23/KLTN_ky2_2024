@@ -15,7 +15,7 @@ namespace KLTN.Common.Entity
         public decimal? total_order_payment { get; set; }  // 'tổng số tiền thanh toán của đơn hàng',
         public decimal? total_order_return { get; set; }  // 'tổng số tiền được trả lại = tổng số tiền cọc - tổng số tiền được thanh toán',
         public int? status { get; set; }  // 'Trạng thái của đơn hàng',
-        public Guid user_id { get; set; }  // 'id của khách hàng',
+        public Guid? user_id { get; set; }  // 'id của khách hàng',
         public string? user_name { get; set; }  // 'tên khách hàng',
         public string? phone_number { get; set; }
         public string? address { get; set; }

@@ -56,6 +56,12 @@ namespace KLTN.NTier.Controllers
             }
         }
 
+        [HttpPost("UpdateOrderData")]
+        public async Task<IActionResult> UpdateOrderData([FromBody]OrderData orderData)
+        {
+            bool result = await _orderBL.UpdateOrderData(orderData);
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
         #endregion
     }
 }

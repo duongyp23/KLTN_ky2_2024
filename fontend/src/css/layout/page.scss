@@ -68,3 +68,27 @@
     padding: 12px 20px;
     overflow: auto;
 }
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    column-gap: 15px;
+}
+.center {
+    justify-content: center;
+}
+.mt-1 {
+    margin-top: 10px;
+}
+.mb-1 {
+    margin-bottom: 10px;
+}
+.mr-1 {
+    margin-right: 10px;
+}
+.ml-1 {
+    margin-left: 10px;
+}
+.between {
+    justify-content: space-between;
+    width: 100%;
+}

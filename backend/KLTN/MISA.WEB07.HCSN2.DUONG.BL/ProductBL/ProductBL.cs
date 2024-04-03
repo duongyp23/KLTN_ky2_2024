@@ -41,10 +41,12 @@ namespace KLTN.BussinesLayer
                         product_id = productId,
                         product_code = product.product_code,
                         product_name = product.product_name,
-                        product_deposit = product.product_price,
+                        product_deposit = product.sell_price,
                         product_payment = product.rental_price,
-                        product_return = product.product_price - product.rental_price,
-                        product_image_url = product.product_image_url
+                        product_rental = product.rental_price,
+                        product_return = product.sell_price - product.rental_price,
+                        product_image_url = product.product_image_url,
+                        order_type = 0,
                     };
                     await _orderDetailDL.Insert(orderDetail);
                 }
@@ -66,10 +68,12 @@ namespace KLTN.BussinesLayer
                         product_id = productId,
                         product_code = product.product_code,
                         product_name = product.product_name,
-                        product_deposit = product.product_price,
+                        product_deposit = product.sell_price,
                         product_payment = product.rental_price,
-                        product_return = product.product_price - product.rental_price,
-                        product_image_url = product.product_image_url
+                        product_rental = product.rental_price,
+                        product_return = product.sell_price - product.rental_price,
+                        product_image_url = product.product_image_url,
+                        order_type = 0,
                     };
                     await _orderDetailDL.Insert(orderDetail);
                 }
@@ -90,9 +94,8 @@ namespace KLTN.BussinesLayer
                         product_id = productId,
                         product_code = data.product.product_code,
                         product_name = data.product.product_name,
-                        category_id = item.category_id,
+                        category_id = (Guid)item.category_id,
                         category_code = item.category_code,
-                        category_name = item.category_name,
                     };
                     await _productCategoryDL.Insert(productCategory);
                 }
@@ -114,9 +117,8 @@ namespace KLTN.BussinesLayer
                         product_id = data.product.product_id,
                         product_code = data.product.product_code,
                         product_name = data.product.product_name,
-                        category_id = item.category_id,
+                        category_id = (Guid)item.category_id,
                         category_code = item.category_code,
-                        category_name = item.category_name,
                     };
                     await _productCategoryDL.Insert(productCategory);
                 }

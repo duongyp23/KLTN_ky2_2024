@@ -35,3 +35,7 @@ export const apiGetAllCategory = (filter) => {
 export const apiGetCategoryOfProduct = (productId) => {
     return request().get('GetCategoryOfProduct?productId=' + productId);
 }
+
+export const apiDeleteCategory = (id) => {
+    return request().delete('Delete/' + id);
+}

@@ -1,20 +1,18 @@
 <template>
   <div class="category-table">
-    <div style="display: flex" v-if="isManager">
-      <button class="btn-tool btn-add" @click="openForm">
-        + Thêm nhãn dán
-      </button>
-    </div>
     <div
       class="group-category-type"
       v-for="item in CategoryType"
       :key="item.id"
     >
       <div class="type-name">{{ item.name }}</div>
+      <hr />
       <div class="list-category">
-        <div v-for="category in datalist" :key="category.category_id">
+        <div
+          v-for="category in datalist.filter((x) => x.type == item.id)"
+          :key="category.category_id"
+        >
           <button
-            v-if="category.type == item.id"
             :class="
               selectCategory.find((x) => x.category_id == category.category_id)
                 ? 'category category-select'
@@ -27,11 +25,12 @@
           </button>
         </div>
       </div>
-
-      <hr />
     </div>
-    <div class="search">
-      <button class="btn-tool btn-search" @click="openForm">Tìm kiếm</button>
+    <div class="flex-row center mt-1" v-if="showButton && isManager">
+      <button class="form-btn btn1" @click="searchProductByCategory">
+        Tìm kiếm
+      </button>
+      <button class="form-btn btn3" @click="openForm">+ Thêm nhãn dán</button>
     </div>
     <CategoryForm></CategoryForm>
   </div>
@@ -53,8 +52,17 @@ export default {
       selectCategory: [],
     };
   },
+  props: {
+    showButton: {
+      default: false,
+      type: Boolean,
+    },
+  },
   components: { CategoryForm },
   methods: {
+    openForm() {
+      this.emitter.emit("addNewCategory");
+    },
     changeCategory(category) {
       var index = this.selectCategory.indexOf(category);
       if (index > -1) {
@@ -70,13 +78,6 @@ export default {
       this.isLoader = true;
       this.datalist = [];
       let filter = [];
-      if (this.keyword != null) {
-        filter.push({
-          columnName: "category_code",
-          filterValue: this.keyword,
-          operatorValue: "=",
-        });
-      }
       await apiGetAllCategory(filter)
         .then((response) => {
           this.datalist = response.data;
@@ -89,27 +90,20 @@ export default {
         });
     },
     openFormEdit(category) {
-      if (this.isManager) {
+      if (this.isManager && this.showButton) {
         this.emitter.emit("updateCategory", category);
       }
     },
   },
 
   mounted() {
-    /**
-     * Lọc tài sản theo tên
-     * NTD 14/8/2022
+    /***
+     * load lại page
+     * NTD 5/9/2022
      */
-    this.emitter.on("searchItemInList", (valueSearch) => {
-      this.keyword = valueSearch;
-    }),
-      /***
-       * load lại page
-       * NTD 5/9/2022
-       */
-      this.emitter.on("loadDataCategory", () => {
-        this.getNewData();
-      });
+    this.emitter.on("loadDataCategory", () => {
+      this.getNewData();
+    });
   },
   created() {
     /***
@@ -118,19 +112,7 @@ export default {
      */
     this.getNewData();
   },
-  watch: {
-    /***
-     * Kiểm tra thay đổi giá trị để phân trang
-     * NTD 5/9/2022
-     */
-    keyword() {
-      if (this.pageNumber != 1) {
-        this.pageNumber = 1;
-      } else {
-        this.getNewData();
-      }
-    },
-  },
+  watch: {},
 };
 </script>
 <style>

@@ -1,6 +1,6 @@
 <template>
   <div class="dictionary-page">
-    <CategoryTable class="left-page"></CategoryTable>
+    <CategoryTable class="left-page" :show-button="true"></CategoryTable>
     <ProductList class="right-page"></ProductList>
   </div>
 </template>

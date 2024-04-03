@@ -1,11 +1,17 @@
 .category-form{
     .form {
-        width: 630px;
-        .form-small-div{
-            width: 200px  !important;
+        width: 600px;
+        .style-input {
+            width:50% ;
         }
-    }
-    .description {
-        width: 100%;
+        .description {
+                width: 100%;
+                .row-input {
+                    height: 160px;
+                    .input-box {
+                        padding-top: 12px;
+                    }
+                }
+            }
     }
 }

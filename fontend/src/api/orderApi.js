@@ -21,6 +21,10 @@ export const apiUpdateOrder = (order) => {
     return request().post('Update', order)
 }
 
+export const apiUpdateOrderData = (order, orderDetails) => {
+    return request().post('UpdateOrderData', { order, orderDetails })
+}
+
 export const apiGetOrder = (orderId) => {
     return request().get(orderId)
 }
@@ -31,4 +35,8 @@ export const apiGetOrderOfUser = (userId) => {
 
 export const apiGetAllOrder = () => {
     return request().get('GetAll');
+}
+
+export const apiGetPagingOrder = (filter, pageSize, pageNumber) => {
+    return request().post('Paging?pageSize=' + pageSize + '&pageNumber=' + pageNumber, filter)
 }

@@ -4,7 +4,7 @@ import  Resource  from "@/resource/MsResource";
  * 
  */
 export function  replaceNumber(number) {
-    if(number ==0 ) {
+    if(!number ) {
         return null
     }
     number = number.toFixed(0)
@@ -15,20 +15,40 @@ export function  replaceNumber(number) {
  * 
  */
 export function datetimeToDate(date) {
-    const current = new Date(date)
-    var day
-    if(current.getMonth()+1< 10) {
-        if(current.getDate() < 10) {
-            day = `${current.getFullYear()}-0${current.getMonth()+1}-0${current.getDate()}`
+    if (date != null) {
+        const current = new Date(date)
+        var day
+        if(current.getMonth()+1< 10) {
+            if(current.getDate() < 10) {
+                day = `${current.getFullYear()}-0${current.getMonth()+1}-0${current.getDate()}`
+            } else {
+                day = `${current.getFullYear()}-0${current.getMonth()+1}-${current.getDate()}`
+            }
         } else {
-            day = `${current.getFullYear()}-0${current.getMonth()+1}-${current.getDate()}`
+            if(current.getDate() < 10) {
+                day = `${current.getFullYear()}-${current.getMonth()+1}-0${current.getDate()}`
+            } else {
+                day = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`
+            }
         }
-    } else {
-        if(current.getDate() < 10) {
-            day = `${current.getFullYear()}-${current.getMonth()+1}-0${current.getDate()}`
-        } else {
-            day = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`
-        }
+        return day
     }
-    return day
+    return null;
+}
+
+export function checkStatusOrder(status) {
+    switch (status) {
+        case 1:
+            return "Đơn hàng chờ";
+        case 2:
+            return "Đơn hàng đợi thanh toán";
+        case 3:
+            return "Đã đặt hàng";
+        case 4:
+            return "Đã gửi hàng";
+        case 5:
+            return "Đã hoàn thành";
+        default:
+            return "";
+    }
 }

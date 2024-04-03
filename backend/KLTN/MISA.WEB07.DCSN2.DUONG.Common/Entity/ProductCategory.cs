@@ -20,10 +20,5 @@ namespace KLTN.Common.Entity
         /// Mã nhãn dán
         /// </summary>
         public string category_code { get; set; }
-
-        /// <summary>
-        /// Tên nhãn dán
-        /// </summary>
-        public string category_name { get; set; }
     }
 }

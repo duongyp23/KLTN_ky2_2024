@@ -1,6 +1,5 @@
 <template>
   <div class="order-list">
-    <div class="find"></div>
     <div class="list-order">
       <div class="order-item">
         <div>Ngày đặt hàng</div>
@@ -19,37 +18,52 @@
         <div>{{ datetimeToDate(item.from_date) }}</div>
         <div>{{ datetimeToDate(item.to_date) }}</div>
         <div>{{ replaceNumber(item.total_order_deposit) }}</div>
-        <div>{{ item.status }}</div>
+        <div>{{ checkStatusOrder(item.status) }}</div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { apiGetAllOrder } from "@/api/orderApi";
-import { replaceNumber, datetimeToDate } from "@/method/methodFormat";
+import { apiGetPagingOrder } from "@/api/orderApi";
+import {
+  replaceNumber,
+  datetimeToDate,
+  checkStatusOrder,
+} from "@/method/methodFormat";
 export default {
   data() {
     return {
       listOrder: [],
+      pagaSize: 20,
+      pageNumber: 1,
     };
   },
   methods: {
     replaceNumber,
     datetimeToDate,
+    checkStatusOrder,
     viewOrder(orderId) {
       this.$router.replace(this.$router.path);
       this.$router.push(`/order/${orderId}`, {
         params: { id: orderId },
       });
     },
-    async getAllOrder() {
-      await apiGetAllOrder().then((response) => {
-        this.listOrder = response.data;
+    async getPagingOrder() {
+      let filter = [];
+      filter.push({
+        columnName: "status",
+        filterValue: 1,
+        operatorValue: "!=",
       });
+      await apiGetPagingOrder(filter, this.pagaSize, this.pageNumber).then(
+        (response) => {
+          this.listOrder = response.data.data;
+        }
+      );
     },
   },
   created() {
-    this.getAllOrder();
+    this.getPagingOrder();
   },
 };
 </script>

@@ -57,7 +57,7 @@ export default {
           this.$cookies.set("role", response.data.role, { expires: 1 / 24 });
         })
         .catch(() => {});
-
+      this.emitter.emit("reloadRole");
       if (this.$cookies.get("token") != null) {
         this.$router.replace(this.$router.path);
         this.$router.push("/homepage");

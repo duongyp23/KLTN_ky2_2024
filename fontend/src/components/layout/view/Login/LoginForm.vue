@@ -73,6 +73,7 @@ export default {
           );
         });
 
+      this.emitter.emit("reloadRole");
       if (this.$cookies.get("token")) {
         this.$router.replace(this.$router.path);
         this.$router.push("/homepage");

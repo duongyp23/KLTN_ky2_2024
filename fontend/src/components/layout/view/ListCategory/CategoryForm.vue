@@ -12,18 +12,13 @@
           <div class="btn-close">X</div>
         </button>
       </div>
-      <div class="form-center">
+      <div class="form-center col-flex">
         <div class="row-flex">
           <StyleInput
             :label="'Mã nhãn dán'"
             v-model:value="category.category_code"
           ></StyleInput>
-
-          <StyleInput
-            :label="'Tên nhán dán'"
-            v-model:value="category.category_name"
-          ></StyleInput>
-          <div class="form-small-div col-flex">
+          <div class="style-input col-flex">
             <label class="Form-Label">Loại nhãn dán</label>
             <MsCombobox
               :items="categoryType"
@@ -32,34 +27,34 @@
             ></MsCombobox>
           </div>
         </div>
-        <div class="row-flex">
-          <StyleInput
-            class="description"
-            :label="'Diễn giải'"
-            v-model:value="category.description"
-          ></StyleInput>
-        </div>
+        <StyleInput
+          class="description"
+          :label="'Diễn giải'"
+          v-model:value="category.description"
+          type="textarea"
+        ></StyleInput>
       </div>
       <div class="form-footer">
-        <button class="form-btn" v-on:click="closeForm">Hủy</button>
+        <button class="form-btn btn1" v-on:click="closeForm">Hủy</button>
         <button
-          class="form-btn"
-          style="
-            background-color: rgba(26, 164, 200);
-            color: #fff;
-            margin-left: 10px;
-          "
-          @click="saveForm"
+          class="form-btn btn2"
+          v-on:click="deleteCategory"
+          v-if="formStatus == 2"
         >
-          Lưu
+          Xóa
         </button>
+        <button class="form-btn btn3" @click="saveForm">Lưu</button>
       </div>
     </div>
   </div>
 </template>
 <script>
 import Resource from "@/resource/MsResource";
-import { apiInsertCategory, apiUpdateCategory } from "@/api/categoryApi";
+import {
+  apiInsertCategory,
+  apiUpdateCategory,
+  apiDeleteCategory,
+} from "@/api/categoryApi";
 import MsCombobox from "@/components/base/MsCombobox.vue";
 import CategoryType from "@/resource/CategoryType";
 import StyleInput from "@/components/base/StyleInput/StyleInput.vue";
@@ -79,6 +74,12 @@ export default {
     };
   },
   methods: {
+    async deleteCategory() {
+      await apiDeleteCategory(this.category.category_id).then(() => {
+        this.emitter.emit("loadDataCategory");
+        this.closeForm();
+      });
+    },
     closeForm() {
       this.isOpen = false;
     },
@@ -152,6 +153,7 @@ export default {
      */
     this.emitter.on("addNewCategory", async () => {
       this.formStatus = 1;
+      this.category = {};
       this.setLabel("Thêm nhãn dán");
       this.isOpen = true;
     });

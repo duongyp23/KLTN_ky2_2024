@@ -135,6 +135,31 @@ namespace KLTN.BussinesLayer
             }
         }
 
+        public async Task<User> GetBankAccountAdmin()
+        {
+            List<Filter> filters = new List<Filter>()
+            {
+                new Filter()
+                {
+                    columnName = nameof(User.is_manager),
+                    filterValue = 1,
+                    operatorValue = "=",
+                }
+            };
+            User admin = (await _userDL.GetDataByField(filters)).FirstOrDefault();
+            if (admin != null)
+            {
+                return new User()
+                {
+                    bank_account_number = admin.bank_account_number,
+                    bank_code = admin.bank_code,
+                    bank_name = admin.bank_name,
+                    qr_code_url = admin.qr_code_url,
+                };
+            }
+            return null;
+        }
+
         #endregion
     }
 }

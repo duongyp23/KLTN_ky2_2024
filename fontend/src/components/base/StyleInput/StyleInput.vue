@@ -15,13 +15,24 @@
         :value="value"
         :placeholder="[placeholder ? placeholder : label ? label : '']"
         @input="$emit('update:value', $event.target.value)"
+        :disabled="disabled"
       />
       <textarea
-        v-if="type == 'textarea'"
+        v-else-if="type == 'textarea'"
         class="input-box"
         :value="value"
         :placeholder="[placeholder ? placeholder : label ? label : '']"
         @input="$emit('update:value', $event.target.value)"
+        :disabled="disabled"
+      />
+      <input
+        v-else-if="type == 'date'"
+        type="date"
+        class="input-box"
+        :value="value"
+        :placeholder="[placeholder ? placeholder : label ? label : '']"
+        @input="$emit('update:value', $event.target.value)"
+        :disabled="disabled"
       />
     </div>
   </div>
@@ -41,6 +52,7 @@ export default {
     value: { default: null, type: String }, // giá trị input
     rightIcon: { type: String }, // icon
     id: { default: null, type: String }, // ID
+    disabled: { type: Boolean, default: false },
   },
   computed: {},
   methods: {},

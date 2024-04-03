@@ -14,31 +14,29 @@
     margin: auto;
     height: auto;
     width: 1000px;
+    max-height: 720px;
     background-color: #fff;
     opacity: 1;
     display: flex;
     flex-direction: column;
     border-radius: 3.5px;
+    row-gap: 8px;
 }
 
 .form-header {
-    margin-top: 20px;
+    padding: 16px 20px;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
-    padding-left: 16px;
-    padding-right: 16px;
     font-weight: 700;
+    border-bottom: 1px solid gray;
 }
 
 .form-center {
-    display: flex;
-    flex-direction: column;
-
     padding-left: 16px;
     padding-right: 16px;
     row-gap: 8px;
-    margin-bottom: 8px;
+    max-height: calc(100% - 100px);
+    overflow: auto;
 }
 
 .form-center.voucher {
@@ -63,7 +61,9 @@
     width: 100%;
 
 }
-
+.wrap {
+    flex-wrap: wrap;
+}
 .col-flex {
     display: flex;
     flex-direction: column;
@@ -75,12 +75,12 @@
     padding-left: 16px;
     padding-right: 16px;
     /* margin-top: 20px; */
-    height: 52px;
+    min-height: 52px;
     align-items: center;
     display: flex;
     justify-content: flex-end;
     background-color: #f5f5f5;
-
+    column-gap: 15px;
 }
 
 .form-small-div {
@@ -140,11 +140,8 @@ input.form-input:active {
 .form-btn {
     height: 36px;
     text-align: center;
-    width: 100px;
-    background-color: #fff;
-    border: none;
-    border-radius: 2.5px;
-    border: none;
+    min-width: 100px;
+    border-radius: 4px;
 }
 
 .form-input.error {

@@ -43,6 +43,18 @@ const Resource = {
         Active: 1,
         // chưa ghi tăng
         NotActive: 0,
-    }
+    },
+    ProductStatus: [
+        {
+            id: 1,
+            name: 'Chưa cho thuê'
+        },{
+            id: 2,
+            name: 'Đang cho thuê'
+        },{
+            id: 3,
+            name: 'Đã bán'
+        },
+    ]
 }
 export default Resource;

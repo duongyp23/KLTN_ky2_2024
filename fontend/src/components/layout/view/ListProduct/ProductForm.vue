@@ -67,41 +67,67 @@
               :label="'Giá thuê sản phẩm'"
             ></InputNumber>
           </div>
+          <div class="row-flex">
+            <InputNumber
+              :label="'Giá bán sản phẩm'"
+              v-model:numberValue="product.sell_price"
+            ></InputNumber>
+            <div class="style-input col-flex">
+              <label class="Form-Label">Trạng thái</label>
+              <MsCombobox
+                :items="Resource.ProductStatus"
+                v-model:value="product.status_name"
+                v-model:id="product.status"
+              ></MsCombobox>
+            </div>
+          </div>
           <StyleInput
             class="description"
             :label="'Mô tả sản phẩm'"
             v-model:value="product.description"
             type="textarea"
           ></StyleInput>
-          <div class="list-category">
-            <div
-              v-for="item in categoryData"
-              :key="item.category_id"
-              :class="
-                selectCategory.find((x) => x.category_id == item.category_id)
-                  ? 'category-select'
-                  : 'category-not-select'
-              "
-              @click="changeCategory(item)"
-            >
-              {{ item.category_code }}
+          <div
+            class="group-category-type"
+            v-for="item in CategoryType"
+            :key="item.id"
+          >
+            <div class="type-name">{{ item.name }}</div>
+            <hr />
+            <div class="list-category">
+              <div
+                v-for="category in categoryData.filter(
+                  (x) => x.type == item.id
+                )"
+                :key="category.category_id"
+              >
+                <button
+                  :class="
+                    selectCategory.find(
+                      (x) => x.category_id == category.category_id
+                    )
+                      ? 'category category-select'
+                      : 'category category-not-select'
+                  "
+                  @click="changeCategory(category)"
+                >
+                  {{ category.category_code }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="form-footer">
-        <button class="form-btn" v-on:click="closeForm">Hủy</button>
+        <button class="form-btn btn1" v-on:click="closeForm">Hủy</button>
         <button
-          class="form-btn"
-          style="
-            background-color: rgba(26, 164, 200);
-            color: #fff;
-            margin-left: 10px;
-          "
-          @click="saveForm"
+          class="form-btn btn2"
+          @click="deleteProduct"
+          v-if="formStatus == 2"
         >
-          Lưu
+          Xóa
         </button>
+        <button class="form-btn btn3" @click="saveForm">Lưu</button>
       </div>
     </div>
   </div>
@@ -110,9 +136,16 @@
 import Resource from "@/resource/MsResource";
 import StyleInput from "@/components/base/StyleInput/StyleInput.vue";
 import InputNumber from "@/components/base/StyleInput/InputNumber.vue";
-import { apiInsertProduct, apiUpdateProduct } from "@/api/productApi";
+import MsCombobox from "@/components/base/MsCombobox.vue";
+
+import {
+  apiInsertProduct,
+  apiUpdateProduct,
+  apiDeleteProduct,
+} from "@/api/productApi";
 import Images from "@/assets/icon/images";
 import { apiGetAllCategory, apiGetCategoryOfProduct } from "@/api/categoryApi";
+import CategoryType from "@/resource/CategoryType";
 
 /**
  * Khởi tạo 1 Item với giá trị ban đầu là null
@@ -129,9 +162,17 @@ export default {
       Images,
       categoryData: [],
       selectCategory: [],
+      CategoryType,
+      Resource,
     };
   },
   methods: {
+    async deleteProduct() {
+      await apiDeleteProduct(this.product.product_id).then(() => {
+        this.emitter.emit("reloadProductList");
+        this.closeForm();
+      });
+    },
     changeCategory(category) {
       var index = this.selectCategory.findIndex(
         (item) => item.category_id == category.category_id
@@ -200,6 +241,7 @@ export default {
      * NYD 5/9/2022
      */
     async addNewProduct() {
+      this.product.status = 1;
       this.product.product_list_img_url = this.list_img_url.join(";");
       await apiInsertProduct(this.product, this.selectCategory)
         .then(() => {
@@ -207,7 +249,7 @@ export default {
             "openToastMessage",
             Resource.SuccessMessage.SuccessMessageAdd
           );
-          this.emitter.emit("loadDataCategory");
+          this.emitter.emit("reloadProductList");
           this.isOpen = false;
         })
         .catch(() => {
@@ -225,7 +267,7 @@ export default {
       this.product.product_list_img_url = this.list_img_url.join(";");
       await apiUpdateProduct(this.product, this.selectCategory)
         .then(() => {
-          this.emitter.emit("loadDataCategory");
+          this.emitter.emit("reloadProductList");
           this.isOpen = false;
         })
         .catch(() => {
@@ -254,15 +296,19 @@ export default {
         .catch(() => {});
     },
   },
-  components: { StyleInput, InputNumber },
+  components: { StyleInput, InputNumber, MsCombobox },
   mounted() {
     /**
      * Mở form thêm tài sản từ Tool
      * NTD 8/8/2022
      */
     this.emitter.on("addNewProduct", async () => {
+      this.getCategoryData();
+
       this.formStatus = 1;
       this.product = {};
+      this.selectCategory = [];
+      this.list_img_url = [];
       this.setLabel("Thêm sản phẩm");
       this.isOpen = true;
     });
@@ -271,6 +317,8 @@ export default {
      * NTD 8/8/2022
      */
     this.emitter.on("updateProduct", async (product) => {
+      this.getCategoryData();
+
       this.product = Object.assign({}, product);
       this.formStatus = 2;
       this.setLabel("Sửa nhãn dán");
@@ -279,9 +327,7 @@ export default {
     });
   },
   watch: {},
-  created() {
-    this.getCategoryData();
-  },
+  created() {},
 };
 </script>
 

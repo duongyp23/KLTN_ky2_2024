@@ -6,6 +6,9 @@
         :placeholder="'Tìm kiếm sản phẩm'"
         v-model:value="searchText"
       ></StyleInput>
+      <button class="btn-tool btn-add ml-1" @click="searchProduct">
+        Tìm kiếm
+      </button>
     </div>
     <div style="display: flex" v-if="isManager">
       <button class="btn-tool btn-add" @click="openForm">
@@ -34,13 +37,12 @@ export default {
     openForm() {
       this.emitter.emit("addNewProduct");
     },
-  },
-  mounted() {},
-  watch: {
-    searchText() {
-      this.emitter.emit("searchItemInList", this.searchText);
+    searchProduct() {
+      this.emitter.emit("searchProduct", this.searchText);
     },
   },
+  mounted() {},
+  watch: {},
 };
 </script>
 <style>

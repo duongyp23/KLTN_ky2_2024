@@ -13,6 +13,7 @@ namespace KLTN.Common.Entity
         public string? product_code { get; set; } // 'mã sản phẩm',
         public string? product_name { get; set; } // 'tên sản phẩm',
         public decimal? product_deposit { get; set; } // 'số tiền cọc của sản phẩm',
+        public decimal? product_rental { get; set; } 
         public decimal? product_payment { get; set; } // 'số tiền thuê của sản phẩm',
         public decimal? product_return { get; set; } // 'Số tiền trả lại của sản phẩm = số tiền cọc - sổ tiền thuê',
         public int? order_type { get; set; } // mua hay thuê sản phẩm
