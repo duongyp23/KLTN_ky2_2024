@@ -1,6 +1,15 @@
 .order-list{
-    position: relative;
+    display: flex;
+    justify-content: center;
     .list-order {
-        
+        background-color: lightgrey;
+        width: 70%;
+        .order-item {
+            padding: 6px;
+            .table-header {
+                font-weight: 700;
+            }
+
+        }
     }
 }

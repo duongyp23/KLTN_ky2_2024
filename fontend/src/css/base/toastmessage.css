@@ -1,7 +1,7 @@
 .toast-message {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 60px;
+    right: 10px;
     width: fit-content;
     
     background-color: #fff;

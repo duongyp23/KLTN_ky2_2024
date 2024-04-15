@@ -110,10 +110,21 @@
                     }
                 }
                 .row-info {
+                    margin-top: 10px;
                     display: flex;
                     flex-direction: row;
+                    justify-content: space-between;
+                    padding: 0px 20px;
                     .title {
                         width: 150px;
+                    }
+                    .amount1 {
+                        color: red;
+                        font-weight: 600;
+                    }
+                    .amount2 {
+                        color: blue;
+                        font-weight: 700;
                     }
                 }
                 .action {
@@ -134,5 +145,8 @@
     }
     .description {
         width: 100%;
+    }
+    .title-header {
+        font-size: 24px;
     }
 }

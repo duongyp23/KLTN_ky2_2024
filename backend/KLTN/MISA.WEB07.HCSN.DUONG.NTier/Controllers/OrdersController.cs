@@ -62,6 +62,21 @@ namespace KLTN.NTier.Controllers
             bool result = await _orderBL.UpdateOrderData(orderData);
             return StatusCode(StatusCodes.Status200OK, result);
         }
+
+        [HttpPost("Payment")]
+
+        public async Task<IActionResult> Payment(Guid id)
+        {
+            try
+            {
+                object result = await _orderBL.Payment(id);
+                return StatusCode(StatusCodes.Status200OK, result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ErrorCode.Exception);
+            }
+        }
         #endregion
     }
 }

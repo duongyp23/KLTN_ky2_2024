@@ -47,8 +47,8 @@
         column-gap: 20px;
     }
     .left-header{
-        width: 200px;
         font-weight: 700;
+        font-size: 18px;
     }
     .right-header{
         width: 200px;
@@ -87,6 +87,18 @@
 }
 .ml-1 {
     margin-left: 10px;
+}
+.mt-2 {
+    margin-top: 20px;
+}
+.mb-2 {
+    margin-bottom: 20px;
+}
+.mr-2 {
+    margin-right: 20px;
+}
+.ml-2 {
+    margin-left: 20px;
 }
 .between {
     justify-content: space-between;

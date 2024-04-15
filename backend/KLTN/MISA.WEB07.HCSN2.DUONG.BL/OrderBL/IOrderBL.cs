@@ -7,6 +7,7 @@ namespace KLTN.BussinesLayer
     {
         Task<OrderData> GetOrderData(Guid id);
         Task<List<Order>> GetOrderOfUser(Guid id);
+        Task<object> Payment(Guid id);
         Task<bool> UpdateOrderData(OrderData orderData);
     }
 }

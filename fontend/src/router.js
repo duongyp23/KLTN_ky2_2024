@@ -6,6 +6,7 @@ import DictionaryPage from './components/layout/view/Dictionary/DictionaryPage.v
 import UserInfomation from './components/layout/view/Login/UserInfomation.vue';
 import OrderDetail from './components/layout/view/Order/OrderDetail.vue';
 import OrderList from './components/layout/view/OrderList/OrderList.vue';
+import DashboardView from './components/layout/view/Dashboard/DashboardView.vue';
 
 const routes = [
     {
@@ -39,6 +40,10 @@ const routes = [
     {
         path: '/orderlist',
         component: OrderList
+    },
+    {
+        path: '/dashboard',
+        component: DashboardView
     }
 
 ]

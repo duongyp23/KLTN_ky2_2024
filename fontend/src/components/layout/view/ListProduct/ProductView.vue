@@ -1,8 +1,12 @@
 <template>
-  <div class="product-form form-view" v-show="isOpen" @keyup.esc="closeForm()">
+  <div
+    class="product-form form-view product-view"
+    v-show="isOpen"
+    @keyup.esc="closeForm()"
+  >
     <div class="form">
       <div class="form-header">
-        <div>{{ product.product_name }}</div>
+        <div class="title-header">{{ product.product_name }}</div>
         <button
           class="btn-header"
           style="border: none; background: transparent"
@@ -40,15 +44,15 @@
           </div>
           <div class="row-info">
             <div class="title">Giá thuê</div>
-            <div class="">{{ replaceNumber(product.rental_price) }}</div>
+            <div class="amount1">{{ replaceNumber(product.rental_price) }}</div>
           </div>
           <div class="row-info">
             <div class="title">Giá bán sản phẩm</div>
-            <div class="">{{ replaceNumber(product.sell_price) }}</div>
+            <div class="amount2">{{ replaceNumber(product.sell_price) }}</div>
           </div>
-          <div>Mô tả sản phẩm:</div>
-          <div>{{ product.description }}</div>
-          <div class="row-flex wrap">
+          <div class="row-info">Mô tả sản phẩm:</div>
+          <div class="row-info">{{ product.description }}</div>
+          <div class="flex-row wrap ml-2">
             <label
               class="tag"
               v-for="item in selectCategory"

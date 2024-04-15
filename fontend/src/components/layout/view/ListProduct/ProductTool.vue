@@ -5,10 +5,8 @@
         :rightIcon="'search'"
         :placeholder="'Tìm kiếm sản phẩm'"
         v-model:value="searchText"
+        @change="searchProduct"
       ></StyleInput>
-      <button class="btn-tool btn-add ml-1" @click="searchProduct">
-        Tìm kiếm
-      </button>
     </div>
     <div style="display: flex" v-if="isManager">
       <button class="btn-tool btn-add" @click="openForm">

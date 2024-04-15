@@ -8,14 +8,22 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.3.0" />
+    <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.22.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+    <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.23.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MISA.WEB07.DCSN2.DUONG.Common\KLTN.Common.csproj" />
     <ProjectReference Include="..\MISA.WEB07.HCSN2.DUONG.DL\KLTN.Datalayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="OrderBL\csharp_ZaloPayHelper\__MACOSX\ZaloPayHelper\Crypto\" />
   </ItemGroup>
 
 </Project>

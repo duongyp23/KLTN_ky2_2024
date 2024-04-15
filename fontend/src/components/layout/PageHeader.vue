@@ -10,6 +10,11 @@
         :label="'Đơn hàng'"
         :routerPath="'/orderlist'"
       ></ButtonMenu>
+      <ButtonMenu
+        v-show="isManager"
+        :label="'Tổng quan'"
+        :routerPath="'/dashboard'"
+      ></ButtonMenu>
     </div>
 
     <div class="right-header">

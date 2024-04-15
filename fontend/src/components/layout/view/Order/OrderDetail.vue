@@ -18,9 +18,6 @@
           {{ item.product_name }}
         </div>
         <div class="price">
-          {{ replaceNumber(item.product_deposit) }}
-        </div>
-        <div class="price">
           {{ replaceNumber(item.product_payment) }}
         </div>
         <div class="order-type">
@@ -43,12 +40,9 @@
           />
           Mua
         </div>
-        <button
-          class="btn-img remove"
-          @click="remove(item)"
-          :style="'background-image : url(' + Images.del + ')'"
-          v-show="!isDisable"
-        ></button>
+        <button class="remove" @click="remove(item)" v-show="!isDisable">
+          X
+        </button>
       </div>
     </div>
     <div class="total-order">
@@ -115,14 +109,14 @@
         />
         Thanh toán khi nhận hàng
       </div>
-      <div>
+      <div class="mb-1">
         <input
           type="radio"
           v-model="order.payment_type"
           value="1"
           :disabled="isDisable"
         />
-        Thanh toán trước
+        Thanh toán online
       </div>
       <button
         @click="saveOrder(false)"
@@ -131,21 +125,20 @@
       >
         Xác nhận đơn hàng
       </button>
-      <button
-        @click="openPopupPayment()"
-        v-else-if="order.status == 2 && !isManager"
-        class="form-btn btn3"
-      >
-        Thanh toán đơn hàng
-      </button>
-      <div class="flex-row center" v-if="isManager && order.status == 3">
+
+      <div class="flex-row center" v-if="order.status == 2">
         <button
           @click="updateOrderStatus(1)"
           v-if="order.payment_type == 1"
           class="form-btn btn2"
         >
-          Chưa thanh toán
+          Hủy đơn hàng
         </button>
+        <button @click="openPopupPayment()" class="form-btn btn3">
+          Thanh toán đơn hàng
+        </button>
+      </div>
+      <div class="flex-row center" v-if="isManager && order.status == 3">
         <button @click="updateOrderStatus(4)" class="form-btn btn3">
           Đã gửi hàng
         </button>
@@ -165,11 +158,12 @@
 import StyleInput from "../../../base/StyleInput/StyleInput.vue";
 import Images from "@/assets/icon/images";
 import { apiDeleteOrderDetail } from "@/api/orderDetailApi";
-import { replaceNumber } from "@/method/methodFormat";
+import { replaceNumber, datetimeToDate } from "@/method/methodFormat";
 import {
   apiUpdateOrderData,
   apiGetOrder,
   apiUpdateOrder,
+  apiOrderPayment,
 } from "@/api/orderApi";
 import PopupPayment from "./PopupPayment.vue";
 export default {
@@ -189,6 +183,7 @@ export default {
   },
   components: { StyleInput, PopupPayment },
   methods: {
+    datetimeToDate,
     checkMoney(item, type) {
       switch (type) {
         case 0:
@@ -206,6 +201,8 @@ export default {
       await apiUpdateOrder({
         order_id: this.order.order_id,
         status: status,
+      }).then(() => {
+        this.order.status = status;
       });
     },
     async saveOrder(isPay) {
@@ -218,7 +215,6 @@ export default {
         }
       }
       await apiUpdateOrderData(this.order, this.orderDetails).then(() => {
-        debugger;
         if (this.order.status == 3) {
           this.closeForm();
         } else if (this.order.status == 2) {
@@ -226,8 +222,10 @@ export default {
         }
       });
     },
-    openPopupPayment() {
-      this.emitter.emit("openPopupPayment", this.order);
+    async openPopupPayment() {
+      await apiOrderPayment(this.order.order_id).then((response) => {
+        window.location = response.data.orderurl;
+      });
     },
     async remove(item) {
       await apiDeleteOrderDetail(item.order_detail_id).then(() => {
@@ -241,6 +239,12 @@ export default {
         this.calculateOrderMoney();
         if (this.order.status != 1) {
           this.isDisable = true;
+        }
+        if (this.order.from_date == null) {
+          this.order.from_date = this.datetimeToDate(new Date());
+        }
+        if (this.order.to_date == null) {
+          this.order.to_date = this.datetimeToDate(new Date());
         }
       });
     },

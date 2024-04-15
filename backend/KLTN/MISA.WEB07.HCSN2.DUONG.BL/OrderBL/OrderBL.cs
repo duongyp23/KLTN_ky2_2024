@@ -1,7 +1,10 @@
-﻿using KLTN.Common.Entity;
+﻿using System.Web.WebPages.Html;
+using KLTN.Common.Entity;
 using KLTN.Common.Entity.DTO;
 using KLTN.DataLayer;
-using static Dapper.SqlMapper;
+using Newtonsoft.Json;
+using ZaloPay.Helper;
+using ZaloPay.Helper.Crypto;
 
 namespace KLTN.BussinesLayer
 {
@@ -16,6 +19,7 @@ namespace KLTN.BussinesLayer
         #endregion
 
         #region Constructor
+        public string key1 = "sdngKKJmqEMzvh5QQcdD2A9XBSKUNaYn";
 
         public OrderBL(IOrderDL orderDL, IOrderDetailDL orderDetailDL, IProductDL productDL) : base(orderDL)
         {
@@ -70,6 +74,37 @@ namespace KLTN.BussinesLayer
                 };
             List<Order> result = await _orderDL.GetDataByField(filters);
             return result;
+        }
+
+        public async Task<object> Payment(Guid id)
+        {
+            Order order = await _orderDL.GetDataById(id);
+            string appid = "2554";
+            string key2 = "trMrHtvjo6myautxDUiAcYsVtaeQ8nhf";
+            string createOrderUrl = "https://sandbox.zalopay.com.vn/v001/tpe/createorder";
+
+            var transid = order.order_id.ToString();
+            var embeddata = new { merchantinfo = "embeddata123", redirecturl = "http://localhost:8080/userinfo" };
+            var param = new Dictionary<string, string>();
+
+            param.Add("appid", appid);
+            param.Add("appuser", "demo");
+            param.Add("apptime", Utils.GetTimeStamp().ToString());
+            param.Add("amount", order.total_order_deposit.ToString());
+            param.Add("apptransid", DateTime.Now.ToString("yyMMdd") + "_" + transid); // mã giao dich có định dạng yyMMdd_xxxx
+            param.Add("embeddata", JsonConvert.SerializeObject(embeddata));
+            param.Add("item","");
+            param.Add("description", "Thanh toán đơn hàng");
+            param.Add("bankcode", "");
+
+            var data = appid + "|" + param["apptransid"] + "|" + param["appuser"] + "|" + param["amount"] + "|"
+                + param["apptime"] + "|" + param["embeddata"] + "|" + param["item"];
+            param.Add("mac", HmacHelper.Compute(ZaloPayHMAC.HMACSHA256, key1, data));
+
+            var result = await HttpHelper.PostFormAsync(createOrderUrl, param);
+
+            return result;
+
         }
 
         public async Task<bool> UpdateOrderData(OrderData orderData)

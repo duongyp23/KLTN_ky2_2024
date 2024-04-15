@@ -12,7 +12,8 @@
     }
     .product-info {
         .product-name {
-            font-size: 18px;
+            font-size: 16px;
+            font-weight: 700;
         }
         .product-price{
             display: flex;
@@ -20,11 +21,16 @@
             .title {
                 width: 100px;
             }
+            .amount {
+                color: red;
+                font-weight: 700;
+            }
         }
     }
     &:hover {
-        border: 3px solid hsl(0, 0%, 69%);
+        scale: 1.1;
+        border: 1px solid hsl(0, 0%, 69%);
     border-radius: 6px;
-    padding: 3px;
+    padding: 5px;
     }
 }

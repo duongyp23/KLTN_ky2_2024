@@ -40,3 +40,11 @@ export const apiGetAllOrder = () => {
 export const apiGetPagingOrder = (filter, pageSize, pageNumber) => {
     return request().post('Paging?pageSize=' + pageSize + '&pageNumber=' + pageNumber, filter)
 }
+
+export const apiOrderPayment = (orderId) => {
+    return request().post('Payment?id='+orderId)
+}
+
+export const apiCheckOrderPayment = (data) => {
+    return request().post('CheckOrderPayment', data)
+}

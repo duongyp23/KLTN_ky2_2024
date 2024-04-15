@@ -5,13 +5,11 @@
       :style="'background-image : url(' + product.product_image_url + ')'"
     ></div>
     <div class="product-info col-flex mt-1">
-      <div class="product-name">{{ product.product_name }}</div>
-      <div class="product-price">
-        <div class="title">GIÁ BÁN</div>
-        <div class="amount">{{ replaceNumber(product.sell_price) }} đ</div>
+      <div class="product-name">
+        {{ product.product_name }} - {{ product.product_code }}
       </div>
       <div class="product-price">
-        <div class="title">GIÁ THUÊ</div>
+        <div class="title">Giá thuê:</div>
         <div class="amount">{{ replaceNumber(product.rental_price) }} đ</div>
       </div>
     </div>

@@ -5,6 +5,8 @@ import vClickOutside from "click-outside-vue3"
 import router from "./router";
 import VueCookies from 'vue-cookies';
 import vToolTip from 'v-tooltip';
+import VueApexCharts from "vue3-apexcharts";
+
 
 const emitter = mitt();
 
@@ -14,6 +16,7 @@ app.use(vClickOutside);
 app.use(router);
 app.use(VueCookies);
 app.use(vToolTip);
+app.use(VueApexCharts);
 
 app.mount('#app');
 

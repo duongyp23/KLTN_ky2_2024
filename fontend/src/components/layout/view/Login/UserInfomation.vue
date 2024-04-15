@@ -18,7 +18,7 @@
       />
       <StyleInput v-model:value="user.bank_name" :label="'Tên ngân hàng'" />
       <StyleInput v-model:value="user.bank_code" :label="'Mã ngân hàng'" />
-      <div class="qrcode">
+      <div class="qrcode" v-if="!isManager">
         <div
           v-if="user.qr_code_url"
           class="img"
@@ -65,7 +65,7 @@
 <script>
 import StyleInput from "@/components/base/StyleInput/StyleInput.vue";
 import { apiUpdateUserInfo, apiGetInfoUser } from "@/api/userApi";
-import { apiGetOrderOfUser } from "@/api/orderApi";
+import { apiGetOrderOfUser, apiUpdateOrder } from "@/api/orderApi";
 import {
   replaceNumber,
   datetimeToDate,
@@ -131,6 +131,24 @@ export default {
   },
   created() {
     this.getUserInfo();
+  },
+  async mounted() {
+    if (this.$route.query.apptransid) {
+      if (this.$route.query.status == 1) {
+        this.emitter.emit("openToastMessage", "Thanh toán đơn hàng thành công");
+        let orderId = this.$route.query.apptransid.slice(7);
+        console.log(orderId);
+        await apiUpdateOrder({
+          order_id: orderId,
+          status: 3,
+        });
+      } else {
+        this.emitter.emit(
+          "openToastMessageError",
+          "Thanh toán không thành công vui lòng kiểm tra lại đơn hàng"
+        );
+      }
+    }
     this.getOrderOfUser();
   },
 };

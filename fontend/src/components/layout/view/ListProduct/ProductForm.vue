@@ -87,35 +87,7 @@
             v-model:value="product.description"
             type="textarea"
           ></StyleInput>
-          <div
-            class="group-category-type"
-            v-for="item in CategoryType"
-            :key="item.id"
-          >
-            <div class="type-name">{{ item.name }}</div>
-            <hr />
-            <div class="list-category">
-              <div
-                v-for="category in categoryData.filter(
-                  (x) => x.type == item.id
-                )"
-                :key="category.category_id"
-              >
-                <button
-                  :class="
-                    selectCategory.find(
-                      (x) => x.category_id == category.category_id
-                    )
-                      ? 'category category-select'
-                      : 'category category-not-select'
-                  "
-                  @click="changeCategory(category)"
-                >
-                  {{ category.category_code }}
-                </button>
-              </div>
-            </div>
-          </div>
+          <category-table :selectCategory="selectCategory"></category-table>
         </div>
       </div>
       <div class="form-footer">
@@ -144,8 +116,10 @@ import {
   apiDeleteProduct,
 } from "@/api/productApi";
 import Images from "@/assets/icon/images";
-import { apiGetAllCategory, apiGetCategoryOfProduct } from "@/api/categoryApi";
+import { apiGetCategoryOfProduct } from "@/api/categoryApi";
 import CategoryType from "@/resource/CategoryType";
+import CategoryTable from "../ListCategory/CategoryTable.vue";
+import { datetimeToDate } from "@/method/methodFormat";
 
 /**
  * Khởi tạo 1 Item với giá trị ban đầu là null
@@ -160,13 +134,13 @@ export default {
       product: {},
       list_img_url: [],
       Images,
-      categoryData: [],
       selectCategory: [],
       CategoryType,
       Resource,
     };
   },
   methods: {
+    datetimeToDate,
     async deleteProduct() {
       await apiDeleteProduct(this.product.product_id).then(() => {
         this.emitter.emit("reloadProductList");
@@ -277,18 +251,8 @@ export default {
           );
         });
     },
-    /**
-     * Lấy dữ liệu nhãn dán
-     */
-    async getCategoryData() {
-      this.categoryData = [];
-      await apiGetAllCategory([])
-        .then((response) => {
-          this.categoryData = response.data;
-        })
-        .catch(() => {});
-    },
     async getDataCategoryOfProduct() {
+      this.selectCategory = [];
       await apiGetCategoryOfProduct(this.product.product_id)
         .then((response) => {
           this.selectCategory = response.data;
@@ -296,15 +260,13 @@ export default {
         .catch(() => {});
     },
   },
-  components: { StyleInput, InputNumber, MsCombobox },
+  components: { StyleInput, InputNumber, MsCombobox, CategoryTable },
   mounted() {
     /**
      * Mở form thêm tài sản từ Tool
      * NTD 8/8/2022
      */
     this.emitter.on("addNewProduct", async () => {
-      this.getCategoryData();
-
       this.formStatus = 1;
       this.product = {};
       this.selectCategory = [];
@@ -317,8 +279,6 @@ export default {
      * NTD 8/8/2022
      */
     this.emitter.on("updateProduct", async (product) => {
-      this.getCategoryData();
-
       this.product = Object.assign({}, product);
       this.formStatus = 2;
       this.setLabel("Sửa nhãn dán");

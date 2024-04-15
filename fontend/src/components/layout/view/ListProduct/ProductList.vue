@@ -1,6 +1,6 @@
 <template>
   <div class="product-list">
-    <ProductTool></ProductTool>
+    <product-tool class="ml-2 mr-2"></product-tool>
     <div class="list-item mt-1">
       <StyleProduct
         v-for="item in datalist"
@@ -9,17 +9,17 @@
         @click="viewProduct(item)"
       ></StyleProduct>
     </div>
-    <div class="paging"></div>
+    <div class="paging mt-2"></div>
     <ProductView></ProductView>
   </div>
 </template>
 <script>
-import ProductTool from "./ProductTool.vue";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import Resource from "@/resource/MsResource";
 import { apiGetPagingProduct } from "@/api/productApi";
 import StyleProduct from "@/components/base/StyleProduct/StyleProduct.vue";
 import ProductView from "./ProductView.vue";
+import ProductTool from "./ProductTool.vue";
 
 export default {
   setup() {},
@@ -32,7 +32,7 @@ export default {
       isShowListCategory: true,
     };
   },
-  components: { ProductTool, StyleProduct, ProductView },
+  components: { StyleProduct, ProductView, ProductTool },
   methods: {
     /**
      * Lấy dữ liệu từ backend

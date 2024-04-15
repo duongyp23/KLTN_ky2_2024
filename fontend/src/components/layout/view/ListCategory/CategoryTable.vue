@@ -11,25 +11,14 @@
         <div
           v-for="category in datalist.filter((x) => x.type == item.id)"
           :key="category.category_id"
+          @dblclick="openFormEdit(category)"
         >
-          <button
-            :class="
-              selectCategory.find((x) => x.category_id == category.category_id)
-                ? 'category category-select'
-                : 'category category-not-select'
-            "
-            @click="changeCategory(category)"
-            @dblclick="openFormEdit(category)"
-          >
-            {{ category.category_code }}
-          </button>
+          <input type="checkbox" @click="changeCategory(category)" />
+          {{ category.category_code }}
         </div>
       </div>
     </div>
-    <div class="flex-row center mt-1" v-if="showButton && isManager">
-      <button class="form-btn btn1" @click="searchProductByCategory">
-        Tìm kiếm
-      </button>
+    <div class="flex-row center mt-2" v-if="showButton && isManager">
       <button class="form-btn btn3" @click="openForm">+ Thêm nhãn dán</button>
     </div>
     <CategoryForm></CategoryForm>
@@ -49,13 +38,15 @@ export default {
       datalist: [], // danh sách tài sản
       CategoryType,
       isManager: this.$cookies.get("role") == 1 ? true : false,
-      selectCategory: [],
     };
   },
   props: {
     showButton: {
       default: false,
       type: Boolean,
+    },
+    selectCategory: {
+      default: [],
     },
   },
   components: { CategoryForm },
@@ -66,9 +57,9 @@ export default {
     changeCategory(category) {
       var index = this.selectCategory.indexOf(category);
       if (index > -1) {
-        this.selectCategory.splice(index, 1);
+        this.$props.selectCategory.splice(index, 1);
       } else {
-        this.selectCategory.push(category);
+        this.$props.selectCategory.push(category);
       }
     },
     /**

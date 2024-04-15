@@ -2,11 +2,11 @@
   <div class="order-list">
     <div class="list-order">
       <div class="order-item">
-        <div>Ngày đặt hàng</div>
-        <div>Ngày bắt đầu thuê</div>
-        <div>Ngày kết thúc thuê</div>
-        <div>Tổng tiền thanh toán</div>
-        <div>Trạng thái đơn hàng</div>
+        <div class="table-header">Ngày đặt hàng</div>
+        <div class="table-header">Ngày bắt đầu thuê</div>
+        <div class="table-header">Ngày kết thúc thuê</div>
+        <div class="table-header">Tổng tiền thanh toán</div>
+        <div class="table-header">Trạng thái đơn hàng</div>
       </div>
       <div
         class="order-item"
