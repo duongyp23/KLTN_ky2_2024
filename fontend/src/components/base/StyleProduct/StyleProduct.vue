@@ -10,7 +10,9 @@
       </div>
       <div class="product-price">
         <div class="title">Giá thuê:</div>
-        <div class="amount">{{ replaceNumber(product.rental_price) }} đ</div>
+        <div class="amount">
+          {{ replaceNumber(product.rental_price_day) }} đ
+        </div>
       </div>
     </div>
   </div>

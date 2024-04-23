@@ -1,20 +1,10 @@
 <template>
   <div class="header">
     <div class="left-header">Cửa hàng cho thuê quần áo</div>
-    <div class="tab-list">
+    <div class="tab-list" v-if="!isManager">
       <ButtonMenu :label="'Trang chủ'" :routerPath="'/homepage'"></ButtonMenu>
 
       <ButtonMenu :label="'Danh mục'" :routerPath="'/dictionary'"></ButtonMenu>
-      <ButtonMenu
-        v-show="isManager"
-        :label="'Đơn hàng'"
-        :routerPath="'/orderlist'"
-      ></ButtonMenu>
-      <ButtonMenu
-        v-show="isManager"
-        :label="'Tổng quan'"
-        :routerPath="'/dashboard'"
-      ></ButtonMenu>
     </div>
 
     <div class="right-header">
@@ -50,16 +40,23 @@ export default {
   components: { ButtonMenu },
   methods: {
     openUserInfo() {
-      if (this.$cookies.get("token")) {
-        this.$router.replace(this.$router.path);
-        this.$router.push("/userinfo");
+      if (!this.isManager) {
+        if (this.$cookies.get("token")) {
+          this.$router.replace(this.$router.path);
+          this.$router.push("/userinfo");
+        } else {
+          this.logout();
+        }
       } else {
-        this.$cookies.remove("token");
-        this.$cookies.remove("role");
-        this.emitter.emit("reloadRole");
-        this.$router.replace(this.$router.path);
-        this.$router.push("/login");
+        this.logout();
       }
+    },
+    logout() {
+      this.$cookies.remove("token");
+      this.$cookies.remove("role");
+      this.emitter.emit("reloadRole");
+      this.$router.replace(this.$router.path);
+      this.$router.push("/login");
     },
     async openOrderDetail() {
       if (this.$cookies.get("token")) {

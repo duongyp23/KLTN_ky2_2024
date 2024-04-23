@@ -18,10 +18,6 @@
         </div>
       </div>
     </div>
-    <div class="flex-row center mt-2" v-if="showButton && isManager">
-      <button class="form-btn btn3" @click="openForm">+ Thêm nhãn dán</button>
-    </div>
-    <CategoryForm></CategoryForm>
   </div>
 </template>
 <script>
@@ -29,7 +25,6 @@ import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import Resource from "@/resource/MsResource";
 import { apiGetAllCategory } from "@/api/categoryApi";
 import CategoryType from "@/resource/CategoryType";
-import CategoryForm from "./CategoryForm.vue";
 
 export default {
   data() {
@@ -49,7 +44,7 @@ export default {
       default: [],
     },
   },
-  components: { CategoryForm },
+  components: {},
   methods: {
     openForm() {
       this.emitter.emit("addNewCategory");

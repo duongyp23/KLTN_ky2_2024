@@ -39,13 +39,11 @@ export default {
      */
     async getProductData() {
       let filter = [];
-      if (this.$cookies.get("role") == 0) {
-        filter.push({
-          columnName: "status",
-          filterValue: 1,
-          operatorValue: "=",
-        });
-      }
+      filter.push({
+        columnName: "quantity",
+        filterValue: 0,
+        operatorValue: "!=",
+      });
       if (this.keyword) {
         filter.push({
           columnName: "product_name",

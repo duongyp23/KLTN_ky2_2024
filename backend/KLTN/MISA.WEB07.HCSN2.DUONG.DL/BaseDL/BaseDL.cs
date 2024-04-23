@@ -183,8 +183,7 @@ namespace KLTN.DataLayer
                     {
                         whereClause += " AND ";
                     }
-                    whereClause += $"{filter.columnName} {filter.operatorValue} @{filter.columnName} ";
-                    param.Add($"@{filter.columnName}", filter.filterValue);
+                    whereClause += $"{filter.columnName} {filter.operatorValue} {filter.filterValue} ";
                 }
             }
             String getPagingData = $"SELECT * FROM {tableName} {whereClause};";

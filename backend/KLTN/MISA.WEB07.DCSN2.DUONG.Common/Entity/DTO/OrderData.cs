@@ -7,6 +7,7 @@
     {
         public Order order { get; set; }
         public List<OrderDetail> orderDetails { get; set; }
+        public List<Product>? products { get; set; }
 
         public static implicit operator OrderData(Order v)
         {

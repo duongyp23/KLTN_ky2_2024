@@ -57,37 +57,46 @@
               v-model:value="product.product_name"
             ></StyleInput>
           </div>
-          <div class="row-flex">
+
+          <div class="row-flex mt-1">
             <InputNumber
-              :label="'Giá sản phẩm'"
+              :label="'Số lượng sản phẩm'"
+              v-model:numberValue="product.quantity"
+            ></InputNumber>
+            <InputNumber
+              :label="'Số lượng sản phẩm đang thuê'"
+              v-model:numberValue="product.quantity_rental"
+            ></InputNumber>
+          </div>
+          <div class="row-flex mt-1">
+            <InputNumber
+              :label="'Giá sản phẩm (đ)'"
               v-model:numberValue="product.product_price"
             ></InputNumber>
             <InputNumber
-              v-model:numberValue="product.rental_price"
-              :label="'Giá thuê sản phẩm'"
+              v-model:numberValue="product.rental_price_day"
+              :label="'Giá thuê sản phẩm theo ngày(đ)'"
             ></InputNumber>
           </div>
-          <div class="row-flex">
+          <div class="row-flex mt-1">
             <InputNumber
-              :label="'Giá bán sản phẩm'"
-              v-model:numberValue="product.sell_price"
+              v-model:numberValue="product.rental_price_week"
+              :label="'Giá thuê sản phẩm theo tuần(đ)'"
             ></InputNumber>
-            <div class="style-input col-flex">
-              <label class="Form-Label">Trạng thái</label>
-              <MsCombobox
-                :items="Resource.ProductStatus"
-                v-model:value="product.status_name"
-                v-model:id="product.status"
-              ></MsCombobox>
-            </div>
+            <InputNumber
+              v-model:numberValue="product.rental_price_month"
+              :label="'Giá thuê sản phẩm theo tháng(đ)'"
+            ></InputNumber>
           </div>
           <StyleInput
-            class="description"
+            class="description mt-1"
             :label="'Mô tả sản phẩm'"
             v-model:value="product.description"
             type="textarea"
           ></StyleInput>
-          <category-table :selectCategory="selectCategory"></category-table>
+          <category-table
+            v-model:selectCategory="selectCategory"
+          ></category-table>
         </div>
       </div>
       <div class="form-footer">
@@ -108,7 +117,6 @@
 import Resource from "@/resource/MsResource";
 import StyleInput from "@/components/base/StyleInput/StyleInput.vue";
 import InputNumber from "@/components/base/StyleInput/InputNumber.vue";
-import MsCombobox from "@/components/base/MsCombobox.vue";
 
 import {
   apiInsertProduct,
@@ -118,8 +126,8 @@ import {
 import Images from "@/assets/icon/images";
 import { apiGetCategoryOfProduct } from "@/api/categoryApi";
 import CategoryType from "@/resource/CategoryType";
-import CategoryTable from "../ListCategory/CategoryTable.vue";
 import { datetimeToDate } from "@/method/methodFormat";
+import CategoryTable from "../../ListCategory/CategoryTable.vue";
 
 /**
  * Khởi tạo 1 Item với giá trị ban đầu là null
@@ -260,7 +268,7 @@ export default {
         .catch(() => {});
     },
   },
-  components: { StyleInput, InputNumber, MsCombobox, CategoryTable },
+  components: { StyleInput, InputNumber, CategoryTable },
   mounted() {
     /**
      * Mở form thêm tài sản từ Tool
@@ -281,7 +289,7 @@ export default {
     this.emitter.on("updateProduct", async (product) => {
       this.product = Object.assign({}, product);
       this.formStatus = 2;
-      this.setLabel("Sửa nhãn dán");
+      this.setLabel("Sửa sản phẩm");
       await this.getDataCategoryOfProduct();
       this.isOpen = true;
     });

@@ -38,15 +38,17 @@ namespace KLTN.BussinesLayer
                     new Filter()
                     {
                         columnName = "order_id",
-                        filterValue = order.order_id,
+                        filterValue = "'"+order.order_id+"'",
                         operatorValue = "="
                     }
                 };
                 List<OrderDetail> orderDetails = await _orderDetailDL.GetDataByField(filters);
+                List<Product> products = await _orderDL.GetProductInOrder(id);
                 return new OrderData()
                 {
                     order = order,
-                    orderDetails = orderDetails
+                    orderDetails = orderDetails,
+                    products = products
                 };
             }
             else
@@ -62,7 +64,7 @@ namespace KLTN.BussinesLayer
                     new Filter()
                     {
                         columnName = "user_id",
-                        filterValue = id,
+                        filterValue = "'"+id+"'",
                         operatorValue = "="
                     },
                     new Filter()
@@ -110,40 +112,10 @@ namespace KLTN.BussinesLayer
         public async Task<bool> UpdateOrderData(OrderData orderData)
         {
             await _orderDL.Update(orderData.order);
-            int status = 0;
-            string statusName = "";
-            switch (orderData.order.status)
-            {
-                case 1:
-                    status = 1;
-                    statusName = "Chưa cho thuê";
-                    break;
-                case 2:
-                case 3:
-                    status = 2;
-                    statusName = "Đã cho thuê";
-                    break;
-                case 5:
-                    status = 1;
-                    statusName = "Chưa cho thuê";
-                    break;
-                default:
-                    break;
-            }
             foreach (OrderDetail detail in orderData.orderDetails)
             {
                 await _orderDetailDL.Update(detail);
-                
-                if(status != 0)
-                {
-                    Product product = new Product()
-                    {
-                        product_id = detail.product_id,
-                        status = detail.order_type == 0 ? status : 3,
-                        status_name = detail.order_type == 0 ? statusName : "Đã bán",
-                    };
-                    await _productDL.Update(product);
-                }
+                await _orderDL.UpdateQuantityProduct(detail.product_id);
             }
             return true;
         }

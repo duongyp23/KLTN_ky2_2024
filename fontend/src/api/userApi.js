@@ -39,3 +39,7 @@ export const apiGetBankAccountAdmin = () => {
 export const apiGetWaitOrder = (userId) => {
     return request().get('GetWaitOrder?userId=' + userId);
 }
+
+export const apiGetAllUser = (filter) => {
+    return request().post('GetAll', filter);
+} 

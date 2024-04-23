@@ -52,3 +52,20 @@ export function checkStatusOrder(status) {
             return "";
     }
 }
+
+export function getCategoryTypeName(id) {
+    switch (id) {
+        case 1:
+            return "Kích cỡ";
+        case 2:
+            return "Màu sắc";
+        case 3:
+            return "Sự kiện";
+        case 4:
+            return "Loại sản phẩm";
+        case 5:
+            return "Thương hiệu";
+        default:
+            return "";
+    }
+}

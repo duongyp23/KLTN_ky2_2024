@@ -1,5 +1,6 @@
-.product-view{
+.product-form{
     .form {
+        width: 1400px;
         .form-center{
             display: flex;
             flex-direction: row;
@@ -80,6 +81,35 @@
                         }
                     }
                 }
+                .group-category-type {
+                    margin-top: 8px;
+                    .type-name {
+                        font-weight: 700;
+                        font-size: 18px;
+                    }
+                    .list-category{
+                        margin-top: 4px;
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        column-gap: 3px;
+                        .category{
+                            background: transparent;
+                            border: 1px solid #afafaf;
+                            height: 30px;
+                            border-radius: 6px;
+                            &:hover {
+                                border: 3px solid rgba(26, 164, 200);
+                            }
+                            &.category-select {
+                                border: 3px solid rgba(26, 164, 200);
+                            }
+                            &.category-not-select{
+                                border: 3px solid #afafaf;
+                            }
+                        }
+                    }
+                }
                 .row-info {
                     margin-top: 10px;
                     display: flex;
@@ -87,8 +117,7 @@
                     justify-content: space-between;
                     padding: 0px 20px;
                     .title {
-                        width: 300px;
-                        font-weight: 700;
+                        width: 150px;
                     }
                     .amount1 {
                         color: red;
@@ -98,12 +127,6 @@
                         color: blue;
                         font-weight: 700;
                     }
-                    .product-code {
-                        font-weight: 700;
-                    }
-                }
-                .tag {
-                    font-weight: 700;
                 }
                 .action {
                     margin-top: 8px;

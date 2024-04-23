@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="product-form form-view product-view"
-    v-show="isOpen"
-    @keyup.esc="closeForm()"
-  >
+  <div class="product-view form-view" v-show="isOpen" @keyup.esc="closeForm()">
     <div class="form">
       <div class="form-header">
         <div class="title-header">{{ product.product_name }}</div>
@@ -40,19 +36,35 @@
         <div class="information">
           <div class="row-info">
             <div class="title">Mã sản phẩm</div>
-            <div class="">{{ product.product_code }}</div>
+            <div class="product-code">{{ product.product_code }}</div>
           </div>
           <div class="row-info">
-            <div class="title">Giá thuê</div>
-            <div class="amount1">{{ replaceNumber(product.rental_price) }}</div>
+            <div class="title">Giá sản phẩm</div>
+            <div class="amount2">
+              {{ replaceNumber(product.product_price) }}
+            </div>
           </div>
           <div class="row-info">
-            <div class="title">Giá bán sản phẩm</div>
-            <div class="amount2">{{ replaceNumber(product.sell_price) }}</div>
+            <div class="title">Giá thuê theo ngày</div>
+            <div class="amount1">
+              {{ replaceNumber(product.rental_price_day) }}
+            </div>
           </div>
-          <div class="row-info">Mô tả sản phẩm:</div>
+          <div class="row-info">
+            <div class="title">Giá thuê theo tuần</div>
+            <div class="amount1">
+              {{ replaceNumber(product.rental_price_week) }}
+            </div>
+          </div>
+          <div class="row-info">
+            <div class="title">Giá thuê theo tháng</div>
+            <div class="amount1">
+              {{ replaceNumber(product.rental_price_month) }}
+            </div>
+          </div>
+          <div class="row-info"><div class="title">Mô tả sản phẩm:</div></div>
           <div class="row-info">{{ product.description }}</div>
-          <div class="flex-row wrap ml-2">
+          <div class="flex-row wrap ml-2 mt-2">
             <label
               class="tag"
               v-for="item in selectCategory"
@@ -66,6 +78,8 @@
               Thêm vào giỏ hàng
             </button>
           </div>
+          <div class="row-info"><div class="title">Bình luận</div></div>
+          <div></div>
         </div>
       </div>
     </div>

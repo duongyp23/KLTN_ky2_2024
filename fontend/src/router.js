@@ -7,6 +7,10 @@ import UserInfomation from './components/layout/view/Login/UserInfomation.vue';
 import OrderDetail from './components/layout/view/Order/OrderDetail.vue';
 import OrderList from './components/layout/view/OrderList/OrderList.vue';
 import DashboardView from './components/layout/view/Dashboard/DashboardView.vue';
+import ManageOrder from './components/layout/view/Admin/ManageOrder/ManageOrder.vue';
+import ManageProduct from './components/layout/view/Admin/ManageProduct/ManageProduct.vue';
+import ManageCategory from './components/layout/view/Admin/ManageCategory/ManageCategory.vue';
+import ManageUser from './components/layout/view/Admin/ManageUser/ManageUser.vue';
 
 const routes = [
     {
@@ -41,11 +45,27 @@ const routes = [
         path: '/orderlist',
         component: OrderList
     },
+    //dành cho người quản lý
     {
         path: '/dashboard',
         component: DashboardView
-    }
-
+    },
+    {
+        path: '/manageorder',
+        component: ManageOrder
+    },
+    {
+        path: '/manageproduct',
+        component: ManageProduct
+    },
+    {
+        path: '/managecategory',
+        component: ManageCategory
+    },
+    {
+        path: '/manageuser',
+        component: ManageUser
+    },
 ]
 
 

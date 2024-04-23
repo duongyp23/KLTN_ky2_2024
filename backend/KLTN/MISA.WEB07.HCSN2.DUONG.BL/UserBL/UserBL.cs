@@ -54,7 +54,7 @@ namespace KLTN.BussinesLayer
                 new Filter()
                 {
                     columnName = nameof(User.phone_number),
-                    filterValue = user.Account,
+                    filterValue = "'" + user.Account + "'",
                     operatorValue = "=",
                 }
             };

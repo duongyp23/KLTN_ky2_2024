@@ -8,17 +8,10 @@
         @change="searchProduct"
       ></StyleInput>
     </div>
-    <div style="display: flex" v-if="isManager">
-      <button class="btn-tool btn-add" @click="openForm">
-        + Thêm sản phẩm
-      </button>
-    </div>
-    <ProductForm></ProductForm>
   </div>
 </template>
 <script>
 import StyleInput from "@/components/base/StyleInput/StyleInput.vue";
-import ProductForm from "./ProductForm.vue";
 export default {
   data() {
     return {
@@ -26,7 +19,7 @@ export default {
       isManager: this.$cookies.get("role") == 1 ? true : false,
     };
   },
-  components: { ProductForm, StyleInput },
+  components: { StyleInput },
   methods: {
     /**
      * Mở form thêm tài sản

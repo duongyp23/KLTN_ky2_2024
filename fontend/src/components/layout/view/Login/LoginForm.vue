@@ -76,7 +76,11 @@ export default {
       this.emitter.emit("reloadRole");
       if (this.$cookies.get("token")) {
         this.$router.replace(this.$router.path);
-        this.$router.push("/homepage");
+        if (this.$cookies.get("role") == 0) {
+          this.$router.push("/homepage");
+        } else {
+          this.$router.push("/dashboard");
+        }
       }
     },
   },

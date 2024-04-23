@@ -20,29 +20,13 @@
         <div class="price">
           {{ replaceNumber(item.product_payment) }}
         </div>
-        <div class="order-type">
-          <input
-            type="radio"
-            v-model="item.order_type"
-            :value="0"
-            :disabled="isDisable"
-            @change="checkMoney(item, 0)"
-          />
-          Thuê
+        <div
+          class="remove"
+          @click="remove(item)"
+          v-show="this.order.status == 1"
+        >
+          Xóa sản phẩm
         </div>
-        <div class="order-type">
-          <input
-            type="radio"
-            v-model="item.order_type"
-            :value="1"
-            :disabled="isDisable"
-            @change="checkMoney(item, 1)"
-          />
-          Mua
-        </div>
-        <button class="remove" @click="remove(item)" v-show="!isDisable">
-          X
-        </button>
       </div>
     </div>
     <div class="total-order">
@@ -65,6 +49,7 @@
           v-model:value="order.from_date"
           type="date"
           :disabled="isDisable"
+          @change="checkMoney"
         ></style-input>
         <style-input
           :label="'Ngày kết thúc thuê'"
@@ -72,6 +57,7 @@
           v-model:value="order.to_date"
           type="date"
           :disabled="isDisable"
+          @change="checkMoney"
         ></style-input>
       </div>
 
@@ -176,6 +162,7 @@ export default {
         total_order_return: 0,
       },
       orderDetails: [],
+      products: [],
       Images,
       isDisable: false,
       isManager: this.$cookies.get("role") == 1 ? true : false,
@@ -184,18 +171,39 @@ export default {
   components: { StyleInput, PopupPayment },
   methods: {
     datetimeToDate,
-    checkMoney(item, type) {
-      switch (type) {
-        case 0:
-          item.product_payment = item.product_rental;
-          break;
-        case 1:
-          item.product_payment = item.product_deposit;
-          break;
-        default:
-          break;
+    checkMoney() {
+      if (
+        this.order.from_date &&
+        this.order.to_date &&
+        this.order.to_date > this.order.from_date
+      ) {
+        // Chuyển đổi chuỗi YYYY-MM-DD thành đối tượng Date
+        const ngay1 = new Date(this.order.from_date);
+        const ngay2 = new Date(this.order.to_date);
+
+        // Tính số mili giây chênh lệch giữa hai ngày
+        const miliGiayChenhLech = Math.abs(ngay2 - ngay1);
+
+        // Chuyển đổi mili giây thành số ngày (1 ngày = 86400 giây = 86400,000 mili giây)
+        const soNgayChenhLech = miliGiayChenhLech / (1000 * 60 * 60 * 24);
+        const month = Math.floor(soNgayChenhLech / 30);
+        const monthLeft = soNgayChenhLech % 30;
+        const week = Math.floor(monthLeft / 7);
+        const dayleft = monthLeft % 7;
+        this.orderDetails.forEach((item) => {
+          let product = this.products.find(
+            (x) => (x.product_id = item.product_id)
+          );
+          item.product_payment =
+            month * product.rental_price_month +
+            week * product.rental_price_week +
+            dayleft * product.rental_price_day;
+          if (item.product_payment > item.product_deposit) {
+            item.product_payment = item.product_deposit;
+          }
+        });
+        this.calculateOrderMoney();
       }
-      this.calculateOrderMoney();
     },
     async updateOrderStatus(status) {
       await apiUpdateOrder({
@@ -236,15 +244,20 @@ export default {
       await apiGetOrder(this.$route.params.id).then((response) => {
         this.order = response.data.order;
         this.orderDetails = response.data.orderDetails;
+        this.products = response.data.products;
         this.calculateOrderMoney();
         if (this.order.status != 1) {
           this.isDisable = true;
         }
         if (this.order.from_date == null) {
           this.order.from_date = this.datetimeToDate(new Date());
+        } else {
+          this.order.from_date = this.datetimeToDate(this.order.from_date);
         }
         if (this.order.to_date == null) {
           this.order.to_date = this.datetimeToDate(new Date());
+        } else {
+          this.order.to_date = this.datetimeToDate(this.order.to_date);
         }
       });
     },

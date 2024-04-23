@@ -154,3 +154,19 @@ button {
     color: #fff;
     border: none;
 }
+
+.btn-left-menu {
+  height: 40px;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding-left: 10px;
+  .btn-left-menu-name{
+    color: #ffffff;
+  }
+  &.selected {
+    background-color: #1aa4c8;
+    border-radius: 6px;
+  }
+}

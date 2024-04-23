@@ -41,12 +41,10 @@ namespace KLTN.BussinesLayer
                         product_id = productId,
                         product_code = product.product_code,
                         product_name = product.product_name,
-                        product_deposit = product.sell_price,
-                        product_payment = product.rental_price,
-                        product_rental = product.rental_price,
-                        product_return = product.sell_price - product.rental_price,
-                        product_image_url = product.product_image_url,
-                        order_type = 0,
+                        product_deposit = product.product_price,
+                        product_payment = product.rental_price_day,
+                        product_return = product.product_price - product.rental_price_day,
+                        product_image_url = product.product_image_url
                     };
                     await _orderDetailDL.Insert(orderDetail);
                 }
@@ -56,6 +54,7 @@ namespace KLTN.BussinesLayer
                     Order order = new Order()
                     {
                         user_id = userId,
+                        user_name = user.user_name,
                         phone_number = user.phone_number,
                         address = user.user_address,
                         status = 1,
@@ -68,10 +67,9 @@ namespace KLTN.BussinesLayer
                         product_id = productId,
                         product_code = product.product_code,
                         product_name = product.product_name,
-                        product_deposit = product.sell_price,
-                        product_payment = product.rental_price,
-                        product_rental = product.rental_price,
-                        product_return = product.sell_price - product.rental_price,
+                        product_deposit = product.product_price,
+                        product_payment = product.rental_price_day,
+                        product_return = product.product_price - product.rental_price_day,
                         product_image_url = product.product_image_url,
                         order_type = 0,
                     };

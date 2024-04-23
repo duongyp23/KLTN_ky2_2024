@@ -1,0 +1,25 @@
+.manage-category {
+	.list-header {
+		font-size: 18px;
+		font-weight: 700;
+	}
+	table {
+		th {
+			text-align: left;
+			padding-left: 10px;
+		}
+		td {
+			text-align: left;
+			padding-left: 10px;
+		}
+		.category-name {
+			width: 25%;
+		}
+		.type-name {
+			width: 25%;
+		}
+		.description {
+			width: 50%;
+		}
+	}
+}

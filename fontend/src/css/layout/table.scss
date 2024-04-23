@@ -40,6 +40,7 @@ tr td {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    text-align: center;
 }
 tbody tr td:hover{
     white-space:unset;
@@ -67,7 +68,6 @@ tfoot tr {
 }
 tbody {
     position: relative;
-    overflow: auto;
     display:block;
     height: 100%;
 }

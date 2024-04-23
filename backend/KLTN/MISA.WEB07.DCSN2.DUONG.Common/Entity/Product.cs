@@ -18,6 +18,12 @@ namespace KLTN.Common.Entity
         public int? status { get; set; }
         public string? status_name { get; set; }
         public string? description { get; set; }
-        public string? product_list_img_url { get; set; } 
+        public string? product_list_img_url { get; set; }
+        public int? quantity { get; set; }
+        public int? quantity_rental { get; set; }
+        public decimal? rental_price_day { get; set; }
+        public decimal? rental_price_week { get; set; }
+        public decimal? rental_price_month { get; set; }
+
     }
 }
