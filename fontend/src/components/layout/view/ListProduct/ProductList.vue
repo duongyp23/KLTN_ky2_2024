@@ -1,16 +1,19 @@
 <template>
-  <div class="product-list">
-    <product-tool class="ml-2 mr-2"></product-tool>
-    <div class="list-item mt-1">
-      <StyleProduct
-        v-for="item in datalist"
-        :key="item.product_id"
-        :product="item"
-        @click="viewProduct(item)"
-      ></StyleProduct>
+  <div class="dictionary-page">
+    <CategoryTable class="left-page" :show-button="true"></CategoryTable>
+
+    <div class="product-list right-page">
+      <product-tool class="ml-2 mr-2"></product-tool>
+      <div class="list-item mt-1">
+        <StyleProduct
+          v-for="item in datalist"
+          :key="item.product_id"
+          :product="item"
+          @click="viewProduct(item)"
+        ></StyleProduct>
+      </div>
+      <div class="paging mt-2"></div>
     </div>
-    <div class="paging mt-2"></div>
-    <ProductView></ProductView>
   </div>
 </template>
 <script>
@@ -18,8 +21,8 @@ import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import Resource from "@/resource/MsResource";
 import { apiGetPagingProduct } from "@/api/productApi";
 import StyleProduct from "@/components/base/StyleProduct/StyleProduct.vue";
-import ProductView from "./ProductView.vue";
 import ProductTool from "./ProductTool.vue";
+import CategoryTable from "../ListCategory/CategoryTable.vue";
 
 export default {
   setup() {},
@@ -27,23 +30,17 @@ export default {
     return {
       keyword: null, // từ cần lọc
       datalist: [], // danh sách tài sản
-      pagaSize: 20,
       pageNumber: 1,
       isShowListCategory: true,
     };
   },
-  components: { StyleProduct, ProductView, ProductTool },
+  components: { StyleProduct, ProductTool, CategoryTable },
   methods: {
     /**
      * Lấy dữ liệu từ backend
      */
     async getProductData() {
       let filter = [];
-      filter.push({
-        columnName: "quantity",
-        filterValue: 0,
-        operatorValue: "!=",
-      });
       if (this.keyword) {
         filter.push({
           columnName: "product_name",
@@ -51,7 +48,7 @@ export default {
           operatorValue: "LIKE",
         });
       }
-      await apiGetPagingProduct(filter, this.pagaSize, this.pageNumber)
+      await apiGetPagingProduct(filter, 20, this.pageNumber)
         .then((response) => {
           this.datalist = response.data.data;
         })
@@ -63,11 +60,10 @@ export default {
         });
     },
     viewProduct(product) {
-      if (this.$cookies.get("role") == 1) {
-        this.emitter.emit("updateProduct", product);
-      } else {
-        this.emitter.emit("viewProduct", product);
-      }
+      this.$router.replace(this.$router.path);
+      this.$router.push(`/products/${product.product_id}`, {
+        params: { id: product.product_id },
+      });
     },
   },
 
@@ -88,10 +84,6 @@ export default {
       });
   },
   created() {
-    /***
-     * Lấy dữ liệu khi tạo component
-     * NTD 25/8/2022
-     */
     this.getProductData();
   },
   watch: {

@@ -11,9 +11,13 @@
         <div
           v-for="category in datalist.filter((x) => x.type == item.id)"
           :key="category.category_id"
-          @dblclick="openFormEdit(category)"
+          @click="changeCategory(category)"
         >
-          <input type="checkbox" @click="changeCategory(category)" />
+          <input
+            type="checkbox"
+            :value="category.category_id"
+            v-model="listSelectedId"
+          />
           {{ category.category_code }}
         </div>
       </div>
@@ -33,28 +37,41 @@ export default {
       datalist: [], // danh sách tài sản
       CategoryType,
       isManager: this.$cookies.get("role") == 1 ? true : false,
+      listSelectedId: this.selectCategory.map((item) => item.category_id),
     };
   },
   props: {
-    showButton: {
-      default: false,
-      type: Boolean,
-    },
     selectCategory: {
       default: [],
     },
   },
   components: {},
   methods: {
+    checkvalue(category) {
+      let item = this.selectCategory.find(
+        (x) => x.category_id == category.category_id
+      );
+      if (item) {
+        return true;
+      }
+      return false;
+    },
     openForm() {
       this.emitter.emit("addNewCategory");
     },
     changeCategory(category) {
-      var index = this.selectCategory.indexOf(category);
-      if (index > -1) {
-        this.$props.selectCategory.splice(index, 1);
+      let item = this.$props.selectCategory.find(
+        (x) => x.category_id == category.category_id
+      );
+      let newList = [];
+      if (item) {
+        newList = this.$props.selectCategory.filter(
+          (x) => x.category_id != category.category_id
+        );
+        this.$emit("update:selectCategory", newList);
       } else {
         this.$props.selectCategory.push(category);
+        this.$emit("update:selectCategory", this.$props.selectCategory);
       }
     },
     /**
@@ -75,11 +92,6 @@ export default {
           );
         });
     },
-    openFormEdit(category) {
-      if (this.isManager && this.showButton) {
-        this.emitter.emit("updateCategory", category);
-      }
-    },
   },
 
   mounted() {
@@ -98,7 +110,16 @@ export default {
      */
     this.getNewData();
   },
-  watch: {},
+  watch: {
+    selectCategory: {
+      handler: function () {
+        this.listSelectedId = this.selectCategory.map(
+          (item) => item.category_id
+        );
+      },
+      deep: true,
+    },
+  },
 };
 </script>
 <style>

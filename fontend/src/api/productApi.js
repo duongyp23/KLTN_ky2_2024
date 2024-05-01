@@ -31,10 +31,14 @@ export const apiGetAllProduct = (filter) => {
     return request().post('GetAll', filter);
 } 
 
-export const apiAddProductToCart = (productId, userId) => {
-    return request().post('AddProductToCart?productId=' + productId + '&userId=' + userId);
+export const apiAddProductToCart = (productId, userId, optionCode, quantity) => {
+    return request().post('AddProductToCart?productId=' + productId + '&userId=' + userId+'&optionCode='+optionCode+'&quantity='+quantity);
 }
 
 export const apiDeleteProduct = (id) => {
     return request().delete('Delete/' + id);
+}
+
+export const apiGetProduct = (id) => {
+    return request().get(id);
 }

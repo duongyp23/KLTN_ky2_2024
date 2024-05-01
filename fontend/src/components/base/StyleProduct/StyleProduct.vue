@@ -2,7 +2,7 @@
   <div class="style-product">
     <div
       class="product-img"
-      :style="'background-image : url(' + product.product_image_url + ')'"
+      :style="'background-image : url(' + getFirstImage() + ')'"
     ></div>
     <div class="product-info col-flex mt-1">
       <div class="product-name">
@@ -29,8 +29,11 @@ export default {
   computed: {},
   methods: {
     replaceNumber,
+    getFirstImage() {
+      let arrImg = this.product.product_image_url.split(";");
+      return arrImg[0];
+    },
   },
-  watch: {},
   mounted() {},
   created() {},
 };

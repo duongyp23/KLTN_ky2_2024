@@ -1,14 +1,26 @@
-.order-detail {
-  display: flex;
-  column-gap: 50px;
-  justify-content: center;
-  margin-top: 20px;
+.stock-order-detail {
+  .title {
+    font-size: 18px;
+    font-weight: 700;
+  }
   .detail-list{ 
-    min-width: 600px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 8px;
+    background-color: #fff;
+    padding: 8px;
     
+    .box-search {
+      position: relative;
+      .list-option {
+        background-color: #fff;
+        margin-top: 2px;
+        border: 1px solid #afafaf;
+        border-radius: 6px;
+        padding: 5px;
+        row-gap: 8px;
+        position: absolute;
+        top: 50px;
+        width: calc(100% - 16px);
+      }
+    }
     .order-detail-item{
       height: 100px;
       display: flex;
@@ -26,10 +38,6 @@
     }
   }
   .total-order {
-    min-width: 600px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 8px;
     background-color: #fff;
     padding: 10px;
     .date-row {

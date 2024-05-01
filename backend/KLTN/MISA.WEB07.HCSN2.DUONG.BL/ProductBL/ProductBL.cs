@@ -27,7 +27,7 @@ namespace KLTN.BussinesLayer
             _userDL = userDL;
         }
 
-        public async Task<bool> AddProductToCart(Guid productId, Guid userId)
+        public async Task<bool> AddProductToCart(Guid productId, Guid userId, string optionCode, int quantity)
         {
             Product product = await _productDL.GetDataById(productId);
             if (product != null)
@@ -41,10 +41,13 @@ namespace KLTN.BussinesLayer
                         product_id = productId,
                         product_code = product.product_code,
                         product_name = product.product_name,
-                        product_deposit = product.product_price,
-                        product_payment = product.rental_price_day,
-                        product_return = product.product_price - product.rental_price_day,
-                        product_image_url = product.product_image_url
+                        product_deposit = product.product_price * quantity,
+                        product_payment = product.rental_price_day * quantity,
+                        product_return = (product.product_price - product.rental_price_day) * quantity,
+                        product_image_url = product.product_image_url,
+                        option_code = optionCode,
+                        quantity = quantity
+
                     };
                     await _orderDetailDL.Insert(orderDetail);
                 }
@@ -59,6 +62,7 @@ namespace KLTN.BussinesLayer
                         address = user.user_address,
                         status = 1,
                         payment_type = 0,
+                        order_type = 1,
                     };
                     Guid orderId = await _orderDL.Insert(order);
                     OrderDetail orderDetail = new OrderDetail()
@@ -67,11 +71,12 @@ namespace KLTN.BussinesLayer
                         product_id = productId,
                         product_code = product.product_code,
                         product_name = product.product_name,
-                        product_deposit = product.product_price,
-                        product_payment = product.rental_price_day,
-                        product_return = product.product_price - product.rental_price_day,
+                        product_deposit = product.product_price * quantity,
+                        product_payment = product.rental_price_day * quantity,
+                        product_return = (product.product_price - product.rental_price_day) * quantity,
                         product_image_url = product.product_image_url,
-                        order_type = 0,
+                        option_code = optionCode,
+                        quantity = quantity
                     };
                     await _orderDetailDL.Insert(orderDetail);
                 }

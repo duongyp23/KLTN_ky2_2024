@@ -1,6 +1,13 @@
 .homepage {
     display: flex;
     flex-direction: column;
+    .banner {
+        display: flex;
+        justify-content: center;
+        .img-banner {
+            width: 80%;
+        }
+    }
     .group {
         display: flex;
         flex-direction: column;
@@ -10,6 +17,9 @@
         .list-item {
             display: flex;
             flex-wrap:wrap;
+            height: auto;
+            justify-content: center;
+            column-gap: 15px;
         }
     }
 }

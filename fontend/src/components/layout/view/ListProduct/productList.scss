@@ -17,3 +17,19 @@
         justify-content: center;
     }
 }
+.dictionary-page {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    height: 100%;
+    .left-page{
+        padding-right: 5px;
+        min-width: 250px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 15px;
+    }
+    .right-page {
+        width: 85%;
+    }
+}

@@ -5,7 +5,7 @@ import  Resource  from "@/resource/MsResource";
  */
 export function  replaceNumber(number) {
     if(!number ) {
-        return null
+        return 0;
     }
     number = number.toFixed(0)
     return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, Resource.DigitGroupSeparator)
@@ -65,6 +65,19 @@ export function getCategoryTypeName(id) {
             return "Loại sản phẩm";
         case 5:
             return "Thương hiệu";
+        default:
+            return "";
+    }
+}
+
+export function getOrderTypeName(orderType) {
+    switch (orderType) {
+        case 1:
+            return "Đơn hàng thuê";
+        case 2:
+            return "Nhập kho";
+        case 3:
+            return "Thanh lý";
         default:
             return "";
     }

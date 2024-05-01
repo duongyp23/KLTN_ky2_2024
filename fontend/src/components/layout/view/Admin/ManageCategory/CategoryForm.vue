@@ -158,14 +158,6 @@ export default {
       this.isOpen = true;
     });
     /**
-     * Đóng form sau khi xác nhận
-     * NTD 8/8/2022
-     */
-    this.emitter.on("closeFormFinish", () => {
-      this.isOpen = false;
-      this.emitter.emit("focusTable");
-    });
-    /**
      * Mở form sửa tài sản từ Row trong table
      * NTD 8/8/2022
      */

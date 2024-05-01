@@ -21,5 +21,6 @@ namespace KLTN.Common.Entity
         public string? address { get; set; }
         public string? description { get; set; }  // 'ghi chú của đơn hàng',
         public int? payment_type { get; set; }
+        public int? order_type { get; set; }
     }
 }

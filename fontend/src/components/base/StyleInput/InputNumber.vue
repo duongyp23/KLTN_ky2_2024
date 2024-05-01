@@ -1,7 +1,7 @@
 <template>
   <div class="style-input">
     <div v-if="label != null" class="input-label">{{ label }}</div>
-    <div class="row-input">
+    <div class="row-input" :class="{ disabled: disabled }">
       <input
         type="text"
         class="input-box input-number"

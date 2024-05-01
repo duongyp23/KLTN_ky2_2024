@@ -3,19 +3,19 @@ using KLTN.DataLayer;
 
 namespace KLTN.BussinesLayer
 {
-    public class OrderDetailBL : BaseBL<OrderDetail>, IOrderDetailBL
+    public class StockBL : BaseBL<Stock>, IStockBL
     {
         #region Field
 
-        private IOrderDetailDL _orderDetailDL;
+        private IStockDL _stockDL;
 
         #endregion
 
         #region Constructor
 
-        public OrderDetailBL(IOrderDetailDL orderDetailDL) : base(orderDetailDL)
+        public StockBL(IStockDL stockDL) : base(stockDL)
         {
-            _orderDetailDL = orderDetailDL;
+            _stockDL = stockDL;
         }
 
 

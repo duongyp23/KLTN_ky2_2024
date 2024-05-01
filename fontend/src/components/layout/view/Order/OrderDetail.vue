@@ -3,29 +3,38 @@
     <popup-payment></popup-payment>
     <div class="detail-list">
       <div
-        class="item"
-        v-for="item in orderDetails"
-        :key="item.order_detail_id"
+        v-for="(orderDetail, index) in orderDetails"
+        :key="index"
+        class="order-detail-item flex-row"
       >
         <div
-          class="small-img"
-          :style="'background-image : url(' + item.product_image_url + ')'"
+          class="product-img"
+          :style="
+            'background-image : url(' +
+            getFirstImage(orderDetail.product_image_url) +
+            ')'
+          "
         ></div>
-        <div
-          class="product-name"
-          v-tooltip.bottom="{ content: item.product_name }"
-        >
-          {{ item.product_name }}
-        </div>
-        <div class="price">
-          {{ replaceNumber(item.product_payment) }}
-        </div>
-        <div
-          class="remove"
-          @click="remove(item)"
-          v-show="this.order.status == 1"
-        >
-          Xóa sản phẩm
+        <div class="flex-column">
+          <div>{{ orderDetail.product_name }}</div>
+          <div class="flex-row">
+            <StyleInput
+              v-model:value="orderDetail.option_code"
+              :label="'Mã chọn'"
+              :disabled="true"
+            ></StyleInput>
+            <InputNumber
+              v-model:numberValue="orderDetail.quantity"
+              :label="'Số lượng'"
+              :disabled="true"
+            ></InputNumber>
+            <InputNumber
+              v-model:numberValue="orderDetail.product_payment"
+              :label="'Tổng tiền'"
+              @changeValue="calculateOrderMoney"
+              :disabled="true"
+            ></InputNumber>
+          </div>
         </div>
       </div>
     </div>
@@ -60,19 +69,21 @@
           @change="checkMoney"
         ></style-input>
       </div>
+      <div class="flex-row">
+        <style-input
+          :label="'Họ tên người nhận'"
+          class="user-name"
+          v-model:value="order.user_name"
+          :disabled="isDisable"
+        ></style-input>
+        <style-input
+          :label="'Số điện thoại'"
+          class="phone"
+          v-model:value="order.phone_number"
+          :disabled="isDisable"
+        ></style-input>
+      </div>
 
-      <style-input
-        :label="'Họ tên người nhận'"
-        class="user-name"
-        v-model:value="order.user_name"
-        :disabled="isDisable"
-      ></style-input>
-      <style-input
-        :label="'Số điện thoại'"
-        class="phone"
-        v-model:value="order.phone_number"
-        :disabled="isDisable"
-      ></style-input>
       <style-input
         :label="'Địa chỉ nhận hàng'"
         class="address"
@@ -114,7 +125,7 @@
 
       <div class="flex-row center" v-if="order.status == 2">
         <button
-          @click="updateOrderStatus(1)"
+          @click="removeOrder"
           v-if="order.payment_type == 1"
           class="form-btn btn2"
         >
@@ -150,8 +161,10 @@ import {
   apiGetOrder,
   apiUpdateOrder,
   apiOrderPayment,
+  apiDeleteOrder,
 } from "@/api/orderApi";
 import PopupPayment from "./PopupPayment.vue";
+import InputNumber from "@/components/base/StyleInput/InputNumber.vue";
 export default {
   setup() {},
   data() {
@@ -168,9 +181,14 @@ export default {
       isManager: this.$cookies.get("role") == 1 ? true : false,
     };
   },
-  components: { StyleInput, PopupPayment },
+  components: { StyleInput, PopupPayment, InputNumber },
   methods: {
     datetimeToDate,
+    async removeOrder() {
+      await apiDeleteOrder(this.order.order_id).then(() => {
+        this.closeForm();
+      });
+    },
     checkMoney() {
       if (
         this.order.from_date &&
@@ -192,12 +210,13 @@ export default {
         const dayleft = monthLeft % 7;
         this.orderDetails.forEach((item) => {
           let product = this.products.find(
-            (x) => (x.product_id = item.product_id)
+            (x) => x.product_id == item.product_id
           );
-          item.product_payment =
+          let payment =
             month * product.rental_price_month +
             week * product.rental_price_week +
             dayleft * product.rental_price_day;
+          item.product_payment = payment * item.quantity;
           if (item.product_payment > item.product_deposit) {
             item.product_payment = item.product_deposit;
           }
@@ -280,6 +299,10 @@ export default {
       } else {
         this.$router.push("/orderlist");
       }
+    },
+    getFirstImage(listImage) {
+      let arrImg = listImage.split(";");
+      return arrImg[0];
     },
   },
   created() {

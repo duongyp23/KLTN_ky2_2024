@@ -2,7 +2,8 @@ const CategoryType = [
     {
         id: '1',
         name: 'Kích cỡ'
-    }, {
+    },
+    {
         id: '2',
         name: 'Màu sắc'
     }, {

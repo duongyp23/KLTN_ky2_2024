@@ -4,37 +4,37 @@
       <div class="list-header mt-1 mb-1">Danh sách sản phẩm</div>
       <button class="form-btn btn3" @click="openFormAdd">Thêm sản phẩm</button>
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Mã sản phẩm</th>
-          <th>Tên sản phẩm</th>
-          <th>Số lượng sản phẩm</th>
-          <th>Giá sản phẩm</th>
-          <th>Diễn giải</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="item in listData"
-          :key="item.product_id"
-          @dblclick="openFormEdit(item)"
-        >
-          <td>{{ item.product_code }}</td>
-          <td>{{ item.product_name }}</td>
-          <td>{{ replaceNumber(item.quantity) }}</td>
-          <td>{{ replaceNumber(item.product_price) }}</td>
-          <td>{{ item.description }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <ProductForm></ProductForm>
+    <div class="category-product">
+      <CategoryTable></CategoryTable>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="left w-15">Mã sản phẩm</th>
+            <th class="left w-15">Tên sản phẩm</th>
+            <th class="right w-15">Giá sản phẩm</th>
+            <th class="left">Diễn giải</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="item in listData"
+            :key="item.product_id"
+            @dblclick="openFormEdit(item)"
+          >
+            <td class="left w-15">{{ item.product_code }}</td>
+            <td class="left w-15">{{ item.product_name }}</td>
+            <td class="right w-15">{{ replaceNumber(item.product_price) }}</td>
+            <td class="left">{{ item.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 <script>
 import { apiGetPagingProduct } from "@/api/productApi";
 import { replaceNumber } from "@/method/methodFormat";
-import ProductForm from "./ProductForm.vue";
+import CategoryTable from "../../ListCategory/CategoryTable.vue";
 export default {
   data() {
     return {
@@ -43,7 +43,7 @@ export default {
       pageNumber: 1,
     };
   },
-  components: { ProductForm },
+  components: { CategoryTable },
   methods: {
     replaceNumber,
     async getPagingData() {
@@ -55,10 +55,14 @@ export default {
       );
     },
     openFormEdit(item) {
-      this.emitter.emit("updateProduct", item);
+      this.$router.replace(this.$router.path);
+      this.$router.push(`/manageproduct/editproduct/${item.product_id}`, {
+        params: { id: item.product_id },
+      });
     },
     openFormAdd() {
-      this.emitter.emit("addNewProduct");
+      this.$router.replace(this.$router.path);
+      this.$router.push(`/manageproduct/addproduct`);
     },
   },
   created() {

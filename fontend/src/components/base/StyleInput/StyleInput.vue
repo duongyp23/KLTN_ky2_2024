@@ -1,7 +1,7 @@
 <template>
   <div class="style-input">
     <div v-if="label != null" class="input-label">{{ label }}</div>
-    <div class="row-input">
+    <div class="row-input" :class="{ disabled: disabled }">
       <div
         v-if="rightIcon != null"
         :class="'icon-input'"
@@ -15,6 +15,7 @@
         :value="value"
         :placeholder="[placeholder ? placeholder : label ? label : '']"
         @input="$emit('update:value', $event.target.value)"
+        @change="$emit('changeValue')"
         :disabled="disabled"
       />
       <textarea
@@ -23,6 +24,7 @@
         :value="value"
         :placeholder="[placeholder ? placeholder : label ? label : '']"
         @input="$emit('update:value', $event.target.value)"
+        @change="$emit('changeValue')"
         :disabled="disabled"
       />
       <input
@@ -32,6 +34,7 @@
         :value="value"
         :placeholder="[placeholder ? placeholder : label ? label : '']"
         @input="$emit('update:value', $event.target.value)"
+        @change="$emit('changeValue')"
         :disabled="disabled"
       />
     </div>
@@ -54,11 +57,6 @@ export default {
     id: { default: null, type: String }, // ID
     disabled: { type: Boolean, default: false },
   },
-  computed: {},
-  methods: {},
-  watch: {},
-  mounted() {},
-  created() {},
 };
 </script>
 <style>

@@ -63,6 +63,13 @@ namespace KLTN.NTier.Controllers
             return StatusCode(StatusCodes.Status200OK, result);
         }
 
+        [HttpPost("AddStockOrder")]
+        public async Task<IActionResult> AddStockOrder([FromBody] OrderData orderData)
+        {
+            bool result = await _orderBL.AddStockOrder(orderData);
+            return StatusCode(StatusCodes.Status200OK, result);
+        }
+
         [HttpPost("Payment")]
 
         public async Task<IActionResult> Payment(Guid id)

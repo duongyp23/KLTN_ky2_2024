@@ -22,7 +22,9 @@ th {
     color: #001031;
     white-space: nowrap;
     overflow: hidden;
-
+    padding-left: 10px;
+    padding-right: 10px;
+    flex: 1;
 }
 tr {
     min-height: 42px;
@@ -41,6 +43,8 @@ tr td {
     text-overflow: ellipsis;
     overflow: hidden;
     text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 tbody tr td:hover{
     white-space:unset;
@@ -71,71 +75,7 @@ tbody {
     display:block;
     height: 100%;
 }
-/*Tùy chỉnh kích thước từng col*/
-.col-check {
-    width:3%;
-    text-align: center;
-}
-.col-stt {
-    width: 3%;
-    text-align: center;
-}
-.col-code {
-    width: 7%;
-    text-align: left;
-    padding-right: 5px;
-}
-.col-name {
-    width: 12%;
-    text-align: left;
-    padding-right: 5px;
-}
-.col-type {
-    width: 12%;
-    text-align: left;
-    padding-right: 5px;
-}
-.col-department {
-    width: 12%;
-    text-align: left;
-    padding-right: 5px;
-}
-.col-info {
-    width: 9%;
-    text-align: left;
-    padding-left: 5px;
-}
-.col-num {
-    width: 7%;
-    text-align: right;
-    padding-right: 5px;
-}
-.col-value {
-    width: 9%;
-    text-align: right;
-    padding-right: 5px;
-}
-.col-fix {
-    width: 8%;
-    text-align: center;
-    
-}
-.col-date {
-    width: 9%;
-    text-align: center;
-}
-.col-description {
-    text-align: left;
-    width: auto;
-    padding-left: 5px;
-}
-td.col-fix {
-    align-items: center;
-    
-}
-tr:hover td.col-fix{
-    visibility: visible;
-}
+
 
 /* Tạo scroll */
 tbody::-webkit-scrollbar-track
@@ -211,4 +151,14 @@ th:hover .tooltip{
 @keyframes spin {
 0% { transform: rotate(0deg); }
 100% { transform: rotate(360deg); }
+}
+
+.left {
+    text-align: left;
+}
+.center {
+    text-align: center;
+}
+.right {
+    text-align: right;
 }

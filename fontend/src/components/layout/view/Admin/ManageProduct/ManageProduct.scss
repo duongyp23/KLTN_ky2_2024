@@ -3,7 +3,18 @@
 		font-size: 18px;
 		font-weight: 700;
 	}
-	th {
-		width: 20%;
+	.category-product {
+		display: flex;
+		flex-direction: row;
+		column-gap: 15px;
+		.category-table {
+			width: 230px;
+			display: flex;
+			flex-direction: column;
+			row-gap: 15px;
+			.group-category-type {
+				background-color: white;
+			}
+		}
 	}
 }

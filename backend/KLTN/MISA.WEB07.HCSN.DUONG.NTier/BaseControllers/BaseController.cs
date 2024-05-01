@@ -54,7 +54,7 @@ namespace KLTN.NTier.Base
 
         [HttpPost("Paging")]
         public virtual async Task<IActionResult> GetPagingAsync(
-            [FromBody] List<Filter>? filter, int pageSize = 10,int pageNumber = 1
+            [FromBody] List<Filter>? filter, int pageSize = 20,int pageNumber = 1
             )
         {
             try

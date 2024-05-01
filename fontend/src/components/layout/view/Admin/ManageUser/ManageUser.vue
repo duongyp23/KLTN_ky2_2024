@@ -13,7 +13,7 @@
         <tr v-for="item in listData" :key="item.user_id">
           <td>{{ item.user_name }}</td>
           <td>{{ item.phone_number }}</td>
-          <td>{{ item.address }}</td>
+          <td>{{ item.user_address }}</td>
         </tr>
       </tbody>
     </table>

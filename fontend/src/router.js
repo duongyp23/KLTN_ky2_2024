@@ -11,6 +11,11 @@ import ManageOrder from './components/layout/view/Admin/ManageOrder/ManageOrder.
 import ManageProduct from './components/layout/view/Admin/ManageProduct/ManageProduct.vue';
 import ManageCategory from './components/layout/view/Admin/ManageCategory/ManageCategory.vue';
 import ManageUser from './components/layout/view/Admin/ManageUser/ManageUser.vue';
+import ManageStock from './components/layout/view/Admin/ManageStock/ManageStock.vue';
+import ProductForm from './components/layout/view/Admin/ManageProduct/ProductForm.vue';
+import StockOrderDetail from './components/layout/view/Admin/ManageStock/StockOrderDetail.vue';
+import ProductList from './components/layout/view/ListProduct/ProductList.vue';
+import ProductView from './components/layout/view/ListProduct/ProductView.vue';
 
 const routes = [
     {
@@ -20,6 +25,15 @@ const routes = [
     {
         path: '/dictionary',
         component: DictionaryPage,
+    },
+    {
+        path: '/products',
+        component: ProductList,
+    },
+    {
+        name:'DetailProduct',
+        path: '/products/:id',
+        component: ProductView,
     },
     {
         path: '/login',
@@ -55,8 +69,20 @@ const routes = [
         component: ManageOrder
     },
     {
+        path: '/manageorder/:id',
+        component: OrderDetail
+    },
+    {
         path: '/manageproduct',
         component: ManageProduct
+    },
+    {
+        path: '/manageproduct/editproduct/:id',
+        component: ProductForm
+    },
+    {
+        path: '/manageproduct/addproduct',
+        component: ProductForm
     },
     {
         path: '/managecategory',
@@ -65,6 +91,16 @@ const routes = [
     {
         path: '/manageuser',
         component: ManageUser
+    },
+    {
+        path: '/managestock',
+        component: ManageStock
+    },
+    {
+        name: 'DetailStock',
+        path: '/managestock/stockorder',
+        component: StockOrderDetail,
+        props: true
     },
 ]
 

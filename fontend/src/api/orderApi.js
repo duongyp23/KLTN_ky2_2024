@@ -48,3 +48,11 @@ export const apiOrderPayment = (orderId) => {
 export const apiCheckOrderPayment = (data) => {
     return request().post('CheckOrderPayment', data)
 }
+
+export const apiDeleteOrder = (id) => {
+    return request().delete('Delete/' + id);
+}
+
+export const apiAddStockOrder = (order, orderDetails) => {
+    return request().post('AddStockOrder', { order, orderDetails })
+}

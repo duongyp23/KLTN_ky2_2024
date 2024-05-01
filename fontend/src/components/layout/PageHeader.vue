@@ -4,7 +4,7 @@
     <div class="tab-list" v-if="!isManager">
       <ButtonMenu :label="'Trang chủ'" :routerPath="'/homepage'"></ButtonMenu>
 
-      <ButtonMenu :label="'Danh mục'" :routerPath="'/dictionary'"></ButtonMenu>
+      <ButtonMenu :label="'Danh mục'" :routerPath="'/products'"></ButtonMenu>
     </div>
 
     <div class="right-header">
@@ -83,7 +83,11 @@ export default {
      */
     async $route() {
       if (this.$route.path == "/") {
-        this.$router.push("homepage");
+        if (!this.isManager) {
+          this.$router.push("homepage");
+        } else {
+          this.$router.push("dashboard");
+        }
       }
     },
   },

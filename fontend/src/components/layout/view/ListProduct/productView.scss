@@ -1,5 +1,7 @@
 .product-view{
-    .form {
+    .title-header {
+        font-weight: 700;
+    }
         .form-center{
             display: flex;
             flex-direction: row;
@@ -105,6 +107,14 @@
                 .tag {
                     font-weight: 700;
                 }
+                .option {
+                    border: 1px solid #afafaf;
+                    padding: 5px;
+                    border-radius: 6px;
+                    &.selected {
+                        background-color: #afafaf;
+                    }
+                }
                 .action {
                     margin-top: 8px;
                     display: flex;
@@ -119,8 +129,6 @@
                 }
             }
         }
-
-    }
     .description {
         width: 100%;
     }

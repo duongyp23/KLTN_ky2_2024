@@ -13,6 +13,10 @@
       :routerPath="'/manageorder'"
     ></ButtonLeftMenuVue>
     <ButtonLeftMenuVue
+      :label="'Kho hàng'"
+      :routerPath="'/managestock'"
+    ></ButtonLeftMenuVue>
+    <ButtonLeftMenuVue
       :label="'Sản phẩm'"
       :routerPath="'/manageproduct'"
     ></ButtonLeftMenuVue>
@@ -29,8 +33,6 @@ export default {
     return {};
   },
   components: { ButtonLeftMenuVue },
-  created() {},
-  watch: {},
 };
 </script>
 <style>

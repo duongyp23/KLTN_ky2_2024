@@ -61,11 +61,11 @@ namespace KLTN.NTier.Controllers
 
         [HttpPost("AddProductToCart")]
 
-        public async Task<IActionResult> AddProductToCart(Guid productId, Guid userId)
+        public async Task<IActionResult> AddProductToCart(Guid productId, Guid userId, string optionCode, int quantity)
         {
             try
             {
-                bool result = await _productBL.AddProductToCart(productId, userId);
+                bool result = await _productBL.AddProductToCart(productId, userId, optionCode, quantity);
                 return StatusCode(StatusCodes.Status200OK, result);
             }
             catch (Exception)

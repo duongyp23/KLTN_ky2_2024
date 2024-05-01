@@ -28,6 +28,9 @@ builder.Services.AddScoped<IOrderDL, OrderDL>();
 builder.Services.AddScoped<IOrderDetailDL, OrderDetailDL>();
 builder.Services.AddScoped<IOrderDetailBL, OrderDetailBL>();
 
+builder.Services.AddScoped<IStockDL, StockDL>();
+builder.Services.AddScoped<IStockBL, StockBL>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
